@@ -16,22 +16,22 @@ const Sidebar = () => {
       <Section className={styles.menu}>
         <Menu>
           <Menu.List title="Dashboards">
+            <Menu.List.Item>
+              <a className={styles.sidebarLink} href="/inventory">🌟 Create ...</a>
+            </Menu.List.Item>
             <Menu.List.Item active>
               <a className={styles.sidebarLink} href="/">💵 Cash Flow</a>
-            </Menu.List.Item>
-            <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/inventory">🌟 New</a>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Trade">
             <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/trade">📦 Procurement</a>
+              <a className={styles.sidebarLink} href="/procurement">📦 Procurement</a>
             </Menu.List.Item>
             <Menu.List.Item>
               <a className={styles.sidebarLink} href="/sales">🤝 Sales</a>
             </Menu.List.Item>
             <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/payables">🗒️ Log</a>
+              <a className={styles.sidebarLink} href="/log">🗒️ Log</a>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Finance">
@@ -45,9 +45,20 @@ const Sidebar = () => {
               <a className={styles.sidebarLink} href="/payables">📒 Ledger</a>
             </Menu.List.Item>
           </Menu.List>
-          <Menu.List title="Help">
+          <Menu.List title="Management">
             <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/documentation">📕 Documentation</a>
+              <a className={styles.sidebarLink} href="/vendors">🏭 Vendors</a>
+            </Menu.List.Item>
+            <Menu.List.Item>
+              <a className={styles.sidebarLink} href="/utilities">🟪 Tools</a>
+            </Menu.List.Item>
+            <Menu.List.Item>
+              <a className={styles.sidebarLink} href="/audit">👁️ Audit</a>
+            </Menu.List.Item>
+          </Menu.List>
+          <Menu.List title="Other">
+            <Menu.List.Item>
+              <a className={styles.sidebarLink} href="/settings">⚙️ Settings</a>
             </Menu.List.Item>
             <Menu.List.Item>
               <a className={styles.sidebarLink} href="/support">💁 Support</a>

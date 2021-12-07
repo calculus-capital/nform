@@ -5,10 +5,10 @@
   top: 30px;
   left: 20px;
 
-  /* padding: 20px; */
-  padding: 20px;
   text-align: left;
   border-right:1px solid #3f3f3f;
+
+  overflow-y: auto;
 }
 
 .logo {
@@ -43,6 +43,7 @@
 .menu a {
   color: #b4b4b4;
   font-size: 12pt;
+  min-width: 120px;
 }
 
 .menu a:hover {
