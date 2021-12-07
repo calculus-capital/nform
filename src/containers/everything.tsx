@@ -10,7 +10,7 @@ const Everything = () => {
     <div className={styles.everything}>
       <div className={styles.something}>
         <Grid columns={10}>
-          <Cell width={3}>
+          <Cell width={2}>
             <Sidebar></Sidebar>
           </Cell>
         </Grid>
