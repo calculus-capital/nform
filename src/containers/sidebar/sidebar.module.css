@@ -1,6 +1,5 @@
 
 .sidebar {
-  max-width: 200px;
   height: calc(100% - 50px);
   position: fixed;
   top: 30px;
@@ -29,7 +28,7 @@
 
 .sidebarLink {
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 1px !important;
 }
 
 .menu {
