@@ -2,19 +2,21 @@ import React from 'react'
 
 import { ResponsiveBullet } from '@nivo/bullet'
 
-const Bullet = (props: {data: any}) => {
+const Bullet = (props: { data: any[] }) => {
+
+  console.log(props.data)
+
   return (
-    <div>
       <ResponsiveBullet
           data={props.data}
-          // margin={{ top: 50, right: 90, bottom: 50, left: 90 }}
+          margin={{ top: 50, right: 90, bottom: 50, left: 90 }}
           spacing={46}
+          layout="horizontal"
           titleAlign="start"
-          titleOffsetX={-70}
+          titleOffsetX={-100}
           measureSize={0.2}
-          rangeColors="seq:yellow_green_blue"
+          rangeColors="seq:plasma"
       />
-    </div>
   )
 }
 

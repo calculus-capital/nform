@@ -1,23 +1,21 @@
 import React from 'react'
 import Bullet from '../../components/charts/bullet'
 
+import styles from './cashflow.module.css'
 import * as backend from '../../backend'
-import { TradeType } from '../../backend/mock/tradeLog/types';
+import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
+import { Cell, Grid } from 'styled-css-grid'
 
-const Cashflow = () => {
+const crore = 10000000
 
-  // const data = backend.getTradeLog()
-  const data = backend.generateTradeLog(100)
-  const receivables = data.filter((d) => { return d.type === TradeType.SALES })
-  const payables = data.filter((d) => { return d.type === TradeType.PROCUREMENT })
-
-  const totalReceivables = receivables
+const formatForBullet = (data: Trade[]): { ranges:number[], measures:number[] } => {
+  const totaldata = data
     .map((r) => {
       return r.items.map(x => x.price).reduce((x,y) => x+y)
     })
     .reduce((x, y) => x + y)
 
-  const receivablesPaid = receivables
+  const dataPaid = data
     .map((r) => {
       return r.payments.length > 0 ?
         r.payments.map((p) => p.amount).reduce((x, y) => x + y) :
@@ -25,7 +23,7 @@ const Cashflow = () => {
     })
     .reduce((x, y) => x + y)
 
-  const receivablesCredit = receivables
+  const dataCredit = data
     .map((r) => {
       return r.payments
         .filter((i) => i.credit)
@@ -34,19 +32,49 @@ const Cashflow = () => {
     })
     .reduce((x, y) => x + y)
 
-  const levels = [1, receivablesCredit, receivablesPaid, totalReceivables]
+  const dataRanges = [dataCredit/crore, dataPaid/crore, totaldata/crore]
     .map((i) => Math.round(i))
 
-  const measures = [totalReceivables-receivablesPaid]
+  const dataMeasures = [totaldata / crore - dataPaid / crore]
 
+  return { ranges: dataRanges, measures: dataMeasures}
+}
+
+const Cashflow = () => {
+
+  // const data = backend.getTradeLog()
+  const data = backend.generateTradeLog(100)
+  const receivables = data.filter((d) => { return d.type === TradeType.SALES })
+  const payables = data.filter((d) => { return d.type === TradeType.PROCUREMENT })
+
+  // Receivables
+  var receivablesFormatted = formatForBullet(receivables)
+  let receivablesRanges = receivablesFormatted.ranges
+  let receivablesMeasures = receivablesFormatted.measures
+
+  // Payables
+  let payablesFormatted = formatForBullet(payables)
+  let payablesRanges = payablesFormatted.ranges
+  let payablesMeasures = payablesFormatted.measures
 
   return (
-    <div>
-      <Bullet data={{
-        id: "Receivables",
-        levels: levels,
-        measures: measures
-      }}></Bullet>
+    <div className={styles.cashflow}>
+      <Grid columns={2} rows={1} className={ styles.bulletContainer }>
+        <Cell width={1} className={ styles.bullet }>
+          <Bullet data={[{
+            id      : "Receivables",
+            ranges  : receivablesRanges,
+            measures: receivablesMeasures,
+          }]}></Bullet>
+        </Cell>
+        <Cell width={1} className={ styles.bullet }>
+          <Bullet data={[{
+            id      : "Payables",
+            ranges  : payablesRanges,
+            measures: payablesMeasures,
+          }]}></Bullet>
+        </Cell>
+      </Grid>
     </div>
   )
 }

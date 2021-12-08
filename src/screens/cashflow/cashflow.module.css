@@ -1,0 +1,28 @@
+
+.cashflow {
+  /*  */
+}
+
+.cashflow text {
+  stroke: #d2d2d2;
+  stroke-width: 1;
+  font-style: normal;
+  font-family: 'Source Code Pro' !important;
+  font-size: 10pt !important;
+  font-weight: lighter;
+}
+
+.bulletContainer {
+  padding-top: 50px;
+}
+
+.bullet {
+  min-height: 150px !important;
+  max-height: 200px !important;
+
+  padding-left: 20px;
+}
+
+svg {
+  overflow: visible;
+}

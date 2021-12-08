@@ -63,7 +63,7 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
 
     // pay in fractions as payment date nears
-    if (moment().diff(end, "days") < 10) {
+    if (moment().diff(end, "days") < 300) {
       payment.amount = (moment().diff(end, "days") / start.diff(end, "days"))*totalCost
     }
 
