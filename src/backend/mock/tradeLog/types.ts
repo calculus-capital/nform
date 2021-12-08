@@ -33,6 +33,7 @@ export interface Payment {
   date  : Date
   amount: number
   to    : Beneficiary
+  credit: boolean
 }
 
 export interface Trade {

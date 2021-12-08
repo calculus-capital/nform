@@ -55,10 +55,11 @@ export const generateTradeLog = (items: number): Trade[] => {
     const totalCost = items.map((i) => { return i.price }).reduce((x, y) => x + y)
 
     const payment:Payment = {
-      id: getRandomInt(10000000000, 99999999999),
-      date: new Date(),
+      id    : getRandomInt(10000000000, 99999999999),
+      date  : new Date(),
       amount: 0,
-      to: bene,
+      to    : bene,
+      credit: getRandomBoolean(),
     }
 
     // pay in fractions as payment date nears
