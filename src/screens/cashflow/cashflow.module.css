@@ -13,14 +13,17 @@
 }
 
 .bulletContainer {
-  padding-top: 50px;
+  padding-top: 50px !important;
+  border: 0;
+  padding: 0;
 }
 
 .bullet {
   min-height: 150px !important;
   max-height: 200px !important;
 
-  padding-left: 20px;
+  border: 0;
+  padding: 0;
 }
 
 svg {

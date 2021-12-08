@@ -7,13 +7,13 @@ const Bullet = (props: { data: any[] }) => {
   return (
       <ResponsiveBullet
           data={props.data}
-          margin={{ top: 50, right: 90, bottom: 50, left: 90 }}
+          margin={{ top: 20, right: 20, bottom: 50, left: 20 }}
           spacing={46}
           layout="horizontal"
           titleAlign="start"
-          titleOffsetX={-100}
+          titleOffsetX={-50}
           measureSize={0.2}
-          rangeColors="seq:plasma"
+          rangeColors="purpleRed_green"
       />
   )
 }

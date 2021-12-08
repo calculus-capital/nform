@@ -22,9 +22,11 @@ const randomTradeItem = (): TradeItem => {
 
 const randomPaymentTerms = (): PaymentTerms => {
 
+  let d = getRandomDate(moment().subtract(6, 'month').toDate(), moment().add(1, 'month').toDate())
+
   let pt:PaymentTerms = {
-    startDate        : getRandomDate(new Date((new Date()).setMonth((new Date()).getMonth()-3)), (new Date())),
-    maturity         : getRandomDate((new Date()), new Date((new Date()).setMonth((new Date()).getMonth()+3))),
+    startDate        : d,
+    maturity         : moment(d).add(3, 'month').toDate(),
     merchant_discount: getRandomArbitrary(2, 5),
     credit_discount  : getRandomArbitrary(2, 5),
   }
@@ -63,8 +65,8 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
 
     // pay in fractions as payment date nears
-    if (moment().diff(end, "days") < 300) {
-      payment.amount = (moment().diff(end, "days") / start.diff(end, "days"))*totalCost
+    if (moment().diff(end, "days") < 30) {
+      payment.amount = Math.abs((1 - moment().diff(end, "days") / start.diff(end, "days"))*totalCost)
     }
 
     let item:Trade = {

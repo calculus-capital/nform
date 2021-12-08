@@ -5,6 +5,7 @@ import styles from './cashflow.module.css'
 import * as backend from '../../backend'
 import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
 import { Cell, Grid } from 'styled-css-grid'
+import moment from 'moment'
 
 const crore = 10000000
 
@@ -35,7 +36,7 @@ const formatForBullet = (data: Trade[]): { ranges:number[], measures:number[] } 
   const dataRanges = [dataCredit/crore, dataPaid/crore, totaldata/crore]
     .map((i) => Math.round(i))
 
-  const dataMeasures = [totaldata / crore - dataPaid / crore]
+  const dataMeasures = [totaldata/crore - dataPaid/crore]
 
   return { ranges: dataRanges, measures: dataMeasures}
 }
@@ -44,6 +45,8 @@ const Cashflow = () => {
 
   // const data = backend.getTradeLog()
   const data = backend.generateTradeLog(100)
+
+  // Global picture
   const receivables = data.filter((d) => { return d.type === TradeType.SALES })
   const payables = data.filter((d) => { return d.type === TradeType.PROCUREMENT })
 
@@ -57,21 +60,57 @@ const Cashflow = () => {
   let payablesRanges = payablesFormatted.ranges
   let payablesMeasures = payablesFormatted.measures
 
+  // Delayed
+  const delayedReceivables = receivables.filter((r) => moment(r.terms.maturity).isBefore(moment()))
+  const delayedPayables = payables.filter((r) => moment(r.terms.maturity).isBefore(moment()))
+
+  // Receivables
+  var delayedReceivablesFormatted = formatForBullet(delayedReceivables)
+  let delayedReceivablesRanges = delayedReceivablesFormatted.ranges
+  let delayedReceivablesMeasures = delayedReceivablesFormatted.measures
+
+  // Payables
+  let delayedPayablesFormatted = formatForBullet(delayedPayables)
+  let delayedPayablesRanges = delayedPayablesFormatted.ranges
+  let delayedPayablesMeasures = delayedPayablesFormatted.measures
+
   return (
     <div className={styles.cashflow}>
+      {/* Global */}
       <Grid columns={2} rows={1} className={ styles.bulletContainer }>
         <Cell width={1} className={ styles.bullet }>
           <Bullet data={[{
-            id      : "Receivables",
+            id      : "",
             ranges  : receivablesRanges,
             measures: receivablesMeasures,
+            markers : receivablesMeasures
           }]}></Bullet>
         </Cell>
         <Cell width={1} className={ styles.bullet }>
           <Bullet data={[{
-            id      : "Payables",
+            id      : "",
             ranges  : payablesRanges,
             measures: payablesMeasures,
+            markers : payablesMeasures
+          }]}></Bullet>
+        </Cell>
+      </Grid>
+      {/* Delayed */}
+      <Grid columns={2} rows={1} className={ styles.bulletContainer }>
+        <Cell width={1} className={ styles.bullet }>
+          <Bullet data={[{
+            id      : "",
+            ranges  : delayedReceivablesRanges,
+            measures: delayedReceivablesMeasures,
+            markers : delayedReceivablesMeasures
+          }]}></Bullet>
+        </Cell>
+        <Cell width={1} className={ styles.bullet }>
+          <Bullet data={[{
+            id      : "",
+            ranges  : delayedPayablesRanges,
+            measures: delayedPayablesMeasures,
+            markers : delayedPayablesMeasures
           }]}></Bullet>
         </Cell>
       </Grid>
