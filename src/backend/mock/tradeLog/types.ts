@@ -28,9 +28,17 @@ export interface Beneficiary {
   split       : number
 }
 
+export interface Payment {
+  id    : number
+  date  : Date
+  amount: number
+  to    : Beneficiary
+}
+
 export interface Trade {
-  type : TradeType
-  items: TradeItem[]
-  terms: PaymentTerms
+  type         : TradeType
+  items        : TradeItem[]
+  terms        : PaymentTerms
   beneficiaries: Beneficiary[]
+  payments     : Payment[]
 }

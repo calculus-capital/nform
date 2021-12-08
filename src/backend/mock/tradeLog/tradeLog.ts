@@ -1,7 +1,8 @@
 
-import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType } from './types';
+import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from './types';
 import { traders } from './constants';
 import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate, getRandomBoolean } from '../random'
+import moment from 'moment';
 
 const randomTradeItem = (): TradeItem => {
   const price = getRandomArbitrary(100, 100)
@@ -20,13 +21,12 @@ const randomTradeItem = (): TradeItem => {
 }
 
 const randomPaymentTerms = (): PaymentTerms => {
-  const date = new Date()
 
   let pt:PaymentTerms = {
-    startDate        : getRandomDate(new Date(date.setMonth(date.getMonth()-6)), date),
-    maturity         : getRandomDate(date, new Date(date.setMonth(date.getMonth()+6))),
-    merchant_discount: getRandomArbitrary(4, 5),
-    credit_discount  : getRandomArbitrary(4, 5),
+    startDate        : getRandomDate(new Date((new Date()).setMonth((new Date()).getMonth()-3)), (new Date())),
+    maturity         : getRandomDate((new Date()), new Date((new Date()).setMonth((new Date()).getMonth()+3))),
+    merchant_discount: getRandomArbitrary(2, 5),
+    credit_discount  : getRandomArbitrary(2, 5),
   }
   return pt
 }
@@ -45,12 +45,33 @@ const randomBeneficiary = (): Beneficiary => {
 
 export const generateTradeLog = (items: number): Trade[] => {
 
-  let trades:Trade[] = Array(items).fill(0).map((_, i) => {
+  let trades: Trade[] = Array(items).fill(0).map((_, i) => {
+    const terms = randomPaymentTerms()
+    const items = Array(getRandomInt(1, 10)).fill(0).map(_ => randomTradeItem())
+    const bene = randomBeneficiary()
+
+    const start = moment(terms.maturity)
+    const end = moment(terms.startDate)
+    const totalCost = items.map((i) => { return i.price }).reduce((x, y) => x + y)
+
+    const payment:Payment = {
+      id: getRandomInt(10000000000, 99999999999),
+      date: new Date(),
+      amount: 0,
+      to: bene,
+    }
+
+    // pay in fractions as payment date nears
+    if (moment().diff(end, "days") < 10) {
+      payment.amount = (moment().diff(end, "days") / start.diff(end, "days"))*totalCost
+    }
+
     let item:Trade = {
-      type         : getRandomBoolean() ? TradeType.SALES : TradeType.PROCUREMENT,
-      items        : Array(getRandomInt(1, 10)).fill(0).map(_ => randomTradeItem()),
-      terms        : randomPaymentTerms(),
-      beneficiaries: [randomBeneficiary()]
+      type         : getRandomBoolean() ? TradeType.SALES: TradeType.PROCUREMENT,
+      items        : items,
+      terms        : terms,
+      beneficiaries: [bene],
+      payments     : payment.amount > 0 ? [payment] : []
     }
     return item
   })
