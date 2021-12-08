@@ -4,8 +4,6 @@ import { ResponsiveBullet } from '@nivo/bullet'
 
 const Bullet = (props: { data: any[] }) => {
 
-  console.log(props.data)
-
   return (
       <ResponsiveBullet
           data={props.data}
