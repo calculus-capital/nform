@@ -22,7 +22,7 @@ const randomTradeItem = (): TradeItem => {
 
 const randomPaymentTerms = (): PaymentTerms => {
 
-  let d = getRandomDate(moment().subtract(4, 'month').toDate(), moment().add(1, 'month').toDate())
+  let d = getRandomDate(moment().subtract(6, 'month').toDate(), moment().add(1, 'month').toDate())
 
   let pt:PaymentTerms = {
     startDate        : d,
