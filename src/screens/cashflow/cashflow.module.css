@@ -54,4 +54,7 @@ svg {
 .customer {
   font-size: 13pt;
   color: #b2b2b2;
+  padding: 10px;
+  margin: 10px;
+  border-bottom: 2px solid #3f3f3f;
 }
