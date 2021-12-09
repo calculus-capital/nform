@@ -5,7 +5,6 @@ import styles from './cashflow.module.css'
 import * as backend from '../../backend'
 import { TradeType } from '../../backend/mock/tradeLog/types'
 import { Cell, Grid } from 'styled-css-grid'
-import moment from 'moment'
 import { formatForBullet, formatForPie, formatCalendar } from './formatData';
 import Pie from '../../components/charts/pie'
 import Calendar from '../../components/charts/calendar'
@@ -13,7 +12,7 @@ import Calendar from '../../components/charts/calendar'
 const Cashflow = () => {
 
   // const data = backend.getTradeLog()
-  const data = backend.generateTradeLog(100)
+  const data = backend.generateTradeLog(1000)
 
   // Global picture
   const receivables = data.filter((d) => { return d.type === TradeType.SALES })

@@ -42,12 +42,12 @@ const Sidebar = () => {
               <a className={styles.sidebarLink} href="/payables">⬅️ Payables</a>
             </Menu.List.Item>
             <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/payables">📒 Ledger</a>
+              <a className={styles.sidebarLink} href="/ledger">📒 Ledger</a>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Management">
             <Menu.List.Item>
-              <a className={styles.sidebarLink} href="/vendors">🏭 Vendors</a>
+              <a className={styles.sidebarLink} href="/network">🏭 Vendors</a>
             </Menu.List.Item>
             <Menu.List.Item>
               <a className={styles.sidebarLink} href="/utilities">🟪 Tools</a>
