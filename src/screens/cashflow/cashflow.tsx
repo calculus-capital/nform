@@ -3,43 +3,12 @@ import Bullet from '../../components/charts/bullet'
 
 import styles from './cashflow.module.css'
 import * as backend from '../../backend'
-import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
+import { TradeType } from '../../backend/mock/tradeLog/types'
 import { Cell, Grid } from 'styled-css-grid'
 import moment from 'moment'
-
-const crore = 10000000
-
-const formatForBullet = (data: Trade[]): { ranges:number[], measures:number[] } => {
-  const totaldata = data
-    .map((r) => {
-      return r.items.map(x => x.price).reduce((x,y) => x+y)
-    })
-    .reduce((x, y) => x + y)
-
-  const dataPaid = data
-    .map((r) => {
-      return r.payments.length > 0 ?
-        r.payments.map((p) => p.amount).reduce((x, y) => x + y) :
-        0
-    })
-    .reduce((x, y) => x + y)
-
-  const dataCredit = data
-    .map((r) => {
-      return r.payments
-        .filter((i) => i.credit)
-        .map((p) => p.amount)
-        .reduce((x, y) => x + y, 0)
-    })
-    .reduce((x, y) => x + y)
-
-  const dataRanges = [dataCredit/crore, dataPaid/crore, totaldata/crore]
-    .map((i) => Math.round(i))
-
-  const dataMeasures = [totaldata/crore - dataPaid/crore]
-
-  return { ranges: dataRanges, measures: dataMeasures}
-}
+import { formatForBullet, formatForPie, formatCalendar } from './formatData';
+import Pie from '../../components/charts/pie'
+import Calendar from '../../components/charts/calendar'
 
 const Cashflow = () => {
 
@@ -74,11 +43,38 @@ const Cashflow = () => {
   let delayedPayablesRanges = delayedPayablesFormatted.ranges
   let delayedPayablesMeasures = delayedPayablesFormatted.measures
 
+  let pieData = formatForPie(receivables)
+  let rxCalendarData = formatCalendar(receivables)
+  let txCalendarData = formatCalendar(payables)
+
   return (
     <div className={styles.cashflow}>
+      <div>
+        <p className={styles.customer}>Purplle</p>
+      </div>
+      <p className={styles.title}>Cash Flow (YTD, in Lakhs)</p>
+      <div className={ styles.globalcashflow}>
+        <Pie data={pieData}></Pie>
+      </div>
+      {/* Calendars */}
+      <Grid columns={2} rows={1} className={styles.calendarContainer}>
+        <Cell className={styles.calendarCell}>
+          <div className={styles.calendar}>
+            <p className={styles.title}>Collections Calendar (YTD, in Lakhs)</p>
+            <Calendar data={rxCalendarData}></Calendar>
+          </div>
+        </Cell>
+        <Cell className={styles.calendarCell}>
+          <div className={styles.calendar}>
+            <p className={styles.title}>Payments Calendar (YTD, in Lakhs)</p>
+            <Calendar data={txCalendarData}></Calendar>
+          </div>
+        </Cell>
+      </Grid>
       {/* Global */}
       <Grid columns={2} rows={1} className={ styles.bulletContainer }>
-        <Cell width={1} className={ styles.bullet }>
+        <Cell width={1} className={styles.bullet}>
+          <p className={styles.title}>Receivables (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : receivablesRanges,
@@ -86,7 +82,8 @@ const Cashflow = () => {
             markers : receivablesMeasures
           }]}></Bullet>
         </Cell>
-        <Cell width={1} className={ styles.bullet }>
+        <Cell width={1} className={styles.bullet}>
+          <p className={styles.title}>Payables (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : payablesRanges,
@@ -97,7 +94,8 @@ const Cashflow = () => {
       </Grid>
       {/* Delayed */}
       <Grid columns={2} rows={1} className={ styles.bulletContainer }>
-        <Cell width={1} className={ styles.bullet }>
+        <Cell width={1} className={styles.bullet}>
+          <p className={styles.title}>Delayed Receivables (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : delayedReceivablesRanges,
@@ -105,7 +103,8 @@ const Cashflow = () => {
             markers : delayedReceivablesMeasures
           }]}></Bullet>
         </Cell>
-        <Cell width={1} className={ styles.bullet }>
+        <Cell width={1} className={styles.bullet}>
+          <p className={styles.title}>Delayed Payables (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : delayedPayablesRanges,

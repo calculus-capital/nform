@@ -1,26 +1,42 @@
 
 .cashflow {
-  /*  */
+  color: #b2b2b2;
+  font-size: 8pt;
+
+  padding: 20px;
 }
 
 .cashflow text {
-  stroke: #d2d2d2;
+  stroke: #b2b2b2;
   stroke-width: 1;
   font-style: normal;
   font-family: 'Source Code Pro' !important;
-  font-size: 10pt !important;
+  font-size: 8pt !important;
   font-weight: lighter;
 }
 
+.globalcashflow {
+  padding: 50px !important;
+  height: 350px;
+}
+
+.calendarContainer {
+  margin-top: 50px !important;
+}
+
+.calendar {
+  height: 200px;
+}
+
 .bulletContainer {
-  padding-top: 50px !important;
+  margin-top: 50px !important;
   border: 0;
   padding: 0;
 }
 
 .bullet {
-  min-height: 150px !important;
-  max-height: 200px !important;
+  min-height: 100px !important;
+  max-height: 150px !important;
 
   border: 0;
   padding: 0;
@@ -28,4 +44,14 @@
 
 svg {
   overflow: visible;
+}
+
+.title {
+  font-size: 11pt;
+  color: #b2b2b2;
+}
+
+.customer {
+  font-size: 13pt;
+  color: #b2b2b2;
 }
