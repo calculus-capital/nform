@@ -1,7 +1,7 @@
 
 .cashflow {
   color: #b2b2b2;
-  font-size: 8pt;
+  font-size: 9pt;
 
   padding: 20px;
 }
@@ -11,13 +11,13 @@
   stroke-width: 1;
   font-style: normal;
   font-family: 'Source Code Pro' !important;
-  font-size: 8pt !important;
+  font-size: 9pt !important;
   font-weight: lighter;
 }
 
 .globalcashflow {
   padding: 50px !important;
-  height: 350px;
+  height: 500px;
 }
 
 .calendarContainer {

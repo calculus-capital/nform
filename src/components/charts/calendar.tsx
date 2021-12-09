@@ -13,7 +13,7 @@ const Calendar = (props: { data: { value: number; day: string; }[] }) => {
         colors={['#440A67', '#93329E', '#B4AEE8', '#FFE3FE']}
         margin={{ top: 50, right: 20, bottom: 20, left: 20 }}
         dayBorderWidth={2}
-        dayBorderColor="#1c1c30"
+        dayBorderColor="#1c1c3c"
         legends={[
             {
                 anchor: 'top-left',

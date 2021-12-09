@@ -29,21 +29,7 @@ const Cashflow = () => {
   let payablesRanges = payablesFormatted.ranges
   let payablesMeasures = payablesFormatted.measures
 
-  // Delayed
-  const delayedReceivables = receivables.filter((r) => moment(r.terms.maturity).isBefore(moment()))
-  const delayedPayables = payables.filter((r) => moment(r.terms.maturity).isBefore(moment()))
-
-  // Receivables
-  var delayedReceivablesFormatted = formatForBullet(delayedReceivables)
-  let delayedReceivablesRanges = delayedReceivablesFormatted.ranges
-  let delayedReceivablesMeasures = delayedReceivablesFormatted.measures
-
-  // Payables
-  let delayedPayablesFormatted = formatForBullet(delayedPayables)
-  let delayedPayablesRanges = delayedPayablesFormatted.ranges
-  let delayedPayablesMeasures = delayedPayablesFormatted.measures
-
-  let pieData = formatForPie(receivables)
+  let pieData = formatForPie(data)
   let rxCalendarData = formatCalendar(receivables)
   let txCalendarData = formatCalendar(payables)
 
@@ -89,27 +75,6 @@ const Cashflow = () => {
             ranges  : payablesRanges,
             measures: payablesMeasures,
             markers : payablesMeasures
-          }]}></Bullet>
-        </Cell>
-      </Grid>
-      {/* Delayed */}
-      <Grid columns={2} rows={1} className={ styles.bulletContainer }>
-        <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Delayed Receivables (YTD, in Lakhs)</p>
-          <Bullet data={[{
-            id      : "",
-            ranges  : delayedReceivablesRanges,
-            measures: delayedReceivablesMeasures,
-            markers : delayedReceivablesMeasures
-          }]}></Bullet>
-        </Cell>
-        <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Delayed Payables (YTD, in Lakhs)</p>
-          <Bullet data={[{
-            id      : "",
-            ranges  : delayedPayablesRanges,
-            measures: delayedPayablesMeasures,
-            markers : delayedPayablesMeasures
           }]}></Bullet>
         </Cell>
       </Grid>
