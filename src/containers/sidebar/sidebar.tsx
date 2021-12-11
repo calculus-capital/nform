@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { Menu, Section, Dropdown, Icon } from 'react-bulma-components'
+import { Menu, Section, Dropdown } from 'react-bulma-components'
 
 import logo from "../../assets/logo.png";
 import 'bulma/css/bulma.min.css';
