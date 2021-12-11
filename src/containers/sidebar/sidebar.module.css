@@ -48,3 +48,33 @@
   color: #ff1616;
 }
 
+.createContainer {
+  color: #b4b4b4;
+  align-items: 'center';
+  justify-content: 'center'
+}
+
+.create {
+  right: 0px;
+}
+
+:global(.dropdown-content) {
+  background-color: #0c0c20;
+  border: 5px solid #2c2c40;
+  margin-left: -40px;
+  max-width: 200px;
+}
+
+:global(.dropdown-divider) {
+  background-color: #6c6c80;
+}
+
+.create button {
+  background: none !important;
+  border: none !important;
+  box-shadow: none;
+}
+
+.create span {
+  color: #b4b4b4;
+}

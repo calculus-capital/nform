@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { Menu, Section } from 'react-bulma-components'
+import { Menu, Section, Dropdown, Icon } from 'react-bulma-components'
 
 import logo from "../../assets/logo.png";
 import 'bulma/css/bulma.min.css';
@@ -21,9 +21,19 @@ const Sidebar = () => {
         <Menu>
           <Menu.List title="Dashboards">
             <Menu.List.Item active={location.pathname === "/create"}>
-              <a className={styles.sidebarLink} href="/create">🌟 Create ...</a>
+              <div className={styles.createContainer}>
+                <Dropdown label="⭐ New" className={ styles.create } color="green">
+                  <Dropdown.Item renderAs="a" value="Order"> Purchase Order</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Sale">Sale</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Invoice">Invoice</Dropdown.Item>
+                  <Dropdown.Divider></Dropdown.Divider>
+                  <Dropdown.Item renderAs="a" value="Supplier">Supplier</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Vendor">Vendor</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Supplier">Sales Channel</Dropdown.Item>
+                </Dropdown>
+              </div>
             </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "//"}>
+            <Menu.List.Item active={location.pathname === "/"}>
               <a className={styles.sidebarLink} href="/">💵 Cash Flow</a>
             </Menu.List.Item>
           </Menu.List>
