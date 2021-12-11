@@ -130,7 +130,7 @@ export const formatForPie = (data: Trade[]): {id: string, value: number}[] => {
     id: "Collected",
     value: Math.round(100 * totalPaymentsReceived / divisor) / 100,
   },{
-    id: "Early Collections",
+    id: "Collected on Credit",
     value: Math.round(100 * totalCreditReceived / divisor) / 100,
     },{
       id: "Collections delayed",
@@ -145,7 +145,7 @@ export const formatForPie = (data: Trade[]): {id: string, value: number}[] => {
     id: "Paid",
     value: Math.round(100 * totalPaymentsSent / divisor) / 100,
   },{
-    id: "Early Payments",
+    id: "Paid on Credit",
     value: Math.round(100 * totalCreditSent / divisor) / 100,
   },{
     id: "Payment delayed",

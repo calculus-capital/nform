@@ -22,7 +22,7 @@ const randomTradeItem = (): TradeItem => {
 
 const randomPaymentTerms = (): PaymentTerms => {
 
-  let d = getRandomDate(moment().subtract(6, 'month').toDate(), moment().add(1, 'month').toDate())
+  let d = getRandomDate(moment().subtract(3, 'month').toDate(), moment().add(3, 'month').toDate())
 
   let pt:PaymentTerms = {
     startDate        : d,
@@ -65,12 +65,15 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
 
     // pay in fractions as payment date nears
-    if (moment().diff(end, "days") < 30) {
+    if (moment().diff(end, "days") < 10) {
       payment.amount = Math.abs((1 - moment().diff(end, "days") / start.diff(end, "days"))*totalCost)
+    }
+    if (moment().diff(end, "days") < 0) {
+      payment.amount = totalCost
     }
 
     let item:Trade = {
-      type         : getRandomBoolean() ? TradeType.SALES: TradeType.PROCUREMENT,
+      type         : Math.random() < 0.6 ? TradeType.SALES: TradeType.PROCUREMENT,
       items        : items,
       terms        : terms,
       beneficiaries: [bene],
@@ -80,5 +83,3 @@ export const generateTradeLog = (items: number): Trade[] => {
   })
   return trades
 }
-
-
