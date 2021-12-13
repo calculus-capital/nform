@@ -1,12 +1,17 @@
 import React from 'react'
 import { Grid, Cell } from 'styled-css-grid'
-import Cashflow from '../screens/cashflow/cashflow'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+import * as backend from '../backend'
+
 import styles from './everything.module.css'
 import Sidebar from './sidebar/sidebar'
+import Cashflow from '../screens/cashflow/cashflow'
+import Ledger from '../screens/ledger/ledger'
 
 
 const Everything = () => {
+  const data = backend.generateTradeLog(1000)
+
   return (
     <div className={styles.everything}>
       <div className={styles.something}>
@@ -16,8 +21,8 @@ const Everything = () => {
           </Cell>
           <Cell width={8}>
             <Routes>
-              <Route path="/" element={<Cashflow></Cashflow>}/>
-              <Route path="/procurement" element={ <Cashflow></Cashflow> }/>
+              <Route path="/" element={<Cashflow data={ data }></Cashflow>}/>
+              <Route path="/ledger" element={<Ledger data={ data }></Ledger> }/>
             </Routes>
           </Cell>
         </Grid>

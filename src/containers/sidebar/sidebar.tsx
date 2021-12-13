@@ -61,7 +61,7 @@ const Sidebar = () => {
           </Menu.List>
           <Menu.List title="Management">
             <Menu.List.Item active={location.pathname === "/network"}>
-              <a className={styles.sidebarLink} href="/network">🏭 Vendors</a>
+              <a className={styles.sidebarLink} href="/network">🏭 Partners</a>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/utilities"}>
               <a className={styles.sidebarLink} href="/utilities">🟪 Tools</a>

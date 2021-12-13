@@ -22,7 +22,7 @@ const randomTradeItem = (): TradeItem => {
 
 const randomPaymentTerms = (): PaymentTerms => {
 
-  let d = getRandomDate(moment().subtract(3, 'month').toDate(), moment().add(3, 'month').toDate())
+  let d = getRandomDate(moment().subtract(6, 'month').toDate(), moment().add(1, 'month').toDate())
 
   let pt:PaymentTerms = {
     startDate        : d,
@@ -68,7 +68,7 @@ export const generateTradeLog = (items: number): Trade[] => {
     if (moment().diff(end, "days") < 10) {
       payment.amount = Math.abs((1 - moment().diff(end, "days") / start.diff(end, "days"))*totalCost)
     }
-    if (moment().diff(end, "days") < 0) {
+    if (moment().diff(end, "days") < -10) {
       payment.amount = totalCost
     }
 

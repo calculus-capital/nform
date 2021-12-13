@@ -158,7 +158,6 @@ export const formatForPie = (data: Trade[]): {id: string, value: number}[] => {
 
 export const formatCalendar = (data: Trade[]): { value: number, day: string }[] => {
   const cal: Map<string, number> = data.map((d) => {
-    let inout = d.type === TradeType.PROCUREMENT ? 1 : -1
     return {
       value: d.items.map((i) => i.price).reduce((x,y) => x+y, 0),
       day: moment(d.terms.maturity).format('YYYY-MM-DD').toString(),

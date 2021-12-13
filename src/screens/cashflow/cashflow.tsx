@@ -2,17 +2,19 @@ import React from 'react'
 import Bullet from '../../components/charts/bullet'
 
 import styles from './cashflow.module.css'
-import * as backend from '../../backend'
-import { TradeType } from '../../backend/mock/tradeLog/types'
+import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
 import { Cell, Grid } from 'styled-css-grid'
 import { formatForBullet, formatForPie, formatCalendar } from './formatData';
 import Pie from '../../components/charts/pie'
 import Calendar from '../../components/charts/calendar'
 
-const Cashflow = () => {
+interface Props {
+  data: Trade[]
+}
 
-  // const data = backend.getTradeLog()
-  const data = backend.generateTradeLog(1000)
+const Cashflow = (props:Props) => {
+
+  const data = props.data
 
   // Global picture
   const receivables = data.filter((d) => { return d.type === TradeType.SALES })
