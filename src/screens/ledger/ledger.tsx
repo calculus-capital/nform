@@ -30,7 +30,7 @@ const Ledger = (props: Props) => {
   })
 
   const ledgerColumns = [{
-    Header: "Ledger: Showing "+ledgerData.length+" columns",
+    Header: "Ledger: Showing "+ledgerData.length+" rows",
     columns: [{
       Header: "Txn Type",
       accessor: "type",
