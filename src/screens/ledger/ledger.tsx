@@ -70,10 +70,13 @@ const Ledger = (props: Props) => {
           placeholder="Search the ledger: Type something e.g. tata sales 2021"
           type="text"
           onInput={(i) => {
-            setData(ledgerData.filter((x) =>
+            setData(ledgerData.filter((x) => {
+              const values = Object.values(x).join(' ').toLowerCase()
               // @ts-ignore
-              Object.values(x).join(' ').toLowerCase().includes(i.target.value.toLowerCase())
-            ))
+              const query: string[] = i.target.value.toLowerCase().split(" ")
+              // @ts-ignore
+              return query.map(q => values.includes(q)).reduce((x, y) => x & y, true)
+            }))
           }}
         />
       </Form.Control>
