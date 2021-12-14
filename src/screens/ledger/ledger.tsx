@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Trade } from '../../backend'
 
 import { Form } from 'react-bulma-components'
@@ -13,11 +13,35 @@ interface Props {
   data: Trade[]
 }
 
+const ledgerColumns = [{
+  Header: "Ledger",
+  columns: [{
+    Header: "Txn Type",
+    accessor: "type",
+  },{
+    Header: "Dated",
+    accessor: "date",
+  },{
+    Header: "Customer",
+    accessor: "entity",
+  },{
+    Header: "Maturity",
+    accessor: "maturity",
+  },{
+    Header: "Amount (₹)",
+    accessor: "amount",
+  },{
+    Header: "Cleared (₹)",
+    accessor: "cleared",
+  },{
+    Header: "Discount (%)",
+    accessor: "discount",
+  },]
+}]
+
 const Ledger = (props: Props) => {
 
-  const data = props.data
-
-  const ledgerData = data.map(x => {
+  const ledgerData = props.data.map(x => {
     return {
       type    : TradeType[x.type],
       date    : moment(x.terms.startDate).format("DD-MM-YYYY"),
@@ -29,44 +53,35 @@ const Ledger = (props: Props) => {
     }
   })
 
-  const ledgerColumns = [{
-    Header: "Ledger: Showing "+ledgerData.length+" rows",
-    columns: [{
-      Header: "Txn Type",
-      accessor: "type",
-    },{
-      Header: "Dated",
-      accessor: "date",
-    },{
-      Header: "Customer",
-      accessor: "entity",
-    },{
-      Header: "Maturity",
-      accessor: "maturity",
-    },{
-      Header: "Amount (₹)",
-      accessor: "amount",
-    },{
-      Header: "Cleared (₹)",
-      accessor: "cleared",
-    },{
-      Header: "Discount (%)",
-      accessor: "discount",
-    },]
-  }]
-  console.log(ledgerColumns)
+  const [search, setSearch] = useState("")
+  const [data, setData] = useState(ledgerData)
+  // const filterData = () => {
+  //   data.filter((x) => Object.values(x).join(' ').includes(search))
+  // }
 
   return (
     <div className={styles.ledger}>
       <div>
-        <p className={styles.customer}>Purplle</p>
+        <p className={styles.customer}>Purplle { search }</p>
       </div>
       <p className={styles.title}>Trade Ledger</p>
       <Form.Control className={ styles.search }>
-        <Form.Input placeholder="Search the ledger: Type something e.g. tata" type="text" />
+        <Form.Input
+          placeholder="Search the ledger: Type something e.g. tata sales 2021"
+          type="text"
+          onInput={(i) => {
+            setData(ledgerData.filter((x) =>
+              // @ts-ignore
+              Object.values(x).join(' ').toLowerCase().includes(i.target.value.toLowerCase())
+            ))
+          }}
+        />
       </Form.Control>
       {/* @ts-ignore */}
-      <Table columns={useMemo(() => ledgerColumns, [])} data={useMemo(() => ledgerData, [])}>
+      <Table
+        columns={useMemo(() =>  ledgerColumns, [])}
+        data={data}
+      >
       </Table>
     </div>
   )

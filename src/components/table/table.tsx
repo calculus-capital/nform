@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTable, useExpanded, useBlockLayout} from 'react-table'
 
 import styles from './table.module.css'
@@ -36,7 +36,7 @@ const Table = (props: Props) => {
 
   const columns = [expander, ...props.columns]
 
-  const defaultColumn = React.useMemo(
+  const defaultColumn = useMemo(
     () => ({
       // When using the useFlexLayout:
       minWidth: 30, // minWidth is only used as a limit for resizing
@@ -59,17 +59,18 @@ const Table = (props: Props) => {
       columns: columns,
       data: props.data,
       defaultColumn: defaultColumn,
+      autoResetHiddenColumns: false,
     },
     useExpanded,
-    useBlockLayout
+    useBlockLayout,
   )
 
   return (
     <div className={ styles.tableContainer }>
-      <div className={ styles.table } {...getTableProps()}>
+      <div className={styles.table} key={ getTableProps().key } {...getTableProps()}>
         <div className={ styles.thead }>
           {headerGroups.map(headerGroup => (
-            <div  className={ styles.trhead}>
+            <div  className={ styles.trhead }>
               {headerGroup.headers.map(column => (
                 <div {...column.getHeaderProps()} className={styles.th}>
                   {column.render('Header')}

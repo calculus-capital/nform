@@ -10,7 +10,7 @@ import Ledger from '../screens/ledger/ledger'
 
 
 const Everything = () => {
-  const data = backend.generateTradeLog(1000)
+  const data = backend.generateTradeLog(10)
 
   return (
     <div className={styles.everything}>
