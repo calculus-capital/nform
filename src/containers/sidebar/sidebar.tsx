@@ -44,8 +44,8 @@ const Sidebar = () => {
             <Menu.List.Item active={location.pathname === "/sales"}>
               <a className={styles.sidebarLink} href="/sales">🤝 Sales</a>
             </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/log"}>
-              <a className={styles.sidebarLink} href="/log">🗒️ Log</a>
+            <Menu.List.Item active={location.pathname === "/inventory"}>
+              <a className={styles.sidebarLink} href="/inventory">🏬 Inventory</a>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Finance">
@@ -65,6 +65,9 @@ const Sidebar = () => {
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/utilities"}>
               <a className={styles.sidebarLink} href="/utilities">🟪 Tools</a>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/integrations"}>
+              <a className={styles.sidebarLink} href="/integrations">🌏 Integrations</a>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/audit"}>
               <a className={styles.sidebarLink} href="/audit">👁️ Audit</a>

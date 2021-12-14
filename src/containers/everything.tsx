@@ -7,6 +7,7 @@ import styles from './everything.module.css'
 import Sidebar from './sidebar/sidebar'
 import Cashflow from '../screens/cashflow/cashflow'
 import Ledger from '../screens/ledger/ledger'
+import Inventory from '../screens/inventory/inventory'
 
 
 const Everything = () => {
@@ -22,7 +23,8 @@ const Everything = () => {
           <Cell width={8}>
             <Routes>
               <Route path="/" element={<Cashflow data={ data }></Cashflow>}/>
-              <Route path="/ledger" element={<Ledger data={ data }></Ledger> }/>
+              <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
+              <Route path="/inventory" element={<Inventory data={ data }></Inventory> }/>
             </Routes>
           </Cell>
         </Grid>

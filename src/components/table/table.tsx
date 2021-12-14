@@ -27,7 +27,7 @@ const expander = {
     // We can use the getToggleRowExpandedProps prop-getter
     // to build the expander.
     <span {...row.getToggleRowExpandedProps()}>
-      {row.isExpanded ? '▶️' : '🔽'}
+      {row.isExpanded ? '🔻' : '▶'}
     </span>
   ),
 }

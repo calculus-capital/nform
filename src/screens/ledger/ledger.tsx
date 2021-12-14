@@ -53,16 +53,12 @@ const Ledger = (props: Props) => {
     }
   })
 
-  const [search, setSearch] = useState("")
   const [data, setData] = useState(ledgerData)
-  // const filterData = () => {
-  //   data.filter((x) => Object.values(x).join(' ').includes(search))
-  // }
 
   return (
     <div className={styles.ledger}>
       <div>
-        <p className={styles.customer}>Purplle { search }</p>
+        <p className={styles.customer}>Purplle</p>
       </div>
       <p className={styles.title}>Trade Ledger</p>
       <Form.Control className={ styles.search }>
