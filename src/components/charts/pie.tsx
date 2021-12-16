@@ -35,36 +35,45 @@ const Pie = (props: { data: any }) => {
           id: 'lines',
           type: 'patternLines',
           background: 'inherit',
-          color: 'rgba(255, 255, 255, 0.3)',
+          color: 'rgba(255, 255, 255, 0.4)',
           rotation: -45,
           lineWidth: 6,
           spacing: 10
-        }
+        },
+        {
+          id: "squares",
+          type: "patternSquares",
+          background: 'inherit',
+          color: 'rgba(0, 0, 0, 0.4)',
+          size: 5,
+          padding: 2,
+          stagger: false,
+      }
       ]}
       fill={[
         {
           match: {
             id: 'Paid'
           },
-          id: 'dots'
+          id: 'squares'
         },
         {
           match: {
             id: 'Pending Payments'
           },
-          id: 'dots'
+          id: 'squares'
         },
         {
           match: {
             id: 'Paid on Credit'
           },
-          id: 'dots'
+          id: 'squares'
         },
         {
           match: {
             id: 'Payment delayed'
           },
-          id: 'dots'
+          id: 'squares'
         },
         {
           match: {
