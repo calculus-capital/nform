@@ -40,18 +40,18 @@ const Cashflow = (props:Props) => {
         <p className={styles.customer}>Purplle</p>
       </div>
       <p className={styles.title}>Cash Flow (YTD, in Lakhs)</p>
-      <div className={ styles.globalcashflow}>
-        <Pie data={pieData}></Pie>
-      </div>
       {/* Calendars */}
-      <Grid columns={2} rows={1} className={styles.calendarContainer}>
-        <Cell className={styles.calendarCell}>
+      <Grid columns={2} rows={2} className={styles.calendarContainer}>
+        <Cell width={1} height={2} className={ styles.globalcashflow}>
+          <Pie data={pieData}></Pie>
+        </Cell>
+        <Cell height={1} width={1} className={styles.calendarCell} center middle>
           <div className={styles.calendar}>
             <p className={styles.title}>Collections Calendar (YTD, in Lakhs)</p>
             <Calendar data={rxCalendarData}></Calendar>
           </div>
         </Cell>
-        <Cell className={styles.calendarCell}>
+        <Cell height={1} width={1} className={styles.calendarCell}>
           <div className={styles.calendar}>
             <p className={styles.title}>Payments Calendar (YTD, in Lakhs)</p>
             <Calendar data={txCalendarData}></Calendar>

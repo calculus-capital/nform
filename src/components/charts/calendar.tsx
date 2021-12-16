@@ -1,7 +1,7 @@
 // @ts-ignorets-ignore
 import React from 'react'
 
-import { ResponsiveTimeRange } from '@nivo/calendar'
+import { ResponsiveTimeRange, TimeRange } from '@nivo/calendar'
 
 const Calendar = (props: { data: { value: number; day: string; }[] }) => {
 
@@ -9,16 +9,18 @@ const Calendar = (props: { data: { value: number; day: string; }[] }) => {
     <ResponsiveTimeRange
         data={props.data}
         emptyColor="none"
-        colors={['#440A67', '#93329E', '#B4AEE8', '#FFE3FE']}
+        colors={['#d62728', '#f47560', '#fee01b', '#ffff99']}
         margin={{ top: 50, right: 20, bottom: 20, left: 20 }}
-        dayBorderWidth={1}
+        dayBorderWidth={0.5}
         dayRadius={0}
-        dayBorderColor="#1c1c3c"
+        dayBorderColor="#5c5c7c"
+        // width={500}
+        // height={200}
         legends={[
             {
-                anchor: 'top-left',
+                anchor: 'bottom-left',
                 direction: 'row',
-                translateY: -50,
+                translateY: -30,
                 itemCount: 4,
                 itemWidth: 40,
                 itemHeight: 36,
