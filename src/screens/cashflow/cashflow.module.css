@@ -20,8 +20,8 @@
 }
 
 .cashflow text {
-  stroke: #b2b2b2;
-  stroke-width: 1;
+  stroke: #fff;
+  stroke-width: 1.2;
   font-style: normal;
   font-family: 'Source Code Pro' !important;
   font-size: 11pt !important;

@@ -61,7 +61,7 @@ const Cashflow = (props:Props) => {
       {/* Global */}
       <Grid columns={2} rows={1} className={ styles.bulletContainer }>
         <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Receivables (YTD, in Lakhs)</p>
+          <p className={styles.title}>To Collect (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : receivablesRanges,
@@ -70,7 +70,7 @@ const Cashflow = (props:Props) => {
           }]}></Bullet>
         </Cell>
         <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Payables (YTD, in Lakhs)</p>
+          <p className={styles.title}>To Pay (YTD, in Lakhs)</p>
           <Bullet data={[{
             id      : "",
             ranges  : payablesRanges,

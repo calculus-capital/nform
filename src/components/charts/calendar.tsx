@@ -9,7 +9,7 @@ const Calendar = (props: { data: { value: number; day: string; }[] }) => {
     <ResponsiveTimeRange
         data={props.data}
         emptyColor="none"
-        colors={['#d62728', '#f47560', '#fee01b', '#ffff99']}
+        colors={['#253494', '#1d91c0', '#7fcdbb', '#c7e9b4']}
         margin={{ top: 50, right: 20, bottom: 20, left: 20 }}
         dayBorderWidth={0.5}
         dayRadius={0}
