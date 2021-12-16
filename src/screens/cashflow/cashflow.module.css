@@ -32,7 +32,9 @@
 
 .globalcashflow {
   /* padding: 50px !important; */
-  height: 450px !important;
+  height: 600px !important;
+  width: 500px;
+  margin: auto;
   /* width: 100px; */
 }
 
