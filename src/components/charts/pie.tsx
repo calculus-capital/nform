@@ -8,20 +8,20 @@ const Pie = (props: { data: any }) => {
     <ResponsivePie
       data={props.data}
       // margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-      innerRadius={0.7}
-      padAngle={0.7}
-      cornerRadius={3}
-      activeOuterRadiusOffset={8}
-      colors={{ scheme: 'purpleRed_green' }}
-      borderWidth={1}
-      borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
-      arcLinkLabelsSkipAngle={10}
-      arcLinkLabelsTextColor="#333333"
-      arcLinkLabelsThickness={2}
-      arcLinkLabelsColor={{ from: 'color' }}
-      arcLabelsSkipAngle={10}
-      arcLabelsTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
-      defs={[
+      innerRadius             = {0.7}
+      padAngle                = {0.7}
+      cornerRadius            = {3}
+      activeOuterRadiusOffset = {8}
+      colors                  = {{ scheme: 'spectral' }}
+      borderWidth             = {1}
+      borderColor             = {{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+      arcLinkLabelsSkipAngle  = {10}
+      arcLinkLabelsTextColor  = "#333333"
+      arcLinkLabelsThickness  = {2}
+      arcLinkLabelsColor      = {{ from: 'color' }}
+      arcLabelsSkipAngle      = {10}
+      arcLabelsTextColor      = {{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
+      defs                    = {[
         {
           id: 'dots',
           type: 'patternDots',
@@ -44,78 +44,78 @@ const Pie = (props: { data: any }) => {
       fill={[
         {
           match: {
-            id: 'ruby'
+            id: 'Paid'
           },
           id: 'dots'
         },
         {
           match: {
-            id: 'c'
+            id: 'Pending Payments'
           },
           id: 'dots'
         },
         {
           match: {
-            id: 'go'
+            id: 'Paid on Credit'
           },
           id: 'dots'
         },
         {
           match: {
-            id: 'python'
+            id: 'Payment delayed'
           },
           id: 'dots'
         },
         {
           match: {
-            id: 'scala'
+            id: 'Pending Collections'
           },
           id: 'lines'
         },
         {
           match: {
-            id: 'lisp'
+            id: 'Collected'
           },
           id: 'lines'
         },
         {
           match: {
-            id: 'elixir'
+            id: 'Collected on Credit'
           },
           id: 'lines'
         },
         {
           match: {
-            id: 'javascript'
+            id: 'Collections delayed'
           },
           id: 'lines'
         }
       ]}
-      legends={[
-        {
-          anchor: 'bottom-right',
-          direction: 'column',
-          justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 2,
-          itemWidth: 200,
-          itemHeight: 18,
-          itemTextColor: '#b2b2b2',
-          itemDirection: 'left-to-right',
-          itemOpacity: 1,
-          symbolSize: 18,
-          symbolShape: 'square',
-          effects: [
-            {
-              on: 'hover',
-              style: {
-                itemTextColor: '#000'
-              }
-            }
-          ]
-        }
-      ]}
+      // legends={[
+      //   {
+      //     anchor: 'bottom-left',
+      //     direction: 'column',
+      //     justify: false,
+      //     translateX: -50,
+      //     translateY: 180,
+      //     itemsSpacing: 2,
+      //     itemWidth: 200,
+      //     itemHeight: 18,
+      //     itemTextColor: '#b2b2b2',
+      //     itemDirection: 'left-to-right',
+      //     itemOpacity: 1,
+      //     symbolSize: 18,
+      //     symbolShape: 'square',
+      //     effects: [
+      //       {
+      //         on: 'hover',
+      //         style: {
+      //           itemTextColor: '#000'
+      //         }
+      //       }
+      //     ]
+      //   }
+      // ]}
     />
   )
 }

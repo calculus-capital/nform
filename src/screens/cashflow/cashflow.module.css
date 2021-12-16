@@ -1,6 +1,6 @@
 
 .title {
-  font-size: 11pt;
+  font-size: 12pt;
   color: #b2b2b2;
 }
 
@@ -14,27 +14,31 @@
 
 .cashflow {
   color: #b2b2b2;
-  font-size: 9pt;
+  font-size: 12pt;
 
   padding: 20px;
 }
 
 .cashflow text {
-  stroke: #b2b2b2;
-  stroke-width: 1;
+  stroke: #fff;
+  stroke-width: 1.2;
   font-style: normal;
   font-family: 'Source Code Pro' !important;
-  font-size: 9pt !important;
+  font-size: 11pt !important;
   font-weight: lighter;
 }
 
+
+
 .globalcashflow {
-  padding: 50px !important;
-  height: 500px;
+  /* padding: 50px !important; */
+  height: 450px !important;
+  /* width: 100px; */
 }
 
 .calendarContainer {
   margin-top: 50px !important;
+  height: 250px;
 }
 
 .calendar {
