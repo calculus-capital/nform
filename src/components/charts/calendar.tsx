@@ -1,6 +1,3 @@
-// @ts-ignorets-ignore
-import React from 'react'
-
 import { ResponsiveTimeRange, TimeRange } from '@nivo/calendar'
 
 const Calendar = (props: { data: { value: number; day: string; }[] }) => {
