@@ -73,9 +73,6 @@ const Sidebar = () => {
             <Menu.List.Item active={location.pathname === "/settings"}>
               <Link className={styles.sidebarLink} to="/settings">⚙️ Settings</Link>
             </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/support"}>
-              <Link className={styles.sidebarLink} to="/support">💁 Support</Link>
-            </Menu.List.Item>
           </Menu.List>
         </Menu>
       </Section>
