@@ -1,0 +1,129 @@
+import moment from 'moment'
+import React, { useMemo } from 'react'
+import { Cell, Grid } from 'styled-css-grid'
+
+import Table from '../../components/table/table'
+import { Trade } from '../../backend'
+import Line from '../../components/charts/line'
+
+import styles from './flows.module.css'
+
+interface Props {
+  data: Trade[]
+}
+
+const cumsum = ((sum:number) => (value:number) => sum += value)(0)
+
+const outflowColumns = [{
+  Header: "To Pay",
+  columns: [{
+    Header: "Customer",
+    accessor: "customer",
+  },{
+    Header: "Amount",
+    accessor: "amount",
+  },]
+}]
+
+const Outflows = (props: Props) => {
+  const data = props.data
+
+  var scr = 0;
+  const outflow = data
+    .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
+    .map(d => {
+      const cashin = Math.floor(d.payments.map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+      const cashout = Math.floor(d.items.map(i => i.price).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+
+      return {
+        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        y: cashout - cashin
+      }
+    })
+    .map(d => {
+      scr = scr + d.y
+      return {
+        x: d.x,
+        y: -1*(d.y + scr)
+      }
+    })
+
+  scr = 0
+  const credit = data
+    .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
+    .map(d => {
+      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+
+      return {
+        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        y: cr
+      }
+    })
+    .map(d => {
+      scr = scr + d.y
+      return {
+        x: d.x,
+        y: d.y + scr
+      }
+    })
+
+  const outflowPartners = data
+    .reduce((m, d) => {
+      const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
+      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
+
+      if (d.beneficiaries[0].name in m)
+        // @ts-ignore
+        m.set(d.beneficiaries[0].name, m.get(d.beneficiaries[0].name) + topay - paid)
+      else
+        // @ts-ignore
+        m.set(d.beneficiaries[0].name, topay - paid)
+      return m
+    }, new Map<string, number>())
+
+  var outflowPartnersData:{customer: string, amount: number}[] = []
+  for (const [k, v] of outflowPartners) {
+    outflowPartnersData.push({
+      customer: k,
+      amount: v
+    })
+  }
+
+  return (
+    <div className={styles.flowContainer}>
+      <div>
+        <p className={styles.customer}>Purplle</p>
+      </div>
+      <Grid columns={3} rows={2}>
+        <Cell width={2} height={1} >
+          <p className={styles.title}>Cash & Credit Outflow</p>
+          <div className={styles.outflowLine}>
+            {/* @ts-ignore */}
+            <Line data={[
+              {
+                id: 'Cash outflow',
+                data: outflow,
+              },{
+                id: "Credit",
+                data: credit
+              },
+            ]}></Line>
+          </div>
+        </Cell>
+        <Cell width={1} height={2}>
+          <div className={styles.outflowCustomers}>
+            {/* @ts-ignore */}
+            <Table
+              columns={useMemo(() =>  outflowColumns, [])}
+              data={outflowPartnersData.sort((x, y) => x.amount < y.amount ? 1 : -1)}
+              expand={false}
+            >
+            </Table>
+          </div>
+        </Cell>
+      </Grid>
+    </div>
+  )
+}
+
+export default Outflows

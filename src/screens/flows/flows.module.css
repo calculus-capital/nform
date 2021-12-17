@@ -1,6 +1,19 @@
 
 .flowContainer {
-  height: 400px;
+  margin: 20px;
+}
+
+.title {
+  font-size: 13pt;
+  color: #b2b2b2;
+}
+
+.customer {
+  font-size: 13pt;
+  color: #b2b2b2;
+  padding: 10px;
+  margin: 10px;
+  border-bottom: 2px solid #3f3f3f;
 }
 
 .flowContainer text {
@@ -10,4 +23,16 @@
   font-family: 'Source Code Pro' !important;
   font-size: 11pt !important;
   font-weight: lighter;
+
+  padding: 20px;
+}
+
+.outflowLine {
+  height: 350px;
+}
+
+.outflowCustomers {
+  overflow-y: scroll;
+  height: 800px;
+  border-bottom: 1px solid #4c4c70;
 }

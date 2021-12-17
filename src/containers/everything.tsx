@@ -8,7 +8,7 @@ import Sidebar from './sidebar/sidebar'
 import Cashflow from '../screens/cashflow/cashflow'
 import Ledger from '../screens/ledger/ledger'
 import Inventory from '../screens/inventory/inventory'
-import Flows from '../screens/flows/flows'
+import Outflows from '../screens/flows/outflow'
 
 
 const Everything = () => {
@@ -27,7 +27,7 @@ const Everything = () => {
               <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
               <Route path="/inventory" element={<Inventory data={ data }></Inventory> }/>
               <Route path="/ledger" element={<Ledger data={ data }></Ledger> }/>
-              <Route path="/payables" element={<Flows data={ data }></Flows> }/>
+              <Route path="/payables" element={<Outflows data={ data }></Outflows> }/>
             </Routes>
           </Cell>
         </Grid>

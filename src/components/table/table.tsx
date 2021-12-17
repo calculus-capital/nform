@@ -14,6 +14,7 @@ interface Column {
 interface Props {
   columns: Column[],
   data   : any
+  expand?: boolean
 }
 
 const expander = {
@@ -34,7 +35,7 @@ const expander = {
 
 const Table = (props: Props) => {
 
-  const columns = [expander, ...props.columns]
+  const columns = props.expand ? [expander, ...props.columns] : props.columns
 
   const defaultColumn = useMemo(
     () => ({
