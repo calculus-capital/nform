@@ -19,10 +19,10 @@ const Everything = () => {
     <div className={styles.everything}>
       <div className={styles.something}>
         <Grid columns={10}>
-          <Cell width={2}>
+          <Cell width={2} center middle>
             <Sidebar></Sidebar>
           </Cell>
-          <Cell width={8}>
+          <Cell width={8} className={styles.content}>
             <Routes>
               <Route path="/" element={<Cashflow data={ data }></Cashflow>}/>
               <Route path="/ledger" element={<Ledger data={data}></Ledger>} />

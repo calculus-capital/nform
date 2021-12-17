@@ -24,3 +24,7 @@
   height: 93vh;
   overflow: auto;
 }
+
+.content {
+  margin-right: 50px;
+}

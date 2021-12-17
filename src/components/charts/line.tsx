@@ -19,7 +19,7 @@ const Line = (props: { data: any[] }) => {
         xFormat="time:%d-%m-%Y"
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
         axisTop={null}
-        colors={{ scheme: 'set2' }}
+        colors={{ scheme: 'category10' }}
         enableGridX={false}
         enableGridY={false}
         pointSize={5}
@@ -91,6 +91,67 @@ const Line = (props: { data: any[] }) => {
                     }
                 ]
             }
+        ]}
+        defs                    = {[
+          {
+            id: 'dots',
+            type: 'patternDots',
+            background: 'inherit',
+            color: 'rgba(255, 255, 255, 0.5)',
+            size: 10,
+            padding: 1,
+            stagger: true
+          },
+          {
+            id: 'lines',
+            type: 'patternLines',
+            background: 'inherit',
+            color: 'rgba(255, 255, 255, 0.4)',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10
+          },
+          {
+            id: "squares",
+            type: "patternSquares",
+            background: 'inherit',
+            color: 'rgba(0, 0, 0, 0.4)',
+            size: 5,
+            padding: 2,
+            stagger: false,
+        }
+        ]}
+        fill={[
+          {
+            match: {
+              id: 'Paid'
+            },
+            id: 'dots'
+          },
+          {
+            match: {
+              id: 'Collected'
+            },
+            id: 'dots'
+          },
+          {
+            match: {
+              id: 'Credit'
+            },
+            id: 'lines'
+          },
+          {
+            match: {
+              id: 'Unpaid'
+            },
+            id: 'squares'
+          },
+          {
+            match: {
+              id: 'To Collect'
+            },
+            id: 'squares'
+          },
         ]}
     />
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { Menu, Section, Dropdown } from 'react-bulma-components'
 
@@ -22,9 +22,9 @@ const Sidebar = () => {
           <Menu.List title="Dashboards">
             <Menu.List.Item active={location.pathname === "/create"}>
               <div className={styles.createContainer}>
-                <Dropdown label="⭐ New" className={ styles.create } color="green">
-                  <Dropdown.Item renderAs="a" value="Order">➡️ Purchase</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Sale">⬅️ Sale</Dropdown.Item>
+                <Dropdown label="⚡️ New" className={ styles.create } color="green">
+                  <Dropdown.Item renderAs="a" value="Order">📥 Purchase</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Sale">📤 Sale</Dropdown.Item>
                   <Dropdown.Divider></Dropdown.Divider>
                   <Dropdown.Item renderAs="a" value="Supplier">📦 Production</Dropdown.Item>
                   <Dropdown.Item renderAs="a" value="Supplier">📦 Consumption</Dropdown.Item>
@@ -38,51 +38,43 @@ const Sidebar = () => {
               </div>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/"}>
-              <a className={styles.sidebarLink} href="/">💵 Cash Flow</a>
+              <Link className={styles.sidebarLink} to="/">💵 Cash Flow</Link>
             </Menu.List.Item>
           </Menu.List>
-          <Menu.List title="Trade">
-            <Menu.List.Item active={location.pathname === "/procurement"}>
-              <a className={styles.sidebarLink} href="/procurement">📦 Procurement</a>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/sales"}>
-              <a className={styles.sidebarLink} href="/sales">🤝 Sales</a>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/inventory"}>
-              <a className={styles.sidebarLink} href="/inventory">🏬 Inventory</a>
-            </Menu.List.Item>
-          </Menu.List>
-          <Menu.List title="Finance">
+          <Menu.List title="Operations">
             <Menu.List.Item active={location.pathname === "/receivables"}>
-              <a className={styles.sidebarLink} href="/receivables">➡️ Receivables</a>
+              <Link className={styles.sidebarLink} to="/receivables">📥 Receivables</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/payables"}>
-              <a className={styles.sidebarLink} href="/payables">⬅️ Payables</a>
+              <Link className={styles.sidebarLink} to="/payables">📤 Payables</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/credit"}>
+              <Link className={styles.sidebarLink} to="/credit">📉 Credit</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/inventory"}>
+              <Link className={styles.sidebarLink} to="/inventory">🏬 Inventory</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/ledger"}>
-              <a className={styles.sidebarLink} href="/ledger">📒 Ledger</a>
+              <Link className={styles.sidebarLink} to="/ledger">📒 Ledger</Link>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Management">
-            <Menu.List.Item active={location.pathname === "/network"}>
-              <a className={styles.sidebarLink} href="/network">🏭 Partners</a>
+          <Menu.List.Item active={location.pathname === "/network"}>
+              <Link className={styles.sidebarLink} to="/network">🏭 Partners</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/lenders"}>
+              <Link className={styles.sidebarLink} to="/lenders">🏦 Lenders</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/utilities"}>
-              <a className={styles.sidebarLink} href="/utilities">🟪 Tools</a>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/integrations"}>
-              <a className={styles.sidebarLink} href="/integrations">🌏 Integrations</a>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/audit"}>
-              <a className={styles.sidebarLink} href="/audit">👁️ Audit</a>
+              <Link className={styles.sidebarLink} to="/utilities">🟪 Compliance</Link>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Other">
             <Menu.List.Item active={location.pathname === "/settings"}>
-              <a className={styles.sidebarLink} href="/settings">⚙️ Settings</a>
+              <Link className={styles.sidebarLink} to="/settings">⚙️ Settings</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/support"}>
-              <a className={styles.sidebarLink} href="/support">💁 Support</a>
+              <Link className={styles.sidebarLink} to="/support">💁 Support</Link>
             </Menu.List.Item>
           </Menu.List>
         </Menu>

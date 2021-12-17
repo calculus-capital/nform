@@ -1,12 +1,12 @@
 
 .sidebar {
-  height: calc(100% - 50px);
+  height: 88vh;
   position: fixed;
   top: 30px;
   left: 20px;
 
   text-align: left;
-  border-right:1px solid #3f3f3f;
+  border-right: 0.1px solid #3f3f3f;
 
   overflow-y: auto;
 }
@@ -25,8 +25,8 @@
 }
 
 .sidebarLink {
-  padding: 0 !important;
-  margin: 1px !important;
+  padding: 0px !important;
+  margin: 4px !important;
 }
 
 .menu {
@@ -34,20 +34,20 @@
 }
 
 .menu p {
-  color: #555;
+  color: #99a;
   font-size: 11pt;
 }
 
 .menu a {
   color: #b4b4b4;
-  font-size: 12pt;
-  min-width: 120px;
+  font-size: 13pt;
+  min-width: 150px;
   width: 100%;
 }
 
 .menu a:hover {
-  background-color: #0c0c20;
-  color: #ff1616;
+  background-color: #485fc7;
+  color: #b4b4b4;
 }
 
 .createContainer {
