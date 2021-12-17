@@ -61,15 +61,15 @@ export const generateTradeLog = (items: number): Trade[] => {
       date  : new Date(),
       amount: 0,
       to    : bene,
-      credit: getRandomBoolean(),
+      credit: Math.random() < 0.3 ? true : false,
     }
 
     // pay in fractions as payment date nears
-    if (moment().diff(end, "days") < 10) {
-      payment.amount = totalCost / 2
-    }
-    if (moment().diff(end, "days") < -10) {
+    if (end.diff(moment(), "days") < 0) {
       payment.amount = totalCost
+    }
+    else if (end.diff(moment(), "days") < 10) {
+      payment.amount = totalCost / 2
     }
 
     let item:Trade = {

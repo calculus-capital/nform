@@ -25,6 +25,34 @@ const outflowColumns = [{
   },]
 }]
 
+const paymentColumns = [{
+  Header: "Upcoming Payments",
+  columns: [{
+    Header: "Customer",
+    accessor: "customer",
+  },{
+    Header: "Amount",
+    accessor: "amount",
+  },{
+    Header: "Date",
+    accessor: "date",
+  }]
+}]
+
+const delayedColumns = [{
+  Header: "Delayed Payments",
+  columns: [{
+    Header: "Customer",
+    accessor: "customer",
+  },{
+    Header: "Amount",
+    accessor: "amount",
+  },{
+    Header: "Date",
+    accessor: "date",
+  }]
+}]
+
 const Outflows = (props: Props) => {
   const data = props.data
 
@@ -112,6 +140,41 @@ const Outflows = (props: Props) => {
     .sort((x, y) => x.amount < y.amount ? 1 : -1)
     .filter(p => p.amount > 0)
 
+  const upcomingPayments = data
+    .filter(d => moment(d.terms.maturity).isAfter(moment()))
+    .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
+    .map(d => {
+      const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
+      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
+
+      return {
+        customer: d.beneficiaries[0].name,
+        amount: topay - paid,
+        date: moment(d.terms.maturity).format("DD-MM-YYYY")
+      }
+    })
+
+    const delayedPayments = data
+      .filter(d => {
+        const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
+        const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
+
+        return moment(d.terms.maturity).isBefore(moment()) && topay != paid
+      })
+      .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
+      .map(d => {
+        const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
+        const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
+
+        return {
+          customer: d.beneficiaries[0].name,
+          amount: topay - paid,
+          date: moment(d.terms.maturity).format("DD-MM-YYYY")
+        }
+      })
+
+  console.log(delayedPayments)
+
   return (
     <div className={styles.flowContainer}>
       <div>
@@ -146,6 +209,24 @@ const Outflows = (props: Props) => {
             >
             </Table>
           </div>
+        </Cell>
+        <Cell width={1} height={1}>
+            {/* @ts-ignore */}
+            <Table
+              columns={useMemo(() =>  paymentColumns, [])}
+              data={upcomingPayments.slice(0, 5)}
+              expand={false}
+            >
+            </Table>
+        </Cell>
+        <Cell width={1} height={1}>
+            {/* @ts-ignore */}
+            <Table
+              columns={useMemo(() =>  delayedColumns, [])}
+              data={delayedPayments}
+              expand={false}
+            >
+            </Table>
         </Cell>
       </Grid>
     </div>

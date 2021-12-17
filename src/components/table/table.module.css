@@ -7,9 +7,7 @@
 }
 
 .table {
-  margin: auto;
-  border: 2px solid #4c4c70;
-  border-radius: 20px;
+  margin: 10px;
 }
 
 .thead {
@@ -24,12 +22,12 @@
 
 .trhead {
   background-color: #151540;
-  border-top: 2px solid #4c4c70;
+  border-top: 0.1px solid #4c4c70;
 }
 
 .trhead:first-of-type {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  /* border-top-left-radius: 20px;
+  border-top-right-radius: 20px; */
 }
 
 .tbody {
@@ -37,7 +35,7 @@
 }
 
 .tr {
-  border-top: 2px solid #4c4c70;
+  border-top: 0.1px solid #4c4c70;
 }
 
 .tbody :hover {
