@@ -124,7 +124,7 @@ const Outflows = (props: Props) => {
             {/* @ts-ignore */}
             <Line data={[
               {
-                id: 'Cash outflow',
+                id: 'Unpaid',
                 data: outflow,
               },{
                 id: "Credit",
