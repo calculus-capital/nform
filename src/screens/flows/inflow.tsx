@@ -14,8 +14,8 @@ interface Props {
 
 const cumsum = ((sum:number) => (value:number) => sum += value)(0)
 
-const outflowColumns = [{
-  Header: "To Pay",
+const inflowColumns = [{
+  Header: "Collections Remaining",
   columns: [{
     Header: "Customer",
     accessor: "customer",
@@ -25,8 +25,8 @@ const outflowColumns = [{
   },]
 }]
 
-const paymentColumns = [{
-  Header: "Upcoming Payments",
+const collectionColumns = [{
+  Header: "Upcoming Collections",
   columns: [{
     Header: "Customer",
     accessor: "customer",
@@ -40,7 +40,7 @@ const paymentColumns = [{
 }]
 
 const delayedColumns = [{
-  Header: "Delayed Payments",
+  Header: "Delayed Collections",
   columns: [{
     Header: "Customer",
     accessor: "customer",
@@ -53,12 +53,12 @@ const delayedColumns = [{
   }]
 }]
 
-const Outflows = (props: Props) => {
+const Inflows = (props: Props) => {
   const data = props.data
-    .filter(d => d.type === TradeType.PROCUREMENT)
+    .filter(d => d.type === TradeType.SALES)
 
   var scr = 0;
-  const outflow = data
+  const inflow = data
     .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
       const cashin = Math.floor(d.payments.map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
@@ -78,7 +78,7 @@ const Outflows = (props: Props) => {
     })
 
   scr = 0
-  const payments = data
+  const Collections = data
     .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
       const cashin = Math.floor(d.payments.map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
@@ -116,7 +116,7 @@ const Outflows = (props: Props) => {
       }
     })
 
-  const outflowPartners = data
+  const inflowPartners = data
     .reduce((m, d) => {
       const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
       const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
@@ -130,14 +130,14 @@ const Outflows = (props: Props) => {
       return m
     }, new Map<string, number>())
 
-  var outflowPartnersData:{customer: string, amount: number}[] = []
-  for (const [k, v] of outflowPartners) {
-    outflowPartnersData.push({
+  var inflowPartnersData:{customer: string, amount: number}[] = []
+  for (const [k, v] of inflowPartners) {
+    inflowPartnersData.push({
       customer: k,
       amount: v
     })
   }
-  const payPartners = outflowPartnersData
+  const payPartners = inflowPartnersData
     .sort((x, y) => x.amount < y.amount ? 1 : -1)
     .filter(p => p.amount > 0)
 
@@ -183,28 +183,28 @@ const Outflows = (props: Props) => {
       </div>
       <Grid columns={3} rows={2}>
         <Cell width={2} height={1} >
-          <p className={styles.title}>Cash & Credit Outflow</p>
-          <div className={styles.outflowLine}>
+          <p className={styles.title}>Cash & Credit Inflow</p>
+          <div className={styles.inflowLine}>
             {/* @ts-ignore */}
             <Line data={[
               {
-                id: 'Unpaid',
-                data: outflow,
+                id: 'To collect',
+                data: inflow,
               },{
                 id: "Credit",
                 data: credit
               },{
-                id: "Paid",
-                data: payments
+                id: "Collected",
+                data: Collections
               }
             ]}></Line>
           </div>
         </Cell>
         <Cell width={1} height={2}>
-          <div className={styles.outflowCustomers}>
+          <div className={styles.inflowCustomers}>
             {/* @ts-ignore */}
             <Table
-              columns={useMemo(() =>  outflowColumns, [])}
+              columns={useMemo(() =>  inflowColumns, [])}
               data={payPartners}
               expand={false}
             >
@@ -214,7 +214,7 @@ const Outflows = (props: Props) => {
         <Cell width={1} height={1}>
             {/* @ts-ignore */}
             <Table
-              columns={useMemo(() =>  paymentColumns, [])}
+              columns={useMemo(() =>  collectionColumns, [])}
               data={upcomingPayments.slice(0, 5)}
               expand={false}
             >
@@ -234,4 +234,4 @@ const Outflows = (props: Props) => {
   )
 }
 
-export default Outflows
+export default Inflows

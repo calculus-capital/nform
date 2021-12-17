@@ -27,11 +27,11 @@
   padding: 20px;
 }
 
-.outflowLine {
+.inflowLine, .outflowLine {
   height: 350px;
 }
 
-.outflowCustomers {
+.inflowCustomers, .outflowCustomers {
   overflow-y: scroll;
   height: 800px;
   border-bottom: 1px solid #4c4c70;
