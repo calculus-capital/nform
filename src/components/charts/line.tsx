@@ -19,7 +19,7 @@ const Line = (props: { data: any[] }) => {
         xFormat="time:%d-%m-%Y"
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
         axisTop={null}
-        colors={{ scheme: 'set1' }}
+        colors={{ scheme: 'set2' }}
         enableGridX={false}
         enableGridY={false}
         pointSize={5}
@@ -34,6 +34,8 @@ const Line = (props: { data: any[] }) => {
         useMesh={true}
         debugMesh={false}
         enableArea={true}
+        areaOpacity={0.2}
+        areaBlendMode="difference"
         curve="monotoneX"
         axisLeft={{
           tickValues: 5,

@@ -189,8 +189,7 @@ const Inflows = (props: Props) => {
             <Line data={[
               {
                 id: 'To collect',
-                data: inflow,
-              },{
+                data: inflow,              },{
                 id: "Credit",
                 data: credit
               },{
