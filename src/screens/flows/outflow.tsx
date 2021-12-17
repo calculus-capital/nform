@@ -49,6 +49,26 @@ const Outflows = (props: Props) => {
     })
 
   scr = 0
+  const payments = data
+    .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
+    .map(d => {
+      const cashin = Math.floor(d.payments.map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+
+      return {
+        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        y: cashin - cr
+      }
+    })
+    .map(d => {
+      scr = scr + d.y
+      return {
+        x: d.x,
+        y: d.y + scr
+      }
+    })
+
+  scr = 0
   const credit = data
     .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
@@ -88,6 +108,9 @@ const Outflows = (props: Props) => {
       amount: v
     })
   }
+  const payPartners = outflowPartnersData
+    .sort((x, y) => x.amount < y.amount ? 1 : -1)
+    .filter(p => p.amount > 0)
 
   return (
     <div className={styles.flowContainer}>
@@ -106,7 +129,10 @@ const Outflows = (props: Props) => {
               },{
                 id: "Credit",
                 data: credit
-              },
+              },{
+                id: "Paid",
+                data: payments
+              }
             ]}></Line>
           </div>
         </Cell>
@@ -115,7 +141,7 @@ const Outflows = (props: Props) => {
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  outflowColumns, [])}
-              data={outflowPartnersData.sort((x, y) => x.amount < y.amount ? 1 : -1)}
+              data={payPartners}
               expand={false}
             >
             </Table>

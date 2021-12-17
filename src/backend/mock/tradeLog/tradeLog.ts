@@ -52,8 +52,8 @@ export const generateTradeLog = (items: number): Trade[] => {
     const items = Array(getRandomInt(1, 10)).fill(0).map(_ => randomTradeItem())
     const bene = randomBeneficiary()
 
-    const start = moment(terms.maturity)
-    const end = moment(terms.startDate)
+    const start = moment(terms.startDate)
+    const end = moment(terms.maturity)
     const totalCost = items.map((i) => { return i.price }).reduce((x, y) => x + y)
 
     const payment:Payment = {
@@ -65,7 +65,7 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
 
     // pay in fractions as payment date nears
-    if (moment().diff(end, "days") < 90) {
+    if (moment().diff(end, "days") < 10) {
       payment.amount = totalCost / 2
     }
     if (moment().diff(end, "days") < -10) {
