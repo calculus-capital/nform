@@ -8,7 +8,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: #ff1616 #02020c;
+  scrollbar-color: #330088 #02020c;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -21,7 +21,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #ff1616;
+  background-color: #02020c;
   border-radius: 20px;
   border: 3px solid #d4d4d4;
 }

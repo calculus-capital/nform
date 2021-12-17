@@ -23,13 +23,17 @@ const Sidebar = () => {
             <Menu.List.Item active={location.pathname === "/create"}>
               <div className={styles.createContainer}>
                 <Dropdown label="⭐ New" className={ styles.create } color="green">
-                  <Dropdown.Item renderAs="a" value="Order"> Purchase Order</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Sale">Sale</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Invoice">Invoice</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Order">➡️ Purchase</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Sale">⬅️ Sale</Dropdown.Item>
                   <Dropdown.Divider></Dropdown.Divider>
-                  <Dropdown.Item renderAs="a" value="Supplier">Supplier</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Vendor">Vendor</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Supplier">Sales Channel</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Supplier">📦 Production</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Supplier">📦 Consumption</Dropdown.Item>
+                  <Dropdown.Divider></Dropdown.Divider>
+                  <Dropdown.Item renderAs="a" value="Supplier">🏭 Supplier</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Vendor">🏭 Vendor</Dropdown.Item>
+                  <Dropdown.Divider></Dropdown.Divider>
+                  <Dropdown.Item renderAs="a" value="Vendor">💵 Payment</Dropdown.Item>
+                  <Dropdown.Item renderAs="a" value="Vendor">💵 Repayment</Dropdown.Item>
                 </Dropdown>
               </div>
             </Menu.List.Item>
