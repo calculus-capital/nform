@@ -10,9 +10,9 @@ import Ledger from '../screens/ledger/ledger'
 import Inventory from '../screens/inventory/inventory'
 import Outflows from '../screens/flows/outflow'
 
-
 const Everything = () => {
-  const data = backend.generateTradeLog(100)
+
+  const data = React.useMemo(() => backend.generateTradeLog(100), [])
 
   return (
     <div className={styles.everything}>
