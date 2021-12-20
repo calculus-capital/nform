@@ -236,16 +236,14 @@ const Inflows = (props: Props) => {
             </Card.Content>
           </Card>
         </Cell>
-        <Cell width={1} height={2}>
-          <div className={styles.tables}>
-            {/* @ts-ignore */}
-            <Table
-              columns={useMemo(() =>  inflowColumns, [])}
-              data={payPartners}
-              expand={false}
-            >
-            </Table>
-          </div>
+        <Cell width={1} height={2} className={styles.tables}>
+          {/* @ts-ignore */}
+          <Table
+            columns={useMemo(() =>  inflowColumns, [])}
+            data={payPartners}
+            expand={false}
+          >
+          </Table>
         </Cell>
         <Cell width={1} height={2} className={styles.tables}>
             {/* @ts-ignore */}
