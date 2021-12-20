@@ -99,8 +99,8 @@ const Credit = (props: Props) => {
   const byCustomerRx = groupBy(receivablesCredit, (x) => x.customer)
   var ctr = 0
   const rxData = Object.keys(byCustomerRx).map(k => {
-    ctr = ctr + (360 / receivablesCredit.length)
-    const ctr2 = ctr+180
+    ctr = ctr + (90 / receivablesCredit.length)
+    const ctr2 = ctr+90
     return {
       name: k,
       color: "#e71590",
@@ -108,12 +108,12 @@ const Credit = (props: Props) => {
         {
           name: "Remaining",
           loc: byCustomerRx[k].map(i => i.remaining).reduce((x, y) => x + y, 0),
-          color: "hsl("+ctr+", 70%, 30%)"
+          color: "hsl("+ctr+", 70%, 60%)"
         },
         {
           name: "Repaid",
           loc: byCustomerRx[k].map(i => i.repaid).reduce((x, y) => x + y, 0),
-          color: "hsl("+ctr2+", 70%, 30%)"
+          color: "hsl("+ctr2+", 70%, 60%)"
         }
       ]
     }
@@ -122,8 +122,8 @@ const Credit = (props: Props) => {
   const byCustomerTx = groupBy(payablesCredit, (x) => x.customer)
   ctr = 180
   const txData = Object.keys(byCustomerTx).map(k => {
-    ctr = ctr + (360/payablesCredit.length)/2
-    const ctr2 = ctr+180
+    ctr = ctr + (90/payablesCredit.length)
+    const ctr2 = ctr+90
     return {
       name: k,
       color: "#0d945c",
@@ -131,12 +131,12 @@ const Credit = (props: Props) => {
         {
           name: "Remaining " + k,
           loc: byCustomerTx[k].map(i => i.remaining).reduce((x, y) => x + y, 0),
-          color: "hsl("+ctr+", 70%, 30%)"
+          color: "hsl("+ctr+", 70%, 60%)"
         },
         {
           name: "Repaid " + k,
           loc: byCustomerTx[k].map(i => i.repaid).reduce((x, y) => x + y, 0),
-          color: "hsl("+ctr2+", 70%, 30%)"
+          color: "hsl("+ctr2+", 70%, 60%)"
         }
       ]
     }
