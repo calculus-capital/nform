@@ -5,7 +5,7 @@
 }
 
 .containerGrid {
-  height: 85vh;
+  padding: 20px;
 }
 
 .title {
@@ -32,25 +32,26 @@
   padding: 20px;
 }
 
-.inflowLine, .outflowLine {
+.inflowLine {
+  height: 40vh;
+}
+
+.outflowLine {
   height: 40vh;
 }
 
 .tables {
   overflow-y: scroll;
-  height: 350px;
+  height: 30vh !important;
   border-bottom: 1px solid #4c4c70;
 }
 
 .card {
-  height: 150px;
-  background-color: inherit;
-  /* border: 10px solid #24145f; */
-  border-radius: 10px;
 }
 
 .card > div {
-  background-color: inherit;
+  margin: 20px;
+  background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1));
 }
 
 .card * {
@@ -58,9 +59,8 @@
 }
 
 .metric {
-  margin-top: 20px !important;
   font-size: 30pt !important;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   border-bottom: 10px solid #24145f;
 }
 

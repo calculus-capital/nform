@@ -181,7 +181,7 @@ const Outflows = (props: Props) => {
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={2} className={styles.containerGrid}>
+      <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={2} height={1} >
           <p className={styles.title}>Cash & Credit Outflow</p>
           <div className={styles.outflowLine}>
@@ -235,6 +235,8 @@ const Outflows = (props: Props) => {
             </Card.Content>
           </Card>
         </Cell>
+      </Grid>
+      <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <div className={styles.tables}>
             {/* @ts-ignore */}
