@@ -15,7 +15,7 @@ const Treemap = (props: { data: any }) => {
       margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
       labelSkipSize={30}
       outerPadding={5}
-      nodeOpacity={0.5}
+      nodeOpacity={0.7}
       labelTextColor={{ from: 'color', modifiers: [ [ 'brighter', 1.5 ] ] }}
       parentLabelTextColor={{ from: 'color', modifiers: [ [ 'brighter', 1 ] ] }}
       borderColor={{ from: 'color', modifiers: [['brighter', 5]] }}
