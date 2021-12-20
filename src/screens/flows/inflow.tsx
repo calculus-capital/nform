@@ -7,6 +7,7 @@ import { Trade, TradeType } from '../../backend'
 import Line from '../../components/charts/line'
 
 import styles from './flows.module.css'
+import { Card, Heading } from 'react-bulma-components'
 
 interface Props {
   data: Trade[]
@@ -180,8 +181,8 @@ const Inflows = (props: Props) => {
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={2}>
-        <Cell width={2} height={1} >
+      <Grid columns={3} rows={5} className={styles.containerGrid}>
+        <Cell width={2} height={3} >
           <p className={styles.title}>Cash & Credit Inflow</p>
           <div className={styles.inflowLine}>
             {/* @ts-ignore */}
@@ -198,8 +199,47 @@ const Inflows = (props: Props) => {
             ]}></Line>
           </div>
         </Cell>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Header>
+              {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
+            </Card.Header>
+            <Card.Content>
+              <Heading size={4}>Total Receivables</Heading>
+              <Heading subtitle size={6} className={styles.metric}>
+                {"₹"+Math.round(-1*inflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Header>
+              {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
+            </Card.Header>
+            <Card.Content>
+              <Heading size={4}>Total Collected</Heading>
+              <Heading subtitle size={6} className={styles.metric}>
+                {"₹"+Math.round(Collections.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Header>
+              {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
+            </Card.Header>
+            <Card.Content>
+              <Heading size={4}>Total Credit</Heading>
+              <Heading subtitle size={6} className={styles.metric}>
+                {"₹"+Math.round(credit.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
         <Cell width={1} height={2}>
-          <div className={styles.inflowCustomers}>
+          <div className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  inflowColumns, [])}
@@ -209,7 +249,7 @@ const Inflows = (props: Props) => {
             </Table>
           </div>
         </Cell>
-        <Cell width={1} height={1}>
+        <Cell width={1} height={2} className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  collectionColumns, [])}
@@ -218,7 +258,7 @@ const Inflows = (props: Props) => {
             >
             </Table>
         </Cell>
-        <Cell width={1} height={1}>
+        <Cell width={1} height={2} className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  delayedColumns, [])}

@@ -42,14 +42,14 @@ const Sidebar = () => {
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Operations">
+            <Menu.List.Item active={location.pathname === "/credit"}>
+              <Link className={styles.sidebarLink} to="/credit">📉 Credit</Link>
+            </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/receivables"}>
               <Link className={styles.sidebarLink} to="/receivables">📥 Receivables</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/payables"}>
               <Link className={styles.sidebarLink} to="/payables">📤 Payables</Link>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/credit"}>
-              <Link className={styles.sidebarLink} to="/credit">📉 Credit</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/inventory"}>
               <Link className={styles.sidebarLink} to="/inventory">🏬 Inventory</Link>

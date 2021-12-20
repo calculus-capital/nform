@@ -1,6 +1,11 @@
 
 .flowContainer {
   margin: 20px;
+  overflow: none;
+}
+
+.containerGrid {
+  height: 85vh;
 }
 
 .title {
@@ -28,11 +33,30 @@
 }
 
 .inflowLine, .outflowLine {
-  height: 350px;
+  height: 40vh;
 }
 
-.inflowCustomers, .outflowCustomers {
+.tables {
   overflow-y: scroll;
-  height: 800px;
+  height: 350px;
   border-bottom: 1px solid #4c4c70;
 }
+
+.card {
+  height: 100px;
+  background-color: inherit;
+  /* border: 10px solid #24145f; */
+  border-radius: 10px;
+}
+
+.card * {
+  color: #b4b4b4;
+}
+
+.metric {
+  margin-top: 20px !important;
+  font-size: 30pt !important;
+  padding-bottom: 30px;
+  border-bottom: 10px solid #24145f;
+}
+
