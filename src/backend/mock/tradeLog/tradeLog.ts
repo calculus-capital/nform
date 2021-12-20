@@ -66,7 +66,7 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
 
     // pay in fractions as payment date nears
-    const earlyPayments = 0.3
+    const earlyPayments = 0.5
     if (end.diff(moment(), "days") < 0) {
       payment.amount = totalCost
     }

@@ -13,8 +13,6 @@ interface Props {
   data: Trade[]
 }
 
-const cumsum = ((sum:number) => (value:number) => sum += value)(0)
-
 const inflowColumns = [{
   Header: "Collections Remaining",
   columns: [{

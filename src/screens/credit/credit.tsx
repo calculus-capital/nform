@@ -158,7 +158,7 @@ const Credit = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Total Credit</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹"+receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.credit, 0)}
+                {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.credit, 0)*100)/100}
               </Heading>
             </Card.Content>
           </Card>
@@ -171,7 +171,7 @@ const Credit = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Credit Active</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹"+receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.remaining, 0)}
+                {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.remaining, 0)*100)/100}
               </Heading>
             </Card.Content>
           </Card>
@@ -184,7 +184,7 @@ const Credit = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Total Repaid</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹"+receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.repaid, 0)}
+                {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.repaid, 0)*100)/100}
               </Heading>
             </Card.Content>
           </Card>

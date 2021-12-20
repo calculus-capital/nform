@@ -51,15 +51,6 @@ const Inventory = (props: Props) => {
     })
   })
 
-  // const inventory = inventoryLog
-  //   .reduce((m, i) => {
-  //     if (i.sku in m) {
-  //       m.i
-  //     }
-  //   }, {})
-
-  console.log(inventoryLog)
-
   const [data, setData] = useState(inventoryLog)
 
   return (
