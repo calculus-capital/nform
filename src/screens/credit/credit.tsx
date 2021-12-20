@@ -149,7 +149,7 @@ const Credit = (props: Props) => {
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={4} className={styles.containerGrid}>
+      <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
             <Card.Header>
@@ -189,6 +189,8 @@ const Credit = (props: Props) => {
             </Card.Content>
           </Card>
         </Cell>
+      </Grid>
+      <Grid columns={3} rows={3} className={styles.containerGrid}>
         <Cell width={3} height={3}>
           <div className={styles.creditWheel}>
           <Treemap

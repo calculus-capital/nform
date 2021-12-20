@@ -33,11 +33,13 @@
 }
 
 .inflowLine {
-  height: 40vh;
+  height: 50vh;
+  max-height: 500px;
 }
 
 .outflowLine {
-  height: 40vh;
+  height: 50vh;
+  max-height: 500px;
 }
 
 .tables {
