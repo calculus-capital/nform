@@ -8,6 +8,7 @@ import Line from '../../components/charts/line'
 
 import styles from './flows.module.css'
 import { Card, Heading } from 'react-bulma-components'
+import 'bulma/css/bulma.min.css';
 
 interface Props {
   data: Trade[]
@@ -129,7 +130,8 @@ const Inflows = (props: Props) => {
       return m
     }, new Map<string, number>())
 
-  var inflowPartnersData:{customer: string, amount: number}[] = []
+  var inflowPartnersData: { customer: string, amount: number }[] = []
+  // @ts-ignore
   for (const [k, v] of inflowPartners) {
     inflowPartnersData.push({
       customer: k,
@@ -159,7 +161,7 @@ const Inflows = (props: Props) => {
         const topay = d.items.reduce((i, j) => i + Math.round(j.price*100)/100, 0)
         const paid = d.payments.reduce((i, j) => i + Math.round(j.amount*100)/100, 0)
 
-        return moment(d.terms.maturity).isBefore(moment()) && topay != paid
+        return moment(d.terms.maturity).isBefore(moment()) && topay !== paid
       })
       .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
       .map(d => {
@@ -179,15 +181,16 @@ const Inflows = (props: Props) => {
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={5} className={styles.containerGrid}>
-        <Cell width={2} height={3} >
+      <Grid columns={3} rows={2} className={styles.containerGrid}>
+        <Cell width={2} height={1} >
           <p className={styles.title}>Cash & Credit Inflow</p>
           <div className={styles.inflowLine}>
             {/* @ts-ignore */}
             <Line data={[
               {
                 id: 'To collect',
-                data: inflow,              },{
+                data: inflow,
+              }, {
                 id: "Credit",
                 data: credit
               },{
@@ -197,8 +200,8 @@ const Inflows = (props: Props) => {
             ]}></Line>
           </div>
         </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+        <Cell width={1} height={1} className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -209,9 +212,7 @@ const Inflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-        </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -222,9 +223,7 @@ const Inflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-        </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -236,7 +235,7 @@ const Inflows = (props: Props) => {
             </Card.Content>
           </Card>
         </Cell>
-        <Cell width={1} height={2} className={styles.tables}>
+        <Cell width={1} height={1} className={styles.tables}>
           {/* @ts-ignore */}
           <Table
             columns={useMemo(() =>  inflowColumns, [])}
@@ -245,7 +244,7 @@ const Inflows = (props: Props) => {
           >
           </Table>
         </Cell>
-        <Cell width={1} height={2} className={styles.tables}>
+        <Cell width={1} height={1} className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  collectionColumns, [])}

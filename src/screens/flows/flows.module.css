@@ -43,10 +43,14 @@
 }
 
 .card {
-  height: 100px;
+  height: 150px;
   background-color: inherit;
   /* border: 10px solid #24145f; */
   border-radius: 10px;
+}
+
+.card > div {
+  background-color: inherit;
 }
 
 .card * {

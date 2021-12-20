@@ -8,6 +8,7 @@ import Line from '../../components/charts/line'
 
 import styles from './flows.module.css'
 import { Card, Heading } from 'react-bulma-components'
+import 'bulma/css/bulma.min.css';
 
 interface Props {
   data: Trade[]
@@ -175,15 +176,13 @@ const Outflows = (props: Props) => {
         }
       })
 
-  console.log(delayedPayments)
-
   return (
     <div className={styles.flowContainer}>
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={5} className={styles.containerGrid}>
-        <Cell width={2} height={3} >
+      <Grid columns={3} rows={2} className={styles.containerGrid}>
+        <Cell width={2} height={1} >
           <p className={styles.title}>Cash & Credit Outflow</p>
           <div className={styles.outflowLine}>
             {/* @ts-ignore */}
@@ -201,8 +200,8 @@ const Outflows = (props: Props) => {
             ]}></Line>
           </div>
         </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+        <Cell width={1} height={1} className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -213,9 +212,7 @@ const Outflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-        </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -226,9 +223,7 @@ const Outflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-        </Cell>
-        <Cell width={1} height={1}>
-          <Card className={styles.card}>
+          <Card>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
@@ -240,7 +235,7 @@ const Outflows = (props: Props) => {
             </Card.Content>
           </Card>
         </Cell>
-        <Cell width={1} height={2}>
+        <Cell width={1} height={1}>
           <div className={styles.tables}>
             {/* @ts-ignore */}
             <Table
@@ -251,7 +246,7 @@ const Outflows = (props: Props) => {
             </Table>
           </div>
         </Cell>
-        <Cell width={1} height={2} className={styles.tables}>
+        <Cell width={1} height={1} className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  paymentColumns, [])}
@@ -260,7 +255,7 @@ const Outflows = (props: Props) => {
             >
             </Table>
         </Cell>
-        <Cell width={1} height={2} className={styles.tables}>
+        <Cell width={1} height={1} className={styles.tables}>
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  delayedColumns, [])}
