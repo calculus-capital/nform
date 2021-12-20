@@ -62,6 +62,7 @@ export const generateTradeLog = (items: number): Trade[] => {
       amount: 0,
       to    : bene,
       credit: Math.random() < 0.3 ? true : false,
+      repaid: 0
     }
 
     // pay in fractions as payment date nears
@@ -71,6 +72,11 @@ export const generateTradeLog = (items: number): Trade[] => {
     }
     else if (end.diff(moment(), "days") < 10) {
       payment.amount = totalCost / 2
+    } else if (end.diff(moment(), 'days') > 30) {
+      payment.amount = earlyPayments * totalCost
+      payment.credit = true
+      payment.repaid = earlyPayments * totalCost / 3
+      payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
     } else {
       payment.amount = earlyPayments * totalCost
       payment.credit = true

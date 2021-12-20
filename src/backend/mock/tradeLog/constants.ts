@@ -15,4 +15,4 @@ export const traders = [
   "RSTL", "JONJUA", "DRA", "SCPL", "MEERA", "ADVITIYA", "RMC",
   "JFL", "RACE", "RTL", "JANUSCORP", "INDOUS", "INFLAME", "ACML",
   "VIDLI", "SUPERSHAKT"
-]
+].slice(0, 10)

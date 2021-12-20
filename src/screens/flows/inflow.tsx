@@ -174,7 +174,6 @@ const Inflows = (props: Props) => {
         }
       })
 
-  console.log(delayedPayments)
 
   return (
     <div className={styles.flowContainer}>

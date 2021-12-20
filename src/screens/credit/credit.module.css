@@ -1,0 +1,56 @@
+
+.creditContainer {
+  margin: 20px;
+  overflow: none;
+}
+
+.containerGrid {
+  height: 85vh;
+}
+
+.customer {
+  font-size: 13pt;
+  color: #b2b2b2;
+  padding: 10px;
+  margin: 10px;
+  border-bottom: 2px solid #3f3f3f;
+}
+
+.creditEvents {
+  overflow-y: scroll;
+  height: 350px;
+  border-bottom: 1px solid #4c4c70;
+}
+
+.creditWheel {
+  height: 55vh;
+}
+
+.creditContainer text {
+  stroke: #fff;
+  stroke-width: 1.2;
+  font-style: normal;
+  font-family: 'Source Code Pro' !important;
+  font-size: 9pt !important;
+  font-weight: lighter;
+
+  padding: 20px;
+}
+
+.card {
+  height: 200px;
+  background-color: inherit;
+  /* border: 10px solid #24145f; */
+  border-radius: 10px;
+}
+
+.card * {
+  color: #b4b4b4;
+}
+
+.metric {
+  margin-top: 20px !important;
+  font-size: 30pt !important;
+  padding-bottom: 30px;
+  border-bottom: 10px solid #24145f;
+}

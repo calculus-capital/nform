@@ -10,6 +10,7 @@ import Ledger from '../screens/ledger/ledger'
 import Inventory from '../screens/inventory/inventory'
 import Outflows from '../screens/flows/outflow'
 import Inflows from '../screens/flows/inflow'
+import Credit from '../screens/credit/credit'
 
 const Everything = () => {
 
@@ -30,6 +31,7 @@ const Everything = () => {
               <Route path="/ledger" element={<Ledger data={ data }></Ledger> }/>
               <Route path="/payables" element={<Outflows data={ data }></Outflows> }/>
               <Route path="/receivables" element={<Inflows data={ data }></Inflows> }/>
+              <Route path="/credit" element={<Credit data={ data }></Credit> }/>
             </Routes>
           </Cell>
         </Grid>

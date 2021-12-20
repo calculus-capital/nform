@@ -29,11 +29,13 @@ export interface Beneficiary {
 }
 
 export interface Payment {
-  id    : number
-  date  : Date
-  amount: number
-  to    : Beneficiary
-  credit: boolean
+  id         : number
+  date       : Date
+  amount     : number
+  to         : Beneficiary
+  credit     : boolean
+  repaid     : number
+  repaidDate?: Date
 }
 
 export interface Trade {
