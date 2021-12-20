@@ -149,7 +149,7 @@ const Credit = (props: Props) => {
       <div>
         <p className={styles.customer}>Purplle</p>
       </div>
-      <Grid columns={3} rows={7} className={styles.containerGrid}>
+      <Grid columns={3} rows={4} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
             <Card.Header>
@@ -207,8 +207,8 @@ const Credit = (props: Props) => {
           ></Treemap>
           </div>
         </Cell>
-        <Cell width={3} height={3}>
-          <div className={styles.creditEvents}>
+      </Grid>
+      <div className={styles.creditEvents}>
               {/* @ts-ignore */}
               <Table
                 columns={useMemo(() =>  creditColumns, [])}
@@ -217,8 +217,6 @@ const Credit = (props: Props) => {
               >
               </Table>
             </div>
-        </Cell>
-      </Grid>
     </div>
   )
 }

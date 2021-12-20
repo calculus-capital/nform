@@ -18,7 +18,7 @@
 
 .creditEvents {
   overflow-y: scroll;
-  height: 350px;
+  height: 50vh;
   border-bottom: 1px solid #4c4c70;
 }
 
