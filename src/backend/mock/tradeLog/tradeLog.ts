@@ -65,9 +65,10 @@ export const generateTradeLog = (items: number): Trade[] => {
       repaid: 0
     }
 
+    const averageDelay = 15
     // pay in fractions as payment date nears
-    const earlyPayments = 0.5
-    if (end.diff(moment(), "days") < 0) {
+    const earlyPayments = 0.1
+    if (end.diff(moment(), "days") < -1*averageDelay) {
       payment.amount = totalCost
     }
     else if (end.diff(moment(), "days") < 10) {

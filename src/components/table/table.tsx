@@ -1,6 +1,9 @@
 // @ts-nocheck
-import React, { useMemo } from 'react'
-import { useTable, useExpanded, useBlockLayout} from 'react-table'
+import React, { useMemo, useState } from 'react'
+import { useTable, useExpanded, useBlockLayout } from 'react-table'
+
+import { Button, Modal } from 'react-bulma-components'
+import { Grid, Cell } from 'styled-css-grid'
 
 import styles from './table.module.css'
 
@@ -15,6 +18,7 @@ interface Props {
   columns: Column[],
   data   : any
   expand?: boolean
+  clickHandler?: (e:Event) => any
 }
 
 const expander = {
@@ -36,6 +40,7 @@ const expander = {
 const Table = (props: Props) => {
 
   const columns = props.expand ? [expander, ...props.columns] : props.columns
+  const [modal, setModal] = useState<Row<object>>(null)
 
   const defaultColumn = useMemo(
     () => ({
@@ -66,6 +71,33 @@ const Table = (props: Props) => {
     useBlockLayout,
   )
 
+  const RowModal = () => {
+
+    return (
+      <Modal show={modal !== null} onClose={() => setModal(null)}>
+        <Modal.Content className={styles.rowModalContent}>
+          <div className={styles.rowModalTitle}>
+            <h1>{props.columns[0].Header}</h1>
+            <p className={styles.rowModalClose} onClick={() => setModal(null)}>❌</p>
+          </div>
+          <Grid columns={1} rows={modal !== null ? modal.cells.length : 0} className={styles.rowModalEntry}>
+            {modal !== null && modal.cells.map(cell => {
+              return (
+                <Cell width={1} height={1}>
+                  <Grid columns={2} className={styles.rowModalRow}>
+                    <Cell className={styles.rowModalHeader}>{cell.column.Header}</Cell>
+                    <Cell className={styles.rowModalValue}>{cell.value}</Cell>
+                  </Grid>
+                </Cell>
+              )
+            })}
+          </Grid>
+          <p>{props.row}</p>
+        </Modal.Content>
+      </Modal>
+    )
+  }
+
   return (
     <div className={ styles.tableContainer }>
       <div className={styles.table} key={ getTableProps().key } {...getTableProps()}>
@@ -86,7 +118,7 @@ const Table = (props: Props) => {
             return (
               // Use a React.Fragment here so the table markup is still valid
               <React.Fragment {...row.getRowProps()}>
-                <div className={ styles.tr }>
+                <div className={ styles.tr } onClick={(e:Event) => props.clickHandler ? props.clickHandler(row) : setModal(row)}>
                   {row.cells.map(cell => {
                     return (
                       <div {...cell.getCellProps()} className={ styles.td }>{cell.render('Cell')}</div>
@@ -117,6 +149,7 @@ const Table = (props: Props) => {
           })}
         </div>
       </div>
+      <RowModal></RowModal>
     </div>
   )
 }

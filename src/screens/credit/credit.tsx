@@ -7,7 +7,6 @@ import Table from '../../components/table/table'
 
 import styles from './credit.module.css'
 import { groupBy } from '../../utils/groupby';
-import Sunburst from '../../components/charts/sunburst'
 import Treemap from '../../components/charts/treemap'
 import { Card, Heading } from 'react-bulma-components'
 
