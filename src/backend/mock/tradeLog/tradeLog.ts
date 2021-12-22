@@ -47,7 +47,7 @@ const randomBeneficiary = (): Beneficiary => {
 
 export const generateTradeLog = (items: number): Trade[] => {
 
-  let trades: Trade[] = Array(items).fill(0).map((_, i) => {
+  let trades: Trade[] = Array(items).fill(0).flatMap((_, i) => {
     const terms = randomPaymentTerms()
     const items = Array(getRandomInt(1, 10)).fill(0).map(_ => randomTradeItem())
     const bene = randomBeneficiary()
@@ -89,7 +89,31 @@ export const generateTradeLog = (items: number): Trade[] => {
       beneficiaries: [bene],
       payments     : payment.amount > 0 ? [payment] : []
     }
-    return item
+
+    if (item.type === TradeType.PROCUREMENT) {
+      let conterms = terms
+      conterms.startDate = moment(terms.maturity).add(getRandomInt(30, 90), 'day').toDate()
+      let consumption: Trade = {
+        type         : TradeType.CONSUMPTION,
+        items        : items,
+        terms        : conterms,
+        beneficiaries: [bene],
+        payments     : payment.amount > 0 ? [payment] : []
+      }
+      return [item, consumption]
+    } else if (item.type === TradeType.SALES) {
+      let prodterms = terms
+      prodterms.startDate = moment(terms.maturity).subtract(getRandomInt(30, 90), 'day').toDate()
+      let consumption: Trade = {
+        type         : TradeType.PRODUCTION,
+        items        : items,
+        terms        : prodterms,
+        beneficiaries: [bene],
+        payments     : payment.amount > 0 ? [payment] : []
+      }
+      return [item, consumption]
+    }
+    return [item]
   })
   return trades
 }

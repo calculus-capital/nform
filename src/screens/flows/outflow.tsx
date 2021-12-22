@@ -252,7 +252,7 @@ const Outflows = (props: Props) => {
             {/* @ts-ignore */}
             <Table
               columns={useMemo(() =>  paymentColumns, [])}
-              data={upcomingPayments.slice(0, 5)}
+              data={upcomingPayments.slice(0, 10)}
               expand={false}
             >
             </Table>

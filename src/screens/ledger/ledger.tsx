@@ -41,17 +41,19 @@ const ledgerColumns = [{
 
 const Ledger = (props: Props) => {
 
-  const ledgerData = props.data.map(x => {
-    return {
-      type    : TradeType[x.type],
-      date    : moment(x.terms.startDate).format("DD-MM-YYYY"),
-      entity  : x.beneficiaries[0].name,
-      maturity: moment(x.terms.maturity).format("DD-MM-YYYY"),
-      amount  : x.items.reduce((x, y) => x + Math.round(y.price*100)/100, 0),
-      cleared : x.payments.reduce((x, y) => x + Math.round(y.amount*100)/100, 0),
-      discount: Math.round(x.terms.merchant_discount*100)/100,
-    }
-  })
+  const ledgerData = props.data
+    .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
+    .map(x => {
+      return {
+        type    : TradeType[x.type],
+        date    : moment(x.terms.startDate).format("DD-MM-YYYY"),
+        entity  : x.beneficiaries[0].name,
+        maturity: moment(x.terms.maturity).format("DD-MM-YYYY"),
+        amount  : x.items.reduce((x, y) => x + Math.round(y.price*100)/100, 0),
+        cleared : x.payments.reduce((x, y) => x + Math.round(y.amount*100)/100, 0),
+        discount: Math.round(x.terms.merchant_discount*100)/100,
+      }
+    })
 
   const [data, setData] = useState(ledgerData)
 

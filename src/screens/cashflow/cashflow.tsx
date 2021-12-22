@@ -15,6 +15,7 @@ interface Props {
 const Cashflow = (props:Props) => {
 
   const data = props.data
+    .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
 
   // Global picture
   const receivables = data.filter((d) => { return d.type === TradeType.SALES })
