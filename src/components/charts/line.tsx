@@ -34,7 +34,7 @@ const Line = (props: { data: any[] }) => {
         useMesh={true}
         debugMesh={false}
         enableArea={true}
-        areaOpacity={0.2}
+        areaOpacity={0.1}
         areaBlendMode="difference"
         curve="monotoneX"
         axisLeft={{

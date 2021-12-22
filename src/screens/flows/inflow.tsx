@@ -69,11 +69,12 @@ const Inflows = (props: Props) => {
         y: cashout - cashin
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: -1*(d.y + scr)
+        y: (d.y + scr)
       }
     })
 
@@ -85,10 +86,11 @@ const Inflows = (props: Props) => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
 
       return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        x: moment(d.payments[d.payments.length-1].date).format("DD-MM-YYYY"),
         y: cashin - cr
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
@@ -104,10 +106,11 @@ const Inflows = (props: Props) => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
 
       return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        x: moment(d.payments[d.payments.length-1].date).format("DD-MM-YYYY"),
         y: cr
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
@@ -208,7 +211,7 @@ const Inflows = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Total Receivables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹"+Math.round(-1*inflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
+                {"₹"+Math.round(inflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
             </Card.Content>
           </Card>

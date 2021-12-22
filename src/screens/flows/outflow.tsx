@@ -71,11 +71,12 @@ const Outflows = (props: Props) => {
         y: cashout - cashin
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: -1*(d.y + scr)
+        y: (d.y + scr)
       }
     })
 
@@ -91,6 +92,7 @@ const Outflows = (props: Props) => {
         y: cashin - cr
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
@@ -110,6 +112,7 @@ const Outflows = (props: Props) => {
         y: cr
       }
     })
+    .filter(d => d.y > 0)
     .map(d => {
       scr = scr + d.y
       return {
@@ -208,7 +211,7 @@ const Outflows = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Total Payables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹"+Math.round(-1*outflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
+                {"₹"+Math.round(outflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
             </Card.Content>
           </Card>

@@ -56,35 +56,55 @@ export const generateTradeLog = (items: number): Trade[] => {
     const end = moment(terms.maturity)
     const totalCost = items.map((i) => { return i.price }).reduce((x, y) => x + y)
 
+    const tradeType = Math.random() < 0.6 ? TradeType.SALES: TradeType.PROCUREMENT
+
     const payment:Payment = {
       id    : getRandomInt(10000000000, 99999999999),
-      date  : new Date(),
+      date  : end.toDate(),
       amount: 0,
       to    : bene,
-      credit: Math.random() < 0.3 ? true : false,
+      credit: false,
       repaid: 0
     }
 
     const averageDelay = 15
     // pay in fractions as payment date nears
-    const earlyPayments = 0.1
-    if (end.diff(moment(), "days") < -1*averageDelay) {
-      payment.amount = totalCost
-    }
-    else if (end.diff(moment(), "days") < 10) {
-      payment.amount = totalCost / 2
-    } else if (end.diff(moment(), 'days') > 30) {
-      payment.amount = earlyPayments * totalCost
-      payment.credit = true
-      payment.repaid = earlyPayments * totalCost / 3
-      payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
-    } else {
-      payment.amount = earlyPayments * totalCost
-      payment.credit = true
+    const earlyPayments = 0.2
+
+    if (tradeType === TradeType.SALES) {
+      if (end.diff(moment(), "days") < -1*averageDelay) {
+        payment.amount = totalCost
+      }
+      else if (end.diff(moment(), "days") < 10) {
+        payment.amount = totalCost / 2
+        payment.date = new Date()
+      } else if (end.diff(moment(), 'days') > 30) {
+        payment.amount = earlyPayments * totalCost
+        payment.credit = true
+        payment.repaid = earlyPayments * totalCost / 3
+        payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+      } else {
+        payment.amount = earlyPayments * totalCost
+      }
+    } else if (tradeType === TradeType.PROCUREMENT) {
+      if (end.diff(moment(), "days") < -1*averageDelay) {
+        payment.amount = totalCost
+      }
+      else if (end.diff(moment(), "days") < 10) {
+        payment.amount = totalCost / 2
+      } else if (end.diff(moment(), 'days') > 30) {
+        payment.amount = earlyPayments * totalCost
+        payment.credit = true
+        payment.repaid = earlyPayments * totalCost / 3
+        payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+      } else {
+        payment.amount = 0
+      }
     }
 
+
     let item:Trade = {
-      type         : Math.random() < 0.6 ? TradeType.SALES: TradeType.PROCUREMENT,
+      type         : tradeType,
       items        : items,
       terms        : terms,
       beneficiaries: [bene],
