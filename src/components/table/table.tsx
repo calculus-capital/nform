@@ -84,9 +84,12 @@ const Table = (props: Props) => {
             {modal !== null && modal.cells.map(cell => {
               return (
                 <Cell width={1} height={1}>
-                  <Grid columns={2} className={styles.rowModalRow}>
+                  <Grid columns={3} className={styles.rowModalRow}>
                     <Cell className={styles.rowModalHeader}>{cell.column.Header}</Cell>
                     <Cell className={styles.rowModalValue}>{cell.value}</Cell>
+                    <Cell className={styles.rowModalValue} left>
+                      <a className={styles.rowModalEdit}>edit</a>
+                    </Cell>
                   </Grid>
                 </Cell>
               )
