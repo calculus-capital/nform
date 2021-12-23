@@ -21,7 +21,7 @@
 .something {
   background-color: #0c0c20;
   border-radius: 30px;
-  height: 97vh;
+  height: calc(100vh - 20px);
   overflow: auto;
 }
 

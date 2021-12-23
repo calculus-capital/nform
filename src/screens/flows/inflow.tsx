@@ -86,7 +86,7 @@ const Inflows = (props: Props) => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
 
       return {
-        x: moment(d.payments[d.payments.length-1].date).format("DD-MM-YYYY"),
+        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
         y: cashin - cr
       }
     })
@@ -103,9 +103,10 @@ const Inflows = (props: Props) => {
   const credit = data
     .map(d => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+      const date = d.payments.filter(x => x.credit).map(x => x.date).pop()
 
       return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        x: moment(date).format("DD-MM-YYYY"),
         y: cr
       }
     })
@@ -182,7 +183,7 @@ const Inflows = (props: Props) => {
     <div className={styles.flowContainer}>
       <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={2} height={1} >
-          <p className={styles.title}>Cash & Credit Inflow</p>
+          <p className={styles.title}>Cash & Credit Inflow (+90 days Projections)</p>
           <div className={styles.inflowLine}>
             {/* @ts-ignore */}
             <Line data={[

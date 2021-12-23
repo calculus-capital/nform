@@ -1,6 +1,6 @@
 
 .sidebar {
-  height: 88vh;
+  height: calc(90vh - 5px);
   position: fixed;
   top: 30px;
   left: 20px;

@@ -19,21 +19,21 @@ const companies = ["Dunzo", "Epigamia", "Wakefit", "Zivame", "Bombay Shaving Com
 "Wingreen Farms", "Country Delight", "Zouk", "Sleepy Cat", "Kama Ayurveda", "Yogabar",
   "Biryani by Kilo", "Licious", "mCaffeine", "Flobiz", "Purplle",]
 
-const orig = backend.generateTradeLog(300)
+const orig = backend.generateTradeLog(1000)
 const company = companies[getRandomInt(0, companies.length-1)]
 
 const Everything = () => {
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(
     orig
-      .filter(x => moment(x.terms.startDate).isAfter(moment().subtract(30, 'days')))
+      .filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, 'days')))
   )
   const data = React.useMemo(() => timeRange, [timeRange])
 
   const filterByTime = (days: number) => {
     setTime(days)
     const t = orig
-      .filter(x => moment(x.terms.startDate).isAfter(moment().subtract(days, 'days')))
+      .filter(x => moment(x.terms.maturity).isAfter(moment().subtract(days, 'days')))
     setTimeRange(t)
   }
 

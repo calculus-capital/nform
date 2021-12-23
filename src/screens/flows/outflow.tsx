@@ -105,10 +105,11 @@ const Outflows = (props: Props) => {
   const credit = data
     .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
-      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x, y) => x + y, 0) / 100000 * 100) / 100
+      const date = d.payments.filter(x => x.credit).map(x => x.date).pop()
 
       return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
+        x: moment(date).format("DD-MM-YYYY"),
         y: cr
       }
     })
@@ -183,7 +184,7 @@ const Outflows = (props: Props) => {
     <div className={styles.flowContainer}>
       <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={2} height={1} >
-          <p className={styles.title}>Cash & Credit Outflow</p>
+          <p className={styles.title}>Cash & Credit Outflow (+90 days Projections)</p>
           <div className={styles.outflowLine}>
             {/* @ts-ignore */}
             <Line data={[

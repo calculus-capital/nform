@@ -5,8 +5,8 @@ import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate, getRa
 import moment from 'moment';
 
 const randomTradeItem = (): TradeItem => {
-  const price = getRandomArbitrary(100, 100)
-  const quantity: number = getRandomInt(1000, 10000)
+  const price = getRandomArbitrary(10, 100)
+  const quantity: number = getRandomInt(1, 100)
 
   const item: TradeItem = {
     id            : getRandomInt(10000000000, 99999999999),
@@ -77,14 +77,16 @@ export const generateTradeLog = (items: number): Trade[] => {
       }
       else if (end.diff(moment(), "days") < 10) {
         payment.amount = totalCost / 2
-        payment.date = new Date()
-      } else if (end.diff(moment(), 'days') > 30) {
+        payment.date = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+      } else if (end.diff(moment(), 'days') > 15) {
+        // if > 30 days make an early payment
         payment.amount = earlyPayments * totalCost
         payment.credit = true
+        // make a repayment as well
         payment.repaid = earlyPayments * totalCost / 3
         payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
       } else {
-        payment.amount = earlyPayments * totalCost
+        payment.amount = 0
       }
     } else if (tradeType === TradeType.PROCUREMENT) {
       if (end.diff(moment(), "days") < -1*averageDelay) {
