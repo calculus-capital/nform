@@ -55,6 +55,7 @@
 
 .tr :hover {
   background-color: #151550;
+  cursor: pointer;
 }
 
 .rowModalTitle {

@@ -101,12 +101,11 @@ const Inflows = (props: Props) => {
 
   scr = 0
   const credit = data
-    .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
 
       return {
-        x: moment(d.payments[d.payments.length-1].date).format("DD-MM-YYYY"),
+        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
         y: cr
       }
     })
