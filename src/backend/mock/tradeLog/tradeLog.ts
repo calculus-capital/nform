@@ -22,7 +22,7 @@ const randomTradeItem = (): TradeItem => {
 
 const randomPaymentTerms = (): PaymentTerms => {
 
-  let d = getRandomDate(moment().subtract(24, 'month').toDate(), moment().add(1, 'month').toDate())
+  let d = getRandomDate(moment().subtract(24, 'month').toDate(), moment().toDate())
 
   let pt:PaymentTerms = {
     startDate        : d,
@@ -58,49 +58,90 @@ export const generateTradeLog = (items: number): Trade[] => {
 
     const tradeType = Math.random() < 0.6 ? TradeType.SALES: TradeType.PROCUREMENT
 
-    const payment:Payment = {
-      id    : getRandomInt(10000000000, 99999999999),
-      date  : end.toDate(),
-      amount: 0,
-      to    : bene,
-      credit: false,
-      repaid: 0
-    }
+    var payments = [] as Payment[]
 
     const averageDelay = 15
     // pay in fractions as payment date nears
     const earlyPayments = 0.2
 
+    const newPayment = ():Payment => {
+      const payment:Payment = {
+        id    : getRandomInt(10000000000, 99999999999),
+        date  : end.toDate(),
+        amount: 0,
+        to    : bene,
+        credit: false,
+        repaid: 0
+      }
+
+      return payment
+    }
+
     if (tradeType === TradeType.SALES) {
-      if (end.diff(moment(), "days") < -1*averageDelay) {
-        payment.amount = totalCost
+      if (end.diff(moment(), "days") < -1 * averageDelay) {
+        const p1 = newPayment()
+
+        p1.amount = totalCost
+        p1.date = end.toDate()
+
+        const p2 = newPayment()
+        p2.amount = earlyPayments * totalCost
+        p2.credit = true
+        p2.repaid = earlyPayments * totalCost * Math.min(end.diff(moment(), "days")/90, 1)
+        p2.repaidDate = getRandomDate(moment(end).toDate(), moment(end).add(3, 'month').toDate())
+
+        payments = [p1, p2]
       }
       else if (end.diff(moment(), "days") < 10) {
-        payment.amount = totalCost / 2
-        payment.date = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        const p1 = newPayment()
+
+        p1.amount = totalCost / 2
+        p1.date = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        payments = [p1]
       } else if (end.diff(moment(), 'days') > 15) {
+        const p1 = newPayment()
         // if > 30 days make an early payment
-        payment.amount = earlyPayments * totalCost
-        payment.credit = true
+        p1.amount = earlyPayments * totalCost
+        p1.credit = true
         // make a repayment as well
-        payment.repaid = earlyPayments * totalCost / 3
-        payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        p1.repaid = earlyPayments * totalCost * Math.min(end.diff(moment(), "days")/90, 1)
+        p1.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        payments = [p1]
       } else {
-        payment.amount = 0
+        payments = []
       }
     } else if (tradeType === TradeType.PROCUREMENT) {
-      if (end.diff(moment(), "days") < -1*averageDelay) {
-        payment.amount = totalCost
+      if (end.diff(moment(), "days") < -1 * averageDelay) {
+        const p1 = newPayment()
+
+        p1.amount = totalCost
+        p1.date = end.toDate()
+
+        const p2 = newPayment()
+        p2.amount = earlyPayments * totalCost
+        p2.credit = true
+        p2.repaid = earlyPayments * totalCost * Math.min(end.diff(moment(), "days")/90, 1)
+        p2.repaidDate = getRandomDate(moment(end).toDate(), moment(end).add(3, 'month').toDate())
+
+        payments = [p1, p2]
       }
       else if (end.diff(moment(), "days") < 10) {
-        payment.amount = totalCost / 2
-      } else if (end.diff(moment(), 'days') > 30) {
-        payment.amount = earlyPayments * totalCost
-        payment.credit = true
-        payment.repaid = earlyPayments * totalCost / 3
-        payment.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        const p1 = newPayment()
+
+        p1.amount = totalCost / 2
+        p1.date = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        payments = [p1]
+      } else if (end.diff(moment(), 'days') > 15) {
+        const p1 = newPayment()
+        // if > 30 days make an early payment
+        p1.amount = earlyPayments * totalCost
+        p1.credit = true
+        // make a repayment as well
+        p1.repaid = earlyPayments * totalCost * Math.min(end.diff(moment(), "days")/90, 1)
+        p1.repaidDate = getRandomDate(moment().subtract(1, 'month').toDate(), moment().toDate())
+        payments = [p1]
       } else {
-        payment.amount = 0
+        payments = []
       }
     }
 
@@ -110,18 +151,18 @@ export const generateTradeLog = (items: number): Trade[] => {
       items        : items,
       terms        : terms,
       beneficiaries: [bene],
-      payments     : payment.amount > 0 ? [payment] : []
+      payments     : payments
     }
 
     if (item.type === TradeType.PROCUREMENT) {
-      let conterms = terms
+      let conterms = {...terms}
       conterms.startDate = moment(terms.maturity).add(getRandomInt(30, 90), 'day').toDate()
       let consumption: Trade = {
         type         : TradeType.CONSUMPTION,
         items        : items,
         terms        : conterms,
         beneficiaries: [bene],
-        payments     : payment.amount > 0 ? [payment] : []
+        payments     : payments
       }
       return [item, consumption]
     } else if (item.type === TradeType.SALES) {
@@ -132,7 +173,7 @@ export const generateTradeLog = (items: number): Trade[] => {
         items        : items,
         terms        : prodterms,
         beneficiaries: [bene],
-        payments     : payment.amount > 0 ? [payment] : []
+        payments     : payments
       }
       return [item, consumption]
     }

@@ -38,7 +38,10 @@ const Sidebar = () => {
               </div>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/"}>
-              <Link className={styles.sidebarLink} to="/">💵 Cash Flow</Link>
+              <Link className={styles.sidebarLink} to="/">💵 Operations</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/cashflow"}>
+              <Link className={styles.sidebarLink} to="/cashflow">🌊 Cash Flow</Link>
             </Menu.List.Item>
           </Menu.List>
           <Menu.List title="Finance">

@@ -102,12 +102,13 @@ const Inflows = (props: Props) => {
   scr = 0
   const credit = data
     .map(d => {
-      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
+      const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x, y) => x + y, 0) / 100000 * 100) / 100
+      const repaid = Math.floor(d.payments.filter(x => x.credit).map(i => i.repaid).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
       const date = d.payments.filter(x => x.credit).map(x => x.date).pop()
 
       return {
         x: moment(date).format("DD-MM-YYYY"),
-        y: cr
+        y: cr - repaid
       }
     })
     .filter(d => d.y > 0)
@@ -206,7 +207,7 @@ const Inflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Receivables</Heading>
+              <Heading size={4}>Receivables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(inflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
@@ -217,7 +218,7 @@ const Inflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Collected</Heading>
+              <Heading size={4}>Collected</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(Collections.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
@@ -228,7 +229,7 @@ const Inflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Credit</Heading>
+              <Heading size={4}>Credit Availed</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(credit.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>

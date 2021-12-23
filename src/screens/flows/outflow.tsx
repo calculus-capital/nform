@@ -106,11 +106,12 @@ const Outflows = (props: Props) => {
     .sort((x, y) => moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1)
     .map(d => {
       const cr = Math.floor(d.payments.filter(x => x.credit).map(i => i.amount).reduce((x, y) => x + y, 0) / 100000 * 100) / 100
+      const repaid = Math.floor(d.payments.filter(x => x.credit).map(i => i.repaid).reduce((x,y) => x+y, 0) / 100000 * 100) / 100
       const date = d.payments.filter(x => x.credit).map(x => x.date).pop()
 
       return {
         x: moment(date).format("DD-MM-YYYY"),
-        y: cr
+        y: cr - repaid
       }
     })
     .filter(d => d.y > 0)
@@ -207,7 +208,7 @@ const Outflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Payables</Heading>
+              <Heading size={4}>Payables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(outflow.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
@@ -218,7 +219,7 @@ const Outflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Paid</Heading>
+              <Heading size={4}>Paid</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(payments.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>
@@ -229,7 +230,7 @@ const Outflows = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Credit</Heading>
+              <Heading size={4}>Credit Availed</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹"+Math.round(credit.reduce((x, y) => x + y.y, 0)*100)/100+"L"}
               </Heading>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Cell } from 'styled-css-grid'
 import { Routes, Route } from "react-router-dom"
 import * as backend from '../backend'
@@ -12,15 +12,16 @@ import Outflows from '../screens/flows/outflow'
 import Inflows from '../screens/flows/inflow'
 import Credit from '../screens/credit/credit'
 import { getRandomInt } from '../backend/mock/random';
-import { Button } from 'react-bulma-components'
+import { Button, Modal, Form } from 'react-bulma-components'
 import moment from 'moment'
 
 const companies = ["Dunzo", "Epigamia", "Wakefit", "Zivame", "Bombay Shaving Company",
 "Wingreen Farms", "Country Delight", "Zouk", "Sleepy Cat", "Kama Ayurveda", "Yogabar",
-  "Biryani by Kilo", "Licious", "mCaffeine", "Flobiz", "Purplle",]
+  "Biryani by Kilo", "mCaffeine", "Flobiz", "Purplle",]
 
 const orig = backend.generateTradeLog(1000)
 const company = companies[getRandomInt(0, companies.length-1)]
+
 
 const Everything = () => {
   const [time, setTime] = useState(30)
@@ -37,6 +38,42 @@ const Everything = () => {
     setTimeRange(t)
   }
 
+  const [search, setSearch] = useState(false)
+
+
+  const SearchModal = () => {
+
+    return (
+      <Modal show={search} onClose={() => setSearch(false)}>
+        <Modal.Content className={styles.searchModalContent}>
+          <div className={styles.searchbar}>
+            <Form.Control className={styles.search}>
+              <Form.Input
+                placeholder="Navigate to anywhere: e.g. type receivables"
+                type="text"
+                autoFocus
+                onInput={(i) => {
+                  console.log(i)
+                }}
+              />
+            </Form.Control>
+          </div>
+        </Modal.Content>
+      </Modal>
+    )
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', event => {
+      if (event.key === "k" && event.ctrlKey) {
+        setSearch(true)
+      }
+    })
+    return () => {
+
+    }
+  }, [])
+
   return (
     <div className={styles.everything}>
       <div className={styles.something}>
@@ -48,12 +85,6 @@ const Everything = () => {
             <Grid columns={11} className={styles.header}>
               <Cell width={5}>
                 <p className={styles.customer}>{company}</p>
-              </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(365)}>Custom
-                </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
@@ -85,6 +116,12 @@ const Everything = () => {
                   onClick={() => filterByTime(7)}>7 days
                 </Button>
               </Cell>
+              <Cell width={1} middle>
+                <Button
+                  className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
+                  onClick={() => filterByTime(-1)}>Future
+                </Button>
+              </Cell>
             </Grid>
             <Routes>
               <Route path="/" element={<Cashflow data={ data }></Cashflow>}/>
@@ -97,6 +134,7 @@ const Everything = () => {
             </Routes>
           </Cell>
         </Grid>
+        <SearchModal></SearchModal>
       </div>
     </div>
   )
