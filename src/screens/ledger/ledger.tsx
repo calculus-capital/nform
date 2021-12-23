@@ -59,9 +59,6 @@ const Ledger = (props: Props) => {
 
   return (
     <div className={styles.ledger}>
-      <div>
-        <p className={styles.customer}>Purplle</p>
-      </div>
       <p className={styles.title}>Trade Ledger</p>
       <Form.Control className={ styles.search }>
         <Form.Input
@@ -81,7 +78,7 @@ const Ledger = (props: Props) => {
       {/* @ts-ignore */}
       <Table
         columns={useMemo(() =>  ledgerColumns, [])}
-        data={data}
+        data={useMemo(() => data, [props.data])}
         actions={["📃 Purchase Order", "📃 Invoice", "🚩 Flag"]}
       >
       </Table>

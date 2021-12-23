@@ -181,9 +181,6 @@ const Outflows = (props: Props) => {
 
   return (
     <div className={styles.flowContainer}>
-      <div>
-        <p className={styles.customer}>Purplle</p>
-      </div>
       <Grid columns={3} rows={1} className={styles.containerGrid}>
         <Cell width={2} height={1} >
           <p className={styles.title}>Cash & Credit Outflow</p>

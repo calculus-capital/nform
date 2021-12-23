@@ -55,9 +55,6 @@ const Inventory = (props: Props) => {
 
   return (
     <div className={styles.inventory}>
-      <div>
-        <p className={styles.customer}>Purplle</p>
-      </div>
       <p className={styles.title}>Trade inventory</p>
       <Form.Control className={ styles.search }>
         <Form.Input

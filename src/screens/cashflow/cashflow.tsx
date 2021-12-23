@@ -37,9 +37,6 @@ const Cashflow = (props:Props) => {
 
   return (
     <div className={styles.cashflow}>
-      <div>
-        <p className={styles.customer}>Purplle</p>
-      </div>
       <p className={styles.title}>Cash Flow (YTD, in Lakhs)</p>
       {/* Calendars */}
       <Grid columns={2} rows={2} className={styles.calendarContainer}>
