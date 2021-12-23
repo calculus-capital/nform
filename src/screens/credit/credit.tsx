@@ -215,6 +215,7 @@ const Credit = (props: Props) => {
                 columns={useMemo(() =>  creditColumns, [])}
                 data={allEvents}
                 expand={false}
+                actions={["📃 Purchase Order", "📃 Invoice", "💳 Repay", "⏰ Remind"]}
               >
               </Table>
             </div>

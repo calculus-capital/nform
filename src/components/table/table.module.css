@@ -101,3 +101,22 @@
 
 .rowModalValue {
 }
+
+.rowModalActions {
+  margin-top: 20px;
+}
+
+.rowModalAction {
+  /* width: 100px; */
+  width: 100%;
+
+  background-color: inherit;
+  color: #b2b2b2;
+  border-color: #151550;
+}
+
+.rowModalAction:hover {
+  background-color: rgba(50,0,200,0.4);
+  color: #b2b2b2;
+  border-color: #151550;
+}

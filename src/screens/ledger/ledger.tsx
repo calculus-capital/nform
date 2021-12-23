@@ -82,6 +82,7 @@ const Ledger = (props: Props) => {
       <Table
         columns={useMemo(() =>  ledgerColumns, [])}
         data={data}
+        actions={["📃 Purchase Order", "📃 Invoice", "🚩 Flag"]}
       >
       </Table>
     </div>

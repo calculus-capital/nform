@@ -78,6 +78,7 @@ const Inventory = (props: Props) => {
       <Table
         columns={useMemo(() =>  inventoryColumns, [])}
         data={data}
+        actions={["📃 Purchase Order", "📃 Invoice", "🚩 Flag"]}
       >
       </Table>
     </div>

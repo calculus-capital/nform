@@ -247,6 +247,7 @@ const Outflows = (props: Props) => {
               columns={useMemo(() =>  outflowColumns, [])}
               data={payPartners}
               expand={false}
+              actions={["📃 Purchase Orders", "📃 Invoices", "☎️ Contact"]}
             >
             </Table>
           </div>
@@ -257,6 +258,7 @@ const Outflows = (props: Props) => {
               columns={useMemo(() =>  paymentColumns, [])}
               data={upcomingPayments.slice(0, 10)}
               expand={false}
+              actions={["📃 Purchase Order", "📃 Invoice", "💳 Pay", "💸 Discount"]}
             >
             </Table>
         </Cell>
@@ -266,6 +268,7 @@ const Outflows = (props: Props) => {
               columns={useMemo(() =>  delayedColumns, [])}
               data={delayedPayments}
               expand={false}
+              actions={["📃 Purchase Order", "📃 Invoice", "💳 Pay", "🔥 Dispute"]}
             >
             </Table>
         </Cell>

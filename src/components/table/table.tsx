@@ -15,10 +15,12 @@ interface Column {
 }
 
 interface Props {
-  columns: Column[],
-  data   : any
-  expand?: boolean
-  clickHandler?: (e:Event) => any
+  columns        : Column[],
+  data           : any
+  expand?        : boolean
+  actions        : string[]
+  actionHandlers?: ((e:Event) => any)[]
+  clickHandler?  : (e:Event) => any
 }
 
 const expander = {
@@ -88,14 +90,26 @@ const Table = (props: Props) => {
                     <Cell className={styles.rowModalHeader}>{cell.column.Header}</Cell>
                     <Cell className={styles.rowModalValue}>{cell.value}</Cell>
                     <Cell className={styles.rowModalValue} left>
-                      <a className={styles.rowModalEdit}>edit</a>
+                      <a className={styles.rowModalEdit} href="#">edit</a>
                     </Cell>
                   </Grid>
                 </Cell>
               )
             })}
           </Grid>
-          <p>{props.row}</p>
+          <Grid
+            // columns={props.actions ? "100px ".repeat(props.actions.length) : 0}
+            columns={props.actions ? props.actions.length : 0}
+            justifyContent="end"
+            className={styles.rowModalActions}>
+            {props.actions && props.actions.map(action => {
+              return (
+                <Cell width={1}>
+                  <Button className={styles.rowModalAction}>{action}</Button>
+                </Cell>
+              )
+            })}
+          </Grid>
         </Modal.Content>
       </Modal>
     )
