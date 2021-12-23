@@ -68,9 +68,14 @@
   max-width: 200px;
 }
 
+:global(.menu-label) {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
 :global(.menu-list a) {
-  padding-top: .25em;
-  padding-bottom: .25em;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 :global(.dropdown-divider) {

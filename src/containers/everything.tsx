@@ -27,7 +27,7 @@ const Everything = () => {
             <Routes>
               <Route path="/" element={<Cashflow data={ data }></Cashflow>}/>
               <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
-              <Route path="/inventory" element={<Inventory data={ data }></Inventory> }/>
+              <Route path="/inventoryLog" element={<Inventory data={ data }></Inventory> }/>
               <Route path="/ledger" element={<Ledger data={ data }></Ledger> }/>
               <Route path="/payables" element={<Outflows data={ data }></Outflows> }/>
               <Route path="/receivables" element={<Inflows data={ data }></Inflows> }/>

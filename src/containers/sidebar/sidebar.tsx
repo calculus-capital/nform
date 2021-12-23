@@ -41,7 +41,7 @@ const Sidebar = () => {
               <Link className={styles.sidebarLink} to="/">💵 Cash Flow</Link>
             </Menu.List.Item>
           </Menu.List>
-          <Menu.List title="Operations">
+          <Menu.List title="Finance">
             <Menu.List.Item active={location.pathname === "/credit"}>
               <Link className={styles.sidebarLink} to="/credit">📉 Credit</Link>
             </Menu.List.Item>
@@ -51,8 +51,24 @@ const Sidebar = () => {
             <Menu.List.Item active={location.pathname === "/payables"}>
               <Link className={styles.sidebarLink} to="/payables">📤 Payables</Link>
             </Menu.List.Item>
+            {/* <Menu.List.Item active={location.pathname === "/taxes"}>
+              <Link className={styles.sidebarLink} to="/taxes">🟩 Taxes</Link>
+            </Menu.List.Item> */}
+          </Menu.List>
+          {/* <Menu.List title="Operations">
             <Menu.List.Item active={location.pathname === "/inventory"}>
               <Link className={styles.sidebarLink} to="/inventory">🏬 Inventory</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/procurement"}>
+              <Link className={styles.sidebarLink} to="/procurement">🚚 Procurement</Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/fulfillment"}>
+              <Link className={styles.sidebarLink} to="/fulfillment">🚢 Fulfillment</Link>
+            </Menu.List.Item>
+          </Menu.List> */}
+          <Menu.List title="Audit">
+            <Menu.List.Item active={location.pathname === "/inventoryLog"}>
+              <Link className={styles.sidebarLink} to="/inventoryLog">🏬 Inventory</Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/ledger"}>
               <Link className={styles.sidebarLink} to="/ledger">📒 Ledger</Link>
