@@ -39,7 +39,7 @@ const Cashflow = (props:Props) => {
     <div className={styles.cashflow}>
       <p className={styles.title}>Cash Flow (YTD, in Lakhs)</p>
       {/* Calendars */}
-      <Grid columns={2} rows={2} className={styles.calendarContainer}>
+      <Grid columns={2} rows={2} className={styles.container}>
         <Cell width={1} height={2} className={ styles.globalcashflow} center middle>
           <Pie data={pieData}></Pie>
         </Cell>

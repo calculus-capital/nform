@@ -40,7 +40,6 @@ const Everything = () => {
 
   const [search, setSearch] = useState(false)
 
-
   const SearchModal = () => {
 
     return (

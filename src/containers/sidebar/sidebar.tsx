@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import { Menu, Section, Dropdown } from 'react-bulma-components'
@@ -6,10 +6,87 @@ import { Menu, Section, Dropdown } from 'react-bulma-components'
 import logo from "../../assets/logo.png";
 import 'bulma/css/bulma.min.css';
 import styles from './sidebar.module.css'
+import { Button, Modal, Form } from 'react-bulma-components'
+import { Grid, Cell } from 'styled-css-grid';
 
 const Sidebar = () => {
   const location = useLocation()
-  console.log(location.pathname)
+  const [newItem, setNewItem] = useState(false)
+
+  const NewModal = () => {
+    return (
+      <Modal show={newItem} onClose={() => setNewItem(false)}>
+        <Modal.Content className={styles.newItemModalContent}>
+          <div className={styles.newItemModalTitle}>
+            <h1>Create New</h1>
+            <p className={styles.newItemModalClose} onClick={() => setNewItem(false)}>❌</p>
+          </div>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}>
+              <p className={styles.newItemClass}>Trade</p>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>📥 Purchase Order</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>📤 Sale</a>
+            </Cell>
+          </Grid>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}>
+              <p className={styles.newItemClass}>Inventory</p>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>📦 Production</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>📦 Consumption</a>
+            </Cell>
+          </Grid>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}>
+              <p className={styles.newItemClass}>Finance</p>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>💵 Payment</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>💵 Collection</a>
+            </Cell>
+          </Grid>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}></Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>💵 Credit</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>💵 Repayment</a>
+            </Cell>
+          </Grid>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}>
+              <p className={styles.newItemClass}>Partners</p>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>🏭 Vendor</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>🏭 Distributor</a>
+            </Cell>
+          </Grid>
+          <Grid columns={3}>
+            <Cell className={styles.newItemCell}></Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>🏭 Supplier</a>
+            </Cell>
+            <Cell className={styles.newItemCell}>
+              <a className={styles.newItemOption}>💰 Credit Line</a>
+            </Cell>
+          </Grid>
+        </Modal.Content>
+      </Modal>
+    )
+  }
 
   return (
     <div className={styles.sidebar}>
@@ -21,21 +98,7 @@ const Sidebar = () => {
         <Menu>
           <Menu.List title="Dashboards">
             <Menu.List.Item active={location.pathname === "/create"}>
-              <div className={styles.createContainer}>
-                <Dropdown label="⚡️ New" className={ styles.create } color="green">
-                  <Dropdown.Item renderAs="a" value="Order">📥 Purchase</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Sale">📤 Sale</Dropdown.Item>
-                  <Dropdown.Divider></Dropdown.Divider>
-                  <Dropdown.Item renderAs="a" value="Supplier">📦 Production</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Supplier">📦 Consumption</Dropdown.Item>
-                  <Dropdown.Divider></Dropdown.Divider>
-                  <Dropdown.Item renderAs="a" value="Supplier">🏭 Supplier</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Vendor">🏭 Vendor</Dropdown.Item>
-                  <Dropdown.Divider></Dropdown.Divider>
-                  <Dropdown.Item renderAs="a" value="Vendor">💵 Payment</Dropdown.Item>
-                  <Dropdown.Item renderAs="a" value="Vendor">💵 Repayment</Dropdown.Item>
-                </Dropdown>
-              </div>
+              <a className={styles.sidebarLink} href="#" onClick={() => setNewItem(true)}>🟢 New</a>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/"}>
               <Link className={styles.sidebarLink} to="/">💵 Operations</Link>
@@ -95,6 +158,7 @@ const Sidebar = () => {
           </Menu.List>
         </Menu>
       </Section>
+      <NewModal></NewModal>
     </div>
   )
 }

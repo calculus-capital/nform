@@ -1,4 +1,8 @@
 
+.container {
+  margin-top: 50px !important;
+}
+
 .title {
   font-size: 12pt;
   color: #b2b2b2;
@@ -20,34 +24,29 @@
   font-weight: lighter;
 }
 
-
-
 .globalcashflow {
   /* padding: 50px !important; */
-  height: 500px !important;
-  width: 500px;
+  max-height: 50vh !important;
+  width: 30vw;
   margin: auto;
   /* width: 100px; */
 }
 
-.calendarContainer {
-  margin-top: 50px !important;
-  height: 250px;
-}
-
 .calendar {
-  height: 200px;
+  height: 12vw;
+  margin-top: 50px;
 }
 
 .bulletContainer {
-  margin-top: 50px !important;
+  margin-top: 50px;
   border: 0;
   padding: 0;
 }
 
 .bullet {
-  min-height: 100px !important;
-  max-height: 150px !important;
+  height: 20vh;
+  max-height: 150px;
+  max-width: 40vw;
 
   border: 0;
   padding: 0;

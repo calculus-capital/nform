@@ -41,7 +41,6 @@
 .menu a {
   color: #b4b4b4;
   font-size: 13pt;
-  min-width: 150px;
   width: 100%;
   height: 100%;
 }
@@ -91,3 +90,56 @@
 .create span {
   color: #b4b4b4;
 }
+
+.newItemModalContent {
+  padding: 50px;
+  border-radius: 20px;
+
+  background-color: #222232;
+  color: #b2b2b2;
+
+  min-width: 50vw;
+}
+
+.newItemModalTitle {
+  display: inline-flex;
+}
+
+.newItemModalClose {
+  font-size: 20pt;
+  position: absolute;
+  right: 50px;
+  top: 50px;
+}
+
+.newItemModalClose:hover {
+  cursor: pointer;
+}
+
+.newItemModalContent h1 {
+  padding-bottom: 10px;
+  font-size: 30pt;
+
+  border-bottom: 2px solid red;
+  margin-bottom: 20px;
+}
+
+.newItemCell {
+  padding: 10px;
+  width: 100%;
+}
+
+.newItemCell :hover {
+  color: #b2b2b2;
+  border-bottom: 1px solid red;
+}
+
+.newItemClass {
+  font-size: 14pt;
+}
+
+.newItemOption {
+  color: #b2b2b2;
+  font-size: 14pt;
+}
+
