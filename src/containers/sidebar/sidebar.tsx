@@ -24,65 +24,59 @@ const Sidebar = () => {
             <h1>Create New</h1>
             <p className={styles.newItemModalClose} onClick={() => setNewItem(false)}>❌</p>
           </div>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}>
+          <Grid columns={s ? 2 : 3}>
+            <Cell width={1} height={s ? 3 : 2} className={styles.newItemCell}>
               <p className={styles.newItemClass}>Trade</p>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>📥 Purchase Order</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>📤 Sale</a>
             </Cell>
           </Grid>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}>
+          <Grid columns={s ? 2 : 3}>
+            <Cell width={1} height={s ? 3 : 2} className={styles.newItemCell}>
               <p className={styles.newItemClass}>Inventory</p>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>📦 Production</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>📦 Consumption</a>
             </Cell>
           </Grid>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}>
+          <Grid columns={s ? 2 : 3}>
+            <Cell width={1} height={s ? 5 : 2} className={styles.newItemCell}>
               <p className={styles.newItemClass}>Finance</p>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>💵 Payment</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>💵 Collection</a>
             </Cell>
-          </Grid>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}></Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>💵 Credit</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>💵 Repayment</a>
             </Cell>
           </Grid>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}>
+          <Grid columns={s ? 2 : 3}>
+            <Cell width={1} height={s ? 5 : 2} className={styles.newItemCell}>
               <p className={styles.newItemClass}>Partners</p>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>🏭 Vendor</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>🏭 Distributor</a>
             </Cell>
-          </Grid>
-          <Grid columns={3}>
-            <Cell className={styles.newItemCell}></Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>🏭 Supplier</a>
             </Cell>
-            <Cell className={styles.newItemCell}>
+            <Cell width={1} height={1} className={styles.newItemCell}>
               <a className={styles.newItemOption}>💰 Credit Line</a>
             </Cell>
           </Grid>

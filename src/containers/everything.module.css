@@ -34,6 +34,13 @@
   .content {
     margin-right: 50px;
   }
+
+  .customer {
+    font-size: 30pt;
+    font-family: cursive;
+
+    color: #b2b2b2;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 1100px) {
@@ -47,6 +54,13 @@
   .content {
     margin-right: 20px;
   }
+
+  .customer {
+    font-size: 25pt;
+    font-family: cursive;
+
+    color: #b2b2b2;
+  }
 }
 
 @media (max-width: 481px) {
@@ -56,6 +70,13 @@
     height: calc(100vh - 10px);
     overflow: auto;
   }
+
+  .customer {
+    font-size: 25pt;
+    font-family: cursive;
+
+    color: #b2b2b2;
+  }
 }
 
 .header {
@@ -63,13 +84,6 @@
   border-bottom: 1px solid #151550;
 
   margin: 10px;
-}
-
-.customer {
-  font-size: 30pt;
-  font-family: cursive;
-
-  color: #b2b2b2;
 }
 
 .timeButton {
