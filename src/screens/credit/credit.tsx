@@ -1,5 +1,6 @@
 import moment from 'moment'
 import React, { useMemo } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 import { Cell, Grid } from 'styled-css-grid'
 import { Trade, TradeType } from '../../backend'
@@ -14,9 +15,8 @@ interface Props {
   data: Trade[]
 }
 
-const creditColumns = [{
-  Header: "Credit Status",
-  columns: [{
+const creditColumns = [
+  {
     Header: "Type",
     accessor: "type",
   },{
@@ -40,11 +40,14 @@ const creditColumns = [{
   },{
     Header: "Maturity",
     accessor: "maturity",
-  },]
-}]
+  }
+]
 
 
 const Credit = (props: Props) => {
+
+  const s = useMediaQuery({ query: '(max-width: 481px)' })
+  const m = useMediaQuery({ query: '(max-width: 1100px)' })
 
   const receivables =   props.data
     .filter(d => d.type === TradeType.SALES)
@@ -61,10 +64,10 @@ const Credit = (props: Props) => {
           return {
             type: "Receivables",
             customer: d.beneficiaries[0].name,
-            credit: p.amount,
-            remaining: p.amount - p.repaid,
+            credit: Math.round((p.amount)*100)/100,
+            remaining: Math.round((p.amount - p.repaid)*100)/100,
             availed: moment(p.date).format("DD-MM-YYYY"),
-            repaid: p.repaid,
+            repaid: Math.round(p.repaid*100)/100,
             lastRepaid: moment(p.repaidDate).format("DD-MM-YYYY"),
             maturity: moment(p.date).add('90', 'days').format('DD-MM-YYYY')
           }
@@ -81,10 +84,10 @@ const Credit = (props: Props) => {
           return {
             type: "Payables",
             customer: d.beneficiaries[0].name,
-            credit: p.amount,
-            remaining: p.amount - p.repaid,
+            credit: Math.round(p.amount*100)/100,
+            remaining: Math.round((p.amount - p.repaid)*100)/100,
             availed: moment(p.date).format("DD-MM-YYYY"),
-            repaid: p.repaid,
+            repaid: Math.round(p.repaid*100)/100,
             lastRepaid: moment(p.repaidDate).format("DD-MM-YYYY"),
             maturity: moment(p.date).add('90', 'days').format('DD-MM-YYYY')
           }
@@ -141,19 +144,17 @@ const Credit = (props: Props) => {
     }
   })
 
-  console.log(rxData.slice(0, 10))
-
   return (
     <div className={styles.creditContainer}>
-      <Grid columns={3} rows={1} className={styles.containerGrid}>
+      <Grid columns={s ? 1 : 3} rows={s ? 3 : 1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
             <Card.Header>
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Credit</Heading>
-              <Heading subtitle size={6} className={styles.metric}>
+              <Heading size={4}>Availed</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.credit, 0)*100)/100}
               </Heading>
             </Card.Content>
@@ -165,8 +166,8 @@ const Credit = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Credit Active</Heading>
-              <Heading subtitle size={6} className={styles.metric}>
+              <Heading size={4}>Active</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.remaining, 0)*100)/100}
               </Heading>
             </Card.Content>
@@ -178,8 +179,8 @@ const Credit = (props: Props) => {
               {/* <Card.Header.Title>Total Credit</Card.Header.Title> */}
             </Card.Header>
             <Card.Content>
-              <Heading size={4}>Total Repaid</Heading>
-              <Heading subtitle size={6} className={styles.metric}>
+              <Heading size={4}>Repaid</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹"+Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.repaid, 0)*100)/100}
               </Heading>
             </Card.Content>
@@ -189,33 +190,35 @@ const Credit = (props: Props) => {
       <Grid columns={3} rows={3} className={styles.containerGrid}>
         <Cell width={3} height={3}>
           <div className={styles.creditWheel}>
-          <Treemap
-              data={{
-                name: "Total Credit",
-                children: [{
-                  name: "Credit on Receivables",
-                  children: rxData,
-                  color: "#550066"
-                },{
-                  name: "Credit on Payables",
-                  children: txData,
-                  color: "#336600"
-                }]
-              }}
-          ></Treemap>
+            <Treemap
+                data={{
+                  name: "Total Credit",
+                  children: [{
+                    name: "Credit on Receivables",
+                    children: rxData,
+                    color: "#550066"
+                  },{
+                    name: "Credit on Payables",
+                    children: txData,
+                    color: "#336600"
+                  }]
+                }}
+            ></Treemap>
           </div>
         </Cell>
       </Grid>
       <div className={styles.creditEvents}>
-              {/* @ts-ignore */}
-              <Table
-                columns={useMemo(() =>  creditColumns, [])}
-                data={allEvents}
-                expand={false}
-                actions={["📃 Purchase Order", "📃 Invoice", "💳 Repay", "⏰ Remind"]}
-              >
-              </Table>
-            </div>
+        <p className={styles.tableHeader}>Credit Status</p>
+        {/* @ts-ignore */}
+        <Table
+          title="Credit Status"
+          columns={useMemo(() =>  creditColumns, [])}
+          data={allEvents}
+          expand={false}
+          actions={["📃 Purchase Order", "📃 Invoice", "💳 Repay", "⏰ Remind"]}
+        >
+        </Table>
+      </div>
     </div>
   )
 }

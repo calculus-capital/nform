@@ -4,20 +4,6 @@
   overflow: none;
 }
 
-.containerGrid {
-  height: 85vh;
-}
-
-.creditEvents {
-  overflow-y: scroll;
-  height: 50vh;
-  border-bottom: 1px solid #4c4c70;
-}
-
-.creditWheel {
-  height: 55vh;
-}
-
 .creditContainer text {
   stroke: #fff;
   stroke-width: 1.2;
@@ -29,22 +15,107 @@
   padding: 20px;
 }
 
-.card {
-  background-color: inherit;
+.tableHeader {
+  font-size: 14pt;
+  padding: 5px;
 }
 
-.card > div {
-  margin: 20px;
-  /* background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1)); */
-  background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+@media (min-width: 1100px) {
+  .card {
+    background-color: inherit;
+  }
+
+  .card > div {
+    margin: 20px;
+    /* background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1)); */
+    background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 30pt !important;
+    padding-bottom: 10px;
+    /* border-bottom: 10px solid #24145f; */
+  }
+
+  .creditWheel {
+    height: 55vh;
+  }
+
+  .creditEvents {
+    overflow-y: scroll;
+    height: 50vh;
+    border-bottom: 1px solid #4c4c70;
+  }
 }
 
-.card * {
-  color: #b4b4b4;
+@media (max-width: 1100px) and (min-width: 481px) {
+
+  .card {
+    background-color: inherit;
+  }
+
+  .card > div {
+    background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 16pt !important;
+    padding-bottom: 10px;
+  }
+
+  .creditWheel {
+    height: 55vh;
+  }
+
+  .creditEvents {
+    overflow-y: none;
+    height: 70vh;
+    width: 70vw;
+    border-bottom: 1px solid #4c4c70;
+  }
 }
 
-.metric {
-  font-size: 30pt !important;
-  padding-bottom: 10px;
-  /* border-bottom: 10px solid #24145f; */
+@media (max-width: 481px) {
+
+  .card {
+    background-color: inherit;
+  }
+
+  .card > div {
+    /* margin: 20px; */
+    /* background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1)); */
+    background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+  }
+
+  :global(.card-content) {
+    padding: 10px !important;
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 12pt !important;
+    /* padding-bottom: 10px; */
+    /* border-bottom: 10px solid #24145f; */
+  }
+
+  .creditWheel {
+    height: 150vh;
+  }
+
+  .creditEvents {
+    overflow-y: scroll;
+    height: 90vh;
+    border-bottom: 1px solid #4c4c70;
+  }
 }

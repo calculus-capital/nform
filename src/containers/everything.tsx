@@ -3,6 +3,7 @@ import { Grid, Cell } from 'styled-css-grid'
 import { Routes, Route } from "react-router-dom"
 import * as backend from '../backend'
 import { useMediaQuery } from 'react-responsive'
+import WebFont from 'webfontloader'
 
 import styles from './everything.module.css'
 import Sidebar from './sidebar/sidebar'
@@ -23,6 +24,11 @@ const companies = ["Dunzo", "Epigamia", "Wakefit", "Zivame", "Bombay Shaving Com
 const orig = backend.generateTradeLog(1000)
 const company = companies[getRandomInt(0, companies.length-1)]
 
+WebFont.load({
+  google: {
+    families: ['Fira Sans:300,400,700', 'sans']
+  }
+})
 
 const Everything = () => {
   const s = useMediaQuery({ query: '(max-width: 481px)' })
