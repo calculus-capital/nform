@@ -14,14 +14,14 @@
   padding: 10px;
   min-width: 1200px !important;
 
-  font-size: 8pt;
+  font-size: 10pt;
   color: #b2b2b2;
 }
 
 .something {
   background-color: #0c0c20;
   border-radius: 30px;
-  height: calc(100vh - 20px);
+  height: calc(95vh - 20px);
   overflow: auto;
 }
 

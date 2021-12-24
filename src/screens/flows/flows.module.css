@@ -25,27 +25,30 @@
 }
 
 .inflowLine {
-  height: 50vh;
+  height: 40vh;
   max-height: 500px;
 }
 
 .outflowLine {
-  height: 50vh;
+  height: 40vh;
   max-height: 500px;
 }
 
 .tables {
   overflow-y: scroll;
-  height: 30vh !important;
+  height: 28vh !important;
+  min-width: 400px;
   border-bottom: 1px solid #4c4c70;
 }
 
 .card {
+  height: 12vh;
 }
 
 .card > div {
-  margin: 20px;
-  background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1));
+  /* margin: 20px; */
+  background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+  /* background: inherit; */
 }
 
 .card * {
@@ -55,6 +58,6 @@
 .metric {
   font-size: 30pt !important;
   padding-bottom: 10px;
-  border-bottom: 10px solid #24145f;
+  /* border-bottom: 10px solid #24145f; */
 }
 

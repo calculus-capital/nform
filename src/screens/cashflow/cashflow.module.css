@@ -26,14 +26,14 @@
 
 .globalcashflow {
   /* padding: 50px !important; */
-  max-height: 50vh !important;
+  max-height: 44vh !important;
   width: 30vw;
   margin: auto;
   /* width: 100px; */
 }
 
 .calendar {
-  height: 12vw;
+  height: 20vh;
   margin-top: 50px;
 }
 

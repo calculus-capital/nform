@@ -35,7 +35,8 @@
 
 .card > div {
   margin: 20px;
-  background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1));
+  /* background: linear-gradient(180deg, rgba(200,200,255,0.0) 60%, rgba(100,100,255,0.1)); */
+  background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
 }
 
 .card * {
@@ -45,5 +46,5 @@
 .metric {
   font-size: 30pt !important;
   padding-bottom: 10px;
-  border-bottom: 10px solid #24145f;
+  /* border-bottom: 10px solid #24145f; */
 }
