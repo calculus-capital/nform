@@ -14,7 +14,7 @@ const Sidebar = () => {
   const location = useLocation()
   const [newItem, setNewItem] = useState(false)
 
-  const s = useMediaQuery({ query: '(max-width:641px)' })
+  const s = useMediaQuery({ query: '(max-width: 1100px)' })
 
   const NewModal = () => {
     return (

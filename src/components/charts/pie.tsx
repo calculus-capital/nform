@@ -1,24 +1,28 @@
 import { ResponsivePie } from '@nivo/pie'
+import { useMediaQuery } from 'react-responsive'
 
 
 const Pie = (props: { data: any }) => {
+
+  const s = useMediaQuery({ query: '(max-width: 1100px)' })
 
   return (
     <ResponsivePie
       data={props.data}
       // margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-      innerRadius             = {0.7}
+      innerRadius             = {s ? 0.5 : 0.7}
       padAngle                = {0.7}
-      cornerRadius            = {3}
+      cornerRadius            = {0}
       activeOuterRadiusOffset = {8}
       colors                  = {{ scheme: 'spectral' }}
       borderWidth             = {1}
-      borderColor             = {{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
+      borderColor             = {{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
       arcLinkLabelsSkipAngle  = {10000}
       arcLinkLabelsThickness  = {2}
       arcLinkLabelsColor      = {{ from: 'color' }}
       arcLabelsSkipAngle      = {10}
-      enableArcLabels={false}
+      enableArcLabels         = {s}
+      isInteractive           = {!s}
       arcLabelsTextColor      = {{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
       defs                    = {[
         {
@@ -101,11 +105,11 @@ const Pie = (props: { data: any }) => {
       ]}
       legends={[
         {
-          anchor: 'center',
+          anchor: s ? 'bottom' : 'center',
           direction: 'column',
           justify: false,
           translateX: -0,
-          translateY: 0,
+          translateY: s ? 160 : 0,
           itemsSpacing: 2,
           itemWidth: 200,
           itemHeight: 18,

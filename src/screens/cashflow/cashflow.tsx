@@ -1,5 +1,6 @@
 import React from 'react'
 import Bullet from '../../components/charts/bullet'
+import { useMediaQuery } from 'react-responsive'
 
 import styles from './cashflow.module.css'
 import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const Cashflow = (props:Props) => {
+
+  const s = useMediaQuery({ query: '(max-width: 481px)' })
 
   const data = props.data
     .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
@@ -37,27 +40,29 @@ const Cashflow = (props:Props) => {
 
   return (
     <div className={styles.cashflow}>
-      <p className={styles.title}>Cash Flow (YTD, in Lakhs)</p>
       {/* Calendars */}
-      <Grid columns={2} rows={2} className={styles.container}>
-        <Cell width={1} height={2} className={ styles.globalcashflow} center middle>
-          <Pie data={pieData}></Pie>
+      <Grid columns={s ? 1 : 2} rows={s ? 5 : 2} className={styles.container}>
+        <Cell width={1} height={s ? 3 : 2} className={styles.globalcashflow} center>
+          <p className={styles.title}>Cash Flow</p>
+          <div className={styles.pie}>
+            <Pie data={pieData}></Pie>
+          </div>
         </Cell>
-        <Cell height={1} width={1} className={styles.calendarCell} center middle>
+        <Cell height={s ? 1 : 1} width={1} className={styles.calendarCell} center middle>
           <div className={styles.calendar}>
-            <p className={styles.title}>Collections Calendar (YTD, in Lakhs)</p>
+            <p className={styles.title}>Collections Calendar</p>
             <Calendar data={rxCalendarData}></Calendar>
           </div>
         </Cell>
-        <Cell height={1} width={1} className={styles.calendarCell}>
+        <Cell height={s ? 1 : 1} width={1} className={styles.calendarCell}>
           <div className={styles.calendar}>
-            <p className={styles.title}>Payments Calendar (YTD, in Lakhs)</p>
+            <p className={styles.title}>Payments Calendar</p>
             <Calendar data={txCalendarData}></Calendar>
           </div>
         </Cell>
       </Grid>
       {/* Global */}
-      <Grid columns={2} rows={1} className={ styles.bulletContainer }>
+      <Grid columns={s ? 1 : 2} rows={s ? 2 : 1} className={ styles.bulletContainer }>
         <Cell width={1} className={styles.bullet}>
           <p className={styles.title}>Total Collections: ➡️ On Credit ➡️ Collected ➡️ Not collected</p>
           <Bullet data={[{

@@ -25,7 +25,8 @@ const company = companies[getRandomInt(0, companies.length-1)]
 
 
 const Everything = () => {
-  const s = useMediaQuery({ query: '(max-width:641px)' })
+  const s = useMediaQuery({ query: '(max-width: 481px)' })
+  const m = useMediaQuery({ query: '(max-width: 1100px)' })
 
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(
@@ -80,48 +81,48 @@ const Everything = () => {
     <div className={styles.everything}>
       <div className={styles.something}>
         <Grid columns={10}>
-          <Cell width={s ? 1 : 2} center middle>
+          <Cell width={s ? 2 : 2} center middle>
             <Sidebar></Sidebar>
           </Cell>
           <Cell width={8} className={styles.content}>
-            <Grid columns={11} className={styles.header}>
-              <Cell width={5}>
+            <Grid columns={s ? 6 : 11} rows={s ? 2 : 1} className={styles.header}>
+              <Cell width={s ? 6 : 5}>
                 <p className={styles.customer}>{company}</p>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(365)}>YTD
+                  onClick={() => filterByTime(365)}>{m ? "360" : "YTD"}
                 </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== 180 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(180)}>180 days
+                  onClick={() => filterByTime(180)}>{m ? "180" : "180 days"}
                 </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== 90 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(90)}>90 days
+                  onClick={() => filterByTime(90)}>{m ? "90" : "90 days"}
                 </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== 30 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(30)}>30 days
+                  onClick={() => filterByTime(30)}>{m ? "30" : "30 days"}
                 </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== 7 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(7)}>7 days
+                  onClick={() => filterByTime(7)}>{m ? "7" : "7 days"}
                 </Button>
               </Cell>
               <Cell width={1} middle>
                 <Button
                   className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(-1)}>Future
+                  onClick={() => filterByTime(-1)}>{m ? "🛸" : "Future"}
                 </Button>
               </Cell>
             </Grid>
