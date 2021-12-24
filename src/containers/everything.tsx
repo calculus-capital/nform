@@ -85,22 +85,26 @@ const Everything = () => {
             <Sidebar></Sidebar>
           </Cell>
           <Cell width={8} className={styles.content}>
-            <Grid columns={s ? 6 : 11} rows={s ? 2 : 1} className={styles.header}>
-              <Cell width={s ? 6 : 5}>
+            <Grid columns={s ? 4 : 11} rows={s ? 2 : 1} className={styles.header}>
+              <Cell width={s ? 4 : 5}>
                 <p className={styles.customer}>{company}</p>
               </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(365)}>{m ? "360" : "YTD"}
-                </Button>
-              </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== 180 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(180)}>{m ? "180" : "180 days"}
-                </Button>
-              </Cell>
+              {!m && (
+                <Cell width={1} middle>
+                  <Button
+                    className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => filterByTime(365)}>{m ? "360" : "YTD"}
+                  </Button>
+                </Cell>
+              )}
+              {!m && (
+                <Cell width={1} middle>
+                  <Button
+                    className={time !== 180 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => filterByTime(180)}>{m ? "180" : "180 days"}
+                  </Button>
+                </Cell>
+              )}
               <Cell width={1} middle>
                 <Button
                   className={time !== 90 ? styles.timeButton : styles.timeButtonActive}
