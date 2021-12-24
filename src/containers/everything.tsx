@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Cell } from 'styled-css-grid'
 import { Routes, Route } from "react-router-dom"
 import * as backend from '../backend'
+import { useMediaQuery } from 'react-responsive'
 
 import styles from './everything.module.css'
 import Sidebar from './sidebar/sidebar'
@@ -24,6 +25,8 @@ const company = companies[getRandomInt(0, companies.length-1)]
 
 
 const Everything = () => {
+  const s = useMediaQuery({ query: '(max-width:641px)' })
+
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(
     orig
@@ -77,7 +80,7 @@ const Everything = () => {
     <div className={styles.everything}>
       <div className={styles.something}>
         <Grid columns={10}>
-          <Cell width={2} center middle>
+          <Cell width={s ? 1 : 2} center middle>
             <Sidebar></Sidebar>
           </Cell>
           <Cell width={8} className={styles.content}>

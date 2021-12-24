@@ -19,7 +19,7 @@
   stroke: #fff;
   stroke-width: 1.2;
   font-style: normal;
-  font-family: 'Source Code Pro' !important;
+  /* font-family: 'Source Code Pro' !important; */
   font-size: 11pt !important;
   font-weight: lighter;
 }
@@ -38,7 +38,7 @@
 }
 
 .bulletContainer {
-  margin-top: 50px;
+  margin-top: 6vh;
   border: 0;
   padding: 0;
 }

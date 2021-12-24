@@ -11,6 +11,7 @@ const Calendar = (props: { data: { value: number; day: string; }[] }) => {
         dayBorderWidth={0.5}
         dayRadius={0}
         dayBorderColor="#5c5c7c"
+        weekdayTicks={[1,5]}
         // width={500}
         // height={200}
         legends={[

@@ -135,9 +135,9 @@ export const formatForPie = (data: Trade[]): {id: string, value: number}[] => {
     },{
       id: "Collections delayed",
       value: Math.round(100 * totalDelayedPaymentsReceived / divisor) / 100,
-    },{
-      id: "Collections credit delayed",
-      value: Math.round(100 * totalDelayedCreditReceived / divisor) / 100,
+    // },{
+    //   id: "Collections credit delayed",
+    //   value: Math.round(100 * totalDelayedCreditReceived / divisor) / 100,
     },{
     id: "Pending Payments",
     value: Math.round(100 * tobeTX / divisor) / 100,
@@ -150,9 +150,9 @@ export const formatForPie = (data: Trade[]): {id: string, value: number}[] => {
   },{
     id: "Payment delayed",
     value: Math.round(100 * totalDelayedPaymentsSent / divisor) / 100,
-  },{
-    id: "Payment credit delayed",
-    value: Math.round(100 * totalDelayedCreditSent / divisor) / 100,
+  // },{
+  //   id: "Payment credit delayed",
+  //   value: Math.round(100 * totalDelayedCreditSent / divisor) / 100,
   }]
 }
 
