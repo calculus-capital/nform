@@ -35,18 +35,18 @@
   }
 
   .metric {
-    font-size: 30pt !important;
+    font-size: 4vh !important;
     padding-bottom: 10px;
     /* border-bottom: 10px solid #24145f; */
   }
 
   .treemap {
-    height: 55vh;
+    height: 50vh;
   }
 
   .table {
     overflow-y: scroll;
-    height: 50vh;
+    height: 30vh;
     border-bottom: 1px solid #4c4c70;
   }
 }

@@ -33,7 +33,7 @@ const inflowColumns = [
 
 const collectionColumns = [
   {
-    Header: "Upcoming Collections",
+    Header: "Upcoming collections",
     columns: [
       {
         Header: "Customer",
@@ -53,7 +53,7 @@ const collectionColumns = [
 
 const delayedColumns = [
   {
-    Header: "Delayed Collections",
+    Header: "Delayed collections",
     columns: [
       {
         Header: "Customer",
@@ -81,8 +81,8 @@ const Inflows = (props: Props) => {
   const inflow = data
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
-      const cashin = Math.floor((d.payments.map(i => i.amount).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-      const cashout = Math.floor((d.items.map(i => i.price).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
+      const cashin = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
+      const cashout = d.items.map(i => i.price).reduce((x, y) => x + y, 0)
 
       return {
         x: moment(d.terms.maturity).format("DD-MM-YYYY"),
@@ -94,24 +94,19 @@ const Inflows = (props: Props) => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: d.y + scr,
+        y: Math.round((d.y + scr)*100 / 100000)/100,
       }
     })
 
   scr = 0
-  const Collections = data
+  const collections = data
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
-      const cashin = Math.floor((d.payments.map(i => i.amount).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-      const cr =
-        Math.floor(
-          (d.payments
+      const cashin = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
+      const cr = d.payments
             .filter(x => x.credit)
             .map(i => i.amount)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
+            .reduce((x, y) => x + y, 0)
 
       return {
         x: moment(d.terms.maturity).format("DD-MM-YYYY"),
@@ -123,31 +118,23 @@ const Inflows = (props: Props) => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: d.y + scr,
+        y: (d.y + scr) / 100000,
       }
     })
 
   scr = 0
   const credit = data
     .map(d => {
-      const cr =
-        Math.floor(
-          (d.payments
-            .filter(x => x.credit)
-            .map(i => i.amount)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
-      const repaid =
-        Math.floor(
-          (d.payments
-            .filter(x => x.credit)
-            .map(i => i.repaid)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
+      const cr = d.payments
+        .filter(x => x.credit)
+        .map(i => i.amount)
+        .reduce((x, y) => x + y, 0)
+
+      const repaid = d.payments
+        .filter(x => x.credit)
+        .map(i => i.repaid)
+        .reduce((x, y) => x + y, 0)
+
       const date = d.payments
         .filter(x => x.credit)
         .map(x => x.date)
@@ -163,13 +150,40 @@ const Inflows = (props: Props) => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: d.y + scr,
+        y: (d.y + scr) / 100000,
       }
     })
 
+    scr = 0
+    const repaid = data
+      .map(d => {
+        const repaid = d.payments
+          .filter(x => x.credit)
+          .map(i => i.repaid)
+          .reduce((x, y) => x + y, 0)
+
+        const date = d.payments
+          .filter(x => x.credit)
+          .map(x => x.date)
+          .pop()
+
+        return {
+          x: moment(date).format("DD-MM-YYYY"),
+          y: repaid,
+        }
+      })
+      .filter(d => d.y > 0)
+      .map(d => {
+        scr = scr + d.y
+        return {
+          x: d.x,
+          y: (d.y + scr) / 100000,
+        }
+      })
+
   const inflowPartners = data.reduce((m, d) => {
-    const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-    const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
+    const topay = d.items.reduce((i, j) => i + j.price, 0)
+    const paid = d.payments.reduce((i, j) => i + j.amount / 100, 0)
 
     if (d.beneficiaries[0].name in m)
       m.set(
@@ -187,7 +201,7 @@ const Inflows = (props: Props) => {
   for (const [k, v] of inflowPartners) {
     inflowPartnersData.push({
       customer: k,
-      amount: v,
+      amount: Math.round(v*100)/100,
     })
   }
   const payPartners = inflowPartnersData.sort((x, y) => (x.amount < y.amount ? 1 : -1)).filter(p => p.amount > 0)
@@ -201,41 +215,41 @@ const Inflows = (props: Props) => {
 
       return {
         customer: d.beneficiaries[0].name,
-        amount: topay - paid,
+        amount: Math.round((topay - paid)*100)/100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }
     })
 
   const delayedPayments = data
     .filter(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
+      const topay = d.items.reduce((i, j) => i + j.price, 0)
+      const paid = d.payments.reduce((i, j) => i + j.amount, 0)
 
       return moment(d.terms.maturity).isBefore(moment()) && topay !== paid
     })
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
+      const topay = d.items.reduce((i, j) => i + j.price, 0)
+      const paid = d.payments.reduce((i, j) => i + j.amount, 0)
 
       return {
         customer: d.beneficiaries[0].name,
-        amount: topay - paid,
+        amount: Math.round((topay - paid)*100)/100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }
     })
 
   return (
     <div className={styles.container}>
-      <Grid columns={m ? 2 : 3} rows={m ? 2 : 1} className={styles.containerGrid}>
+      <Grid columns={s ? 1 : 3} rows={s ? 2 : 1} className={styles.containerGrid}>
         <Cell width={2} height={1}>
-          <p className={styles.title}>Cash & Credit Inflow (+90 days Projections)</p>
+          <p className={styles.title}>Cash & Credit Inflow</p>
           <div className={styles.line}>
             {/* @ts-ignore */}
             <Line
               data={[
                 {
-                  id: "To collect",
+                  id: "To Collect",
                   data: inflow,
                 },
                 {
@@ -244,13 +258,13 @@ const Inflows = (props: Props) => {
                 },
                 {
                   id: "Collected",
-                  data: Collections,
+                  data: collections,
                 },
               ]}
             ></Line>
           </div>
         </Cell>
-        <Cell width={m ? 2 : 1} height={1}>
+        <Cell width={s ? 1 : 1} height={1}>
           <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Receivables</Heading>
@@ -263,7 +277,7 @@ const Inflows = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Collected</Heading>
               <Heading subtitle size={6} className={styles.metric}>
-                {"₹" + Math.round(Collections.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
+                {"₹" + Math.round(collections.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
               </Heading>
             </Card.Content>
           </Card>
@@ -272,6 +286,14 @@ const Inflows = (props: Props) => {
               <Heading size={4}>Credit Availed</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹" + Math.round(credit.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
+              </Heading>
+            </Card.Content>
+          </Card>
+          <Card className={styles.card}>
+            <Card.Content>
+              <Heading size={4}>Credit Repaid</Heading>
+              <Heading subtitle size={6} className={styles.metric}>
+                {"₹" + Math.round(repaid.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
               </Heading>
             </Card.Content>
           </Card>

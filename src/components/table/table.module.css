@@ -5,10 +5,6 @@
   overflow-y: auto;
 }
 
-.table {
-  min-width: 450px;
-}
-
 .thead {
   font-size: 11pt;
   color: #b2b2b2;

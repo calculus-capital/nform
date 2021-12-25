@@ -51,7 +51,7 @@ const Table = (props: Props) => {
     () => ({
       // When using the useFlexLayout:
       minWidth: 30, // minWidth is only used as a limit for resizing
-      maxWidth: 200, // maxWidth is only used as a limit for resizing
+      maxWidth: 100, // maxWidth is only used as a limit for resizing
     }),
     []
   )

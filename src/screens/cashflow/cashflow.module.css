@@ -36,22 +36,31 @@ svg {
 
 /* Desktops */
 @media (min-width: 1100px) {
+
+  .cashflow {
+    font-size: 1vh;
+  }
+
+  .cashflow text {
+    font-size: 1vh !important;
+  }
+
   .pie {
     max-height: 44vh !important;
   }
 
   .pieChart {
-    height: 50vh;
+    height: 60vh;
   }
 
   .calendar {
-    height: 20vh;
+    height: 30vh;
     margin-top: 50px;
   }
 
   .bullet {
     height: 20vh;
-    max-height: 150px;
+    max-height: 300px;
     max-width: 40vw;
 
     border: 0;

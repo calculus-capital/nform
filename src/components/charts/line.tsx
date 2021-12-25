@@ -1,14 +1,18 @@
 import { ResponsiveLine } from "@nivo/line"
 import moment from "moment"
+import { useMediaQuery } from "react-responsive"
 
 import styles from "./charts.module.css"
 
 const Line = (props: { data: any[] }) => {
+  const s = useMediaQuery({ query: "(max-width: 481px)" })
+  const m = useMediaQuery({ query: "(max-width: 1100px)" })
+
   return (
     <ResponsiveLine
       // @ts-ignore
       data={props.data}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={s ? { right: 30, left: 20 } : m ? { bottom: 60 } : { top: 50, right: 0, bottom: 50, left: 20 }}
       xScale={{
         type: "time",
         format: "%d-%m-%Y",
@@ -21,9 +25,9 @@ const Line = (props: { data: any[] }) => {
       colors={{ scheme: "category10" }}
       enableGridX={false}
       enableGridY={false}
-      pointSize={5}
+      pointSize={s ? 1 : m ? 2 : 3}
       pointColor={{ theme: "background" }}
-      pointBorderWidth={5}
+      pointBorderWidth={s ? 1 : m ? 2 : 3}
       pointBorderColor={{ from: "serieColor" }}
       enableCrosshair={true}
       crosshairType="cross"
@@ -55,29 +59,30 @@ const Line = (props: { data: any[] }) => {
         legendOffset: 0,
       }}
       axisBottom={{
-        tickValues: 4,
-        tickSize: 5,
+        tickValues: s ? 3 : 4,
+        tickSize: 15,
         tickPadding: 5,
-        tickRotation: 0,
+        tickRotation: s ? 45 : 0,
         format: "%d-%m-%y",
         legend: "Time",
-        legendOffset: 36,
+        legendOffset: s ? 10 : 5,
         legendPosition: "middle",
       }}
       tooltip={tooltip}
+      isInteractive={!s}
       legends={[
         {
-          anchor: "bottom-left",
-          direction: "row",
+          anchor: "top-left",
+          direction: "column",
           justify: false,
           translateX: 0,
-          translateY: 70,
+          translateY: 10,
           itemsSpacing: 0,
           itemDirection: "left-to-right",
-          itemWidth: 150,
+          itemWidth: 200,
           itemHeight: 20,
           itemOpacity: 0.75,
-          symbolSize: 12,
+          symbolSize: 16,
           symbolShape: "square",
           symbolBorderColor: "rgba(255, 255, 255, .5)",
           effects: [
@@ -137,7 +142,7 @@ const Line = (props: { data: any[] }) => {
           match: {
             id: "Credit",
           },
-          id: "lines",
+          id: "squares",
         },
         {
           match: {
@@ -149,7 +154,7 @@ const Line = (props: { data: any[] }) => {
           match: {
             id: "To Collect",
           },
-          id: "squares",
+          id: "lines",
         },
       ]}
     />
