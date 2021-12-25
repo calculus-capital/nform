@@ -1,4 +1,3 @@
-import moment from "moment"
 import React, { useMemo } from "react"
 import { Cell, Grid } from "styled-css-grid"
 import { useMediaQuery } from "react-responsive"
@@ -6,6 +5,7 @@ import { useMediaQuery } from "react-responsive"
 import Table from "../../components/table/table"
 import { Trade, TradeType } from "../../backend"
 import Line from "../../components/charts/line"
+import { flow, volume, added, givenback, upcoming, delayed } from './data'
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
@@ -77,109 +77,10 @@ const Inflows = (props: Props) => {
 
   const data = props.data.filter(d => d.type === TradeType.SALES)
 
-  var scr = 0
-  const inflow = data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const cashin = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
-      const cashout = d.items.map(i => i.price).reduce((x, y) => x + y, 0)
-
-      return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashout - cashin,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: Math.round((d.y + scr)*100 / 100000)/100,
-      }
-    })
-
-  scr = 0
-  const collections = data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const cashin = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
-      const cr = d.payments
-            .filter(x => x.credit)
-            .map(i => i.amount)
-            .reduce((x, y) => x + y, 0)
-
-      return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashin - cr,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: (d.y + scr) / 100000,
-      }
-    })
-
-  scr = 0
-  const credit = data
-    .map(d => {
-      const cr = d.payments
-        .filter(x => x.credit)
-        .map(i => i.amount)
-        .reduce((x, y) => x + y, 0)
-
-      const repaid = d.payments
-        .filter(x => x.credit)
-        .map(i => i.repaid)
-        .reduce((x, y) => x + y, 0)
-
-      const date = d.payments
-        .filter(x => x.credit)
-        .map(x => x.date)
-        .pop()
-
-      return {
-        x: moment(date).format("DD-MM-YYYY"),
-        y: cr - repaid,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: (d.y + scr) / 100000,
-      }
-    })
-
-    scr = 0
-    const repaid = data
-      .map(d => {
-        const repaid = d.payments
-          .filter(x => x.credit)
-          .map(i => i.repaid)
-          .reduce((x, y) => x + y, 0)
-
-        const date = d.payments
-          .filter(x => x.credit)
-          .map(x => x.date)
-          .pop()
-
-        return {
-          x: moment(date).format("DD-MM-YYYY"),
-          y: repaid,
-        }
-      })
-      .filter(d => d.y > 0)
-      .map(d => {
-        scr = scr + d.y
-        return {
-          x: d.x,
-          y: (d.y + scr) / 100000,
-        }
-      })
+  const inflow = flow(data)
+  const collections = volume(data)
+  const credit = added(data)
+  const repaid = givenback(data)
 
   const inflowPartners = data.reduce((m, d) => {
     const topay = d.items.reduce((i, j) => i + j.price, 0)
@@ -197,7 +98,6 @@ const Inflows = (props: Props) => {
   }, new Map<string, number>())
 
   var inflowPartnersData: { customer: string; amount: number }[] = []
-  // @ts-ignore
   for (const [k, v] of inflowPartners) {
     inflowPartnersData.push({
       customer: k,
@@ -206,38 +106,8 @@ const Inflows = (props: Props) => {
   }
   const payPartners = inflowPartnersData.sort((x, y) => (x.amount < y.amount ? 1 : -1)).filter(p => p.amount > 0)
 
-  const upcomingPayments = data
-    .filter(d => moment(d.terms.maturity).isAfter(moment()))
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
-
-      return {
-        customer: d.beneficiaries[0].name,
-        amount: Math.round((topay - paid)*100)/100,
-        date: moment(d.terms.maturity).format("DD-MM-YYYY"),
-      }
-    })
-
-  const delayedPayments = data
-    .filter(d => {
-      const topay = d.items.reduce((i, j) => i + j.price, 0)
-      const paid = d.payments.reduce((i, j) => i + j.amount, 0)
-
-      return moment(d.terms.maturity).isBefore(moment()) && topay !== paid
-    })
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const topay = d.items.reduce((i, j) => i + j.price, 0)
-      const paid = d.payments.reduce((i, j) => i + j.amount, 0)
-
-      return {
-        customer: d.beneficiaries[0].name,
-        amount: Math.round((topay - paid)*100)/100,
-        date: moment(d.terms.maturity).format("DD-MM-YYYY"),
-      }
-    })
+  const upcomingPayments = upcoming(data)
+  const delayedPayments = delayed(data)
 
   return (
     <div className={styles.container}>

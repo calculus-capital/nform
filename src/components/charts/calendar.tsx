@@ -22,7 +22,7 @@ const Calendar = (props: { data: { value: number; day: string }[] }) => {
         {
           anchor: "bottom-left",
           direction: "row",
-          translateY: s ? -30 : -30,
+          translateY: s ? -10 : -30,
           translateX: s ? -40 : 0,
           itemCount: 3,
           itemWidth: s ? 50 : 60,

@@ -1,10 +1,11 @@
-import moment from "moment"
 import React, { useMemo } from "react"
 import { Cell, Grid } from "styled-css-grid"
+import { useMediaQuery } from "react-responsive"
 
 import Table from "../../components/table/table"
 import { Trade, TradeType } from "../../backend"
 import Line from "../../components/charts/line"
+import { flow, volume, added, givenback, upcoming, delayed } from './data'
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
@@ -13,11 +14,6 @@ import "bulma/css/bulma.min.css"
 interface Props {
   data: Trade[]
 }
-
-const cumsum = (
-  (sum: number) => (value: number) =>
-    (sum += value)
-)(0)
 
 const outflowColumns = [
   {
@@ -76,102 +72,19 @@ const delayedColumns = [
 ]
 
 const Outflows = (props: Props) => {
+  const s = useMediaQuery({ query: "(max-width: 481px)" })
+  const m = useMediaQuery({ query: "(max-width: 1100px)" })
+
   const data = props.data.filter(d => d.type === TradeType.PROCUREMENT)
 
-  var scr = 0
-  const outflow = data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const cashin = Math.floor((d.payments.map(i => i.amount).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-      const cashout = Math.floor((d.items.map(i => i.price).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-
-      return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashout - cashin,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: d.y + scr,
-      }
-    })
-
-  scr = 0
-  const payments = data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const cashin = Math.floor((d.payments.map(i => i.amount).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-      const cr =
-        Math.floor(
-          (d.payments
-            .filter(x => x.credit)
-            .map(i => i.amount)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
-
-      return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashin - cr,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: d.y + scr,
-      }
-    })
-
-  scr = 0
-  const credit = data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const cr =
-        Math.floor(
-          (d.payments
-            .filter(x => x.credit)
-            .map(i => i.amount)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
-      const repaid =
-        Math.floor(
-          (d.payments
-            .filter(x => x.credit)
-            .map(i => i.repaid)
-            .reduce((x, y) => x + y, 0) /
-            100000) *
-            100
-        ) / 100
-      const date = d.payments
-        .filter(x => x.credit)
-        .map(x => x.date)
-        .pop()
-
-      return {
-        x: moment(date).format("DD-MM-YYYY"),
-        y: cr - repaid,
-      }
-    })
-    .filter(d => d.y > 0)
-    .map(d => {
-      scr = scr + d.y
-      return {
-        x: d.x,
-        y: d.y + scr,
-      }
-    })
+  const outflow = flow(data)
+  const payments = volume(data)
+  const credit = added(data)
+  const repaid = givenback(data)
 
   const outflowPartners = data.reduce((m, d) => {
-    const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-    const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
+    const topay = d.items.reduce((i, j) => i + j.price, 0)
+    const paid = d.payments.reduce((i, j) => i + j.amount, 0)
 
     if (d.beneficiaries[0].name in m)
       m.set(
@@ -188,47 +101,17 @@ const Outflows = (props: Props) => {
   for (const [k, v] of outflowPartners) {
     outflowPartnersData.push({
       customer: k,
-      amount: v,
+      amount: Math.round(v*100)/100,
     })
   }
   const payPartners = outflowPartnersData.sort((x, y) => (x.amount < y.amount ? 1 : -1)).filter(p => p.amount > 0)
 
-  const upcomingPayments = data
-    .filter(d => moment(d.terms.maturity).isAfter(moment()))
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
-
-      return {
-        customer: d.beneficiaries[0].name,
-        amount: topay - paid,
-        date: moment(d.terms.maturity).format("DD-MM-YYYY"),
-      }
-    })
-
-  const delayedPayments = data
-    .filter(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
-
-      return moment(d.terms.maturity).isBefore(moment()) && topay != paid
-    })
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
-    .map(d => {
-      const topay = d.items.reduce((i, j) => i + Math.round(j.price * 100) / 100, 0)
-      const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
-
-      return {
-        customer: d.beneficiaries[0].name,
-        amount: topay - paid,
-        date: moment(d.terms.maturity).format("DD-MM-YYYY"),
-      }
-    })
+  const upcomingPayments = upcoming(data)
+  const delayedPayments = delayed(data)
 
   return (
     <div className={styles.container}>
-      <Grid columns={3} rows={1} className={styles.containerGrid}>
+      <Grid columns={s ? 1 : 3} rows={s ? 2 : 1} className={styles.containerGrid}>
         <Cell width={2} height={1}>
           <p className={styles.title}>Cash & Credit Outflow (+90 days Projections)</p>
           <div className={styles.line}>
@@ -251,9 +134,8 @@ const Outflows = (props: Props) => {
             ></Line>
           </div>
         </Cell>
-        <Cell width={1} height={1} className={styles.card}>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+        <Cell width={s ? 1 : 1} height={1}>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Payables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
@@ -261,8 +143,7 @@ const Outflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Paid</Heading>
               <Heading subtitle size={6} className={styles.metric}>
@@ -270,8 +151,7 @@ const Outflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Credit Availed</Heading>
               <Heading subtitle size={6} className={styles.metric}>
@@ -279,9 +159,17 @@ const Outflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
+          <Card className={styles.card}>
+            <Card.Content>
+              <Heading size={4}>Credit Repaid</Heading>
+              <Heading subtitle size={6} className={styles.metric}>
+                {"₹" + Math.round(repaid.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
+              </Heading>
+            </Card.Content>
+          </Card>
         </Cell>
       </Grid>
-      <Grid columns={3} rows={1} className={styles.containerGrid}>
+      <Grid columns={m ? 1 : 3} rows={m ? 3 : 1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <div className={styles.tables}>
             {/* @ts-ignore */}
@@ -302,7 +190,7 @@ const Outflows = (props: Props) => {
             actions={["📃 Purchase Order", "📃 Invoice", "💳 Pay", "💸 Discount"]}
           ></Table>
         </Cell>
-        <Cell width={1} height={1} className={styles.tables}>
+        <Cell width={1} height={2} className={styles.tables}>
           {/* @ts-ignore */}
           <Table
             columns={useMemo(() => delayedColumns, [])}
