@@ -250,9 +250,8 @@ const Inflows = (props: Props) => {
             ></Line>
           </div>
         </Cell>
-        <Cell width={m ? 2 : 1} height={1} className={styles.card}>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+        <Cell width={m ? 2 : 1} height={1}>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Receivables</Heading>
               <Heading subtitle size={6} className={styles.metric}>
@@ -260,8 +259,7 @@ const Inflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Collected</Heading>
               <Heading subtitle size={6} className={styles.metric}>
@@ -269,8 +267,7 @@ const Inflows = (props: Props) => {
               </Heading>
             </Card.Content>
           </Card>
-          <Card>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
+          <Card className={styles.card}>
             <Card.Content>
               <Heading size={4}>Credit Availed</Heading>
               <Heading subtitle size={6} className={styles.metric}>
