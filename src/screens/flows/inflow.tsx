@@ -9,7 +9,6 @@ import { flow, volume, added, givenback, upcoming, delayed } from './data'
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
-import "bulma/css/bulma.min.css"
 
 interface Props {
   data: Trade[]

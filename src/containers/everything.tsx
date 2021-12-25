@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom"
 import * as backend from "../backend"
 import { useMediaQuery } from "react-responsive"
 import WebFont from "webfontloader"
+import "bulma/css/bulma.min.css"
 
 import styles from "./everything.module.css"
 import Sidebar from "./sidebar/sidebar"
