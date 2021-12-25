@@ -2,13 +2,11 @@ import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
 
-import { Menu, Section, Dropdown } from "react-bulma-components"
+import { Menu, Section, Modal } from "react-bulma-components"
+import { Grid, Cell } from "styled-css-grid"
 
 import logo from "../../assets/logo.png"
-import "bulma/css/bulma.min.css"
 import styles from "./sidebar.module.css"
-import { Button, Modal, Form } from "react-bulma-components"
-import { Grid, Cell } from "styled-css-grid"
 
 const Sidebar = () => {
   const location = useLocation()
