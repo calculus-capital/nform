@@ -1,6 +1,4 @@
-
-.flowContainer {
-  margin: 20px;
+.container {
   overflow: none;
 }
 
@@ -13,23 +11,18 @@
   color: #b2b2b2;
 }
 
-.flowContainer text {
+.container text {
   stroke: #fff;
   stroke-width: 1.2;
   font-style: normal;
-  font-family: 'Source Code Pro' !important;
+  font-family: "Source Code Pro" !important;
   font-size: 11pt !important;
   font-weight: lighter;
 
   padding: 20px;
 }
 
-.inflowLine {
-  height: 40vh;
-  max-height: 500px;
-}
-
-.outflowLine {
+.line {
   height: 40vh;
   max-height: 500px;
 }
@@ -47,7 +40,7 @@
 
 .card > div {
   /* margin: 20px; */
-  background: linear-gradient(180deg, rgba(200,200,255,0.0) 70%, rgba(100,100,255,0.05));
+  background: linear-gradient(180deg, rgba(200, 200, 255, 0) 70%, rgba(100, 100, 255, 0.05));
   /* background: inherit; */
 }
 
@@ -61,3 +54,14 @@
   /* border-bottom: 10px solid #24145f; */
 }
 
+/* Desktops */
+@media (min-width: 1100px) {
+}
+
+/* Tablets & portrait phones */
+@media (max-width: 1100px) and (min-width: 481px) {
+}
+
+/* Phones */
+@media (max-width: 481px) {
+}

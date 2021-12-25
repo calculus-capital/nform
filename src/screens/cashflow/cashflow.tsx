@@ -1,28 +1,30 @@
-import React from 'react'
-import Bullet from '../../components/charts/bullet'
-import { useMediaQuery } from 'react-responsive'
+import React from "react"
+import Bullet from "../../components/charts/bullet"
+import { useMediaQuery } from "react-responsive"
 
-import styles from './cashflow.module.css'
-import { Trade, TradeType } from '../../backend/mock/tradeLog/types'
-import { Cell, Grid } from 'styled-css-grid'
-import { formatForBullet, formatForPie, formatCalendar } from './formatData';
-import Pie from '../../components/charts/pie'
-import Calendar from '../../components/charts/calendar'
+import styles from "./cashflow.module.css"
+import { Trade, TradeType } from "../../backend/mock/tradeLog/types"
+import { Cell, Grid } from "styled-css-grid"
+import { formatForBullet, formatForPie, formatCalendar } from "./data"
+import Pie from "../../components/charts/pie"
+import Calendar from "../../components/charts/calendar"
 
 interface Props {
   data: Trade[]
 }
 
-const Cashflow = (props:Props) => {
+const Cashflow = (props: Props) => {
+  const s = useMediaQuery({ query: "(max-width: 481px)" })
 
-  const s = useMediaQuery({ query: '(max-width: 481px)' })
-
-  const data = props.data
-    .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
+  const data = props.data.filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
 
   // Global picture
-  const receivables = data.filter((d) => { return d.type === TradeType.SALES })
-  const payables = data.filter((d) => { return d.type === TradeType.PROCUREMENT })
+  const receivables = data.filter(d => {
+    return d.type === TradeType.SALES
+  })
+  const payables = data.filter(d => {
+    return d.type === TradeType.PROCUREMENT
+  })
 
   // Receivables
   var receivablesFormatted = formatForBullet(receivables)
@@ -42,9 +44,9 @@ const Cashflow = (props:Props) => {
     <div className={styles.cashflow}>
       {/* Calendars */}
       <Grid columns={s ? 1 : 2} rows={s ? 5 : 2} className={styles.container}>
-        <Cell width={1} height={s ? 3 : 2} className={styles.globalcashflow} center>
+        <Cell width={1} height={s ? 3 : 2} className={styles.pie} center>
           <p className={styles.title}>Cash Flow</p>
-          <div className={styles.pie}>
+          <div className={styles.pieChart}>
             <Pie data={pieData}></Pie>
           </div>
         </Cell>
@@ -62,24 +64,32 @@ const Cashflow = (props:Props) => {
         </Cell>
       </Grid>
       {/* Global */}
-      <Grid columns={s ? 1 : 2} rows={s ? 2 : 1} className={ styles.bulletContainer }>
+      <Grid columns={s ? 1 : 2} rows={s ? 2 : 1} className={styles.bulletContainer}>
         <Cell width={1} className={styles.bullet}>
           <p className={styles.title}>Total Collections: ➡️ On Credit ➡️ Collected ➡️ Not collected</p>
-          <Bullet data={[{
-            id      : "",
-            ranges  : receivablesRanges,
-            measures: receivablesMeasures,
-            markers : receivablesMeasures
-          }]}></Bullet>
+          <Bullet
+            data={[
+              {
+                id: "",
+                ranges: receivablesRanges,
+                measures: receivablesMeasures,
+                markers: receivablesMeasures,
+              },
+            ]}
+          ></Bullet>
         </Cell>
         <Cell width={1} className={styles.bullet}>
           <p className={styles.title}>Total Payments: ➡️ On Credit ➡️ Paid ➡️ Unpaid</p>
-          <Bullet data={[{
-            id      : "",
-            ranges  : payablesRanges,
-            measures: payablesMeasures,
-            markers : payablesMeasures
-          }]}></Bullet>
+          <Bullet
+            data={[
+              {
+                id: "",
+                ranges: payablesRanges,
+                measures: payablesMeasures,
+                markers: payablesMeasures,
+              },
+            ]}
+          ></Bullet>
         </Cell>
       </Grid>
     </div>

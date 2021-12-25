@@ -1,9 +1,5 @@
 const Funnel = () => {
-  return (
-    <div>
-
-    </div>
-  )
+  return <div></div>
 }
 
 export default Funnel

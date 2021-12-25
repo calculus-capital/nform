@@ -1,7 +1,6 @@
-import { ResponsiveTreeMap } from '@nivo/treemap'
+import { ResponsiveTreeMap } from "@nivo/treemap"
 
 const Treemap = (props: { data: any }) => {
-
   return (
     <ResponsiveTreeMap
       data={props.data}
@@ -16,11 +15,13 @@ const Treemap = (props: { data: any }) => {
       labelSkipSize={30}
       outerPadding={5}
       nodeOpacity={0.7}
-      labelTextColor={{ from: 'color', modifiers: [ [ 'brighter', 1.5 ] ] }}
-      parentLabelTextColor={{ from: 'color', modifiers: [ [ 'brighter', 1 ] ] }}
-      borderColor={{ from: 'color', modifiers: [['brighter', 5]] }}
+      labelTextColor={{ from: "color", modifiers: [["brighter", 1.5]] }}
+      parentLabelTextColor={{ from: "color", modifiers: [["brighter", 1]] }}
+      borderColor={{ from: "color", modifiers: [["brighter", 5]] }}
       // label={function(e){return e.id+" ("+e.formattedValue+")"}}
-      label={function (e) { return "₹" + e.formattedValue;}}
+      label={function (e) {
+        return "₹" + e.formattedValue
+      }}
     />
   )
 }

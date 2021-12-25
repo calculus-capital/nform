@@ -1,13 +1,5 @@
-@media (min-width: 481px) {
-  .container {
-    margin: 0;
-  }
-}
-
-@media (max-width: 481px) {
-  .container {
-    margin: 10px !important;
-  }
+.container {
+  margin: 0;
 }
 
 .title {
@@ -32,12 +24,23 @@
   font-weight: lighter;
 }
 
+.bulletContainer {
+  margin-top: 6vh;
+  border: 0;
+  padding: 0;
+}
+
+svg {
+  overflow: visible;
+}
+
+/* Desktops */
 @media (min-width: 1100px) {
-  .globalcashflow {
+  .pie {
     max-height: 44vh !important;
   }
 
-  .pie {
+  .pieChart {
     height: 50vh;
   }
 
@@ -56,12 +59,13 @@
   }
 }
 
+/* Tablets & portrait phones */
 @media (min-width: 481px) and (max-width: 1100px) {
-  .globalcashflow {
+  .pie {
     max-height: 30vh !important;
   }
 
-  .pie {
+  .pieChart {
     height: 30vh;
   }
 
@@ -80,13 +84,14 @@
   }
 }
 
+/* Phones */
 @media (max-width: 481px) {
-  .globalcashflow {
+  .pie {
     padding: 0;
     margin: 0;
   }
 
-  .pie {
+  .pieChart {
     height: 40vh !important;
   }
 
@@ -103,15 +108,4 @@
     border: 0;
     padding: 0;
   }
-
-}
-
-.bulletContainer {
-  margin-top: 6vh;
-  border: 0;
-  padding: 0;
-}
-
-svg {
-  overflow: visible;
 }

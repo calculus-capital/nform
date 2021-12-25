@@ -1,42 +1,42 @@
-import React from 'react'
+import React from "react"
 
-import { ResponsiveBullet } from '@nivo/bullet'
-import { BasicTooltip } from '@nivo/tooltip'
-import { useMediaQuery } from 'react-responsive'
+import { ResponsiveBullet } from "@nivo/bullet"
+import { BasicTooltip } from "@nivo/tooltip"
+import { useMediaQuery } from "react-responsive"
 
 const Bullet = (props: { data: any[] }) => {
-    const s = useMediaQuery({ query: '(max-width: 1100px)' })
+  const s = useMediaQuery({ query: "(max-width: 1100px)" })
 
   return (
-      <ResponsiveBullet
-          data         = {props.data}
-          margin       = {s ? {top: 20, bottom: 60} : { top: 20, right: 20, bottom: 50, left: 20 }}
-          spacing      = {46}
-          layout       = "horizontal"
-          titleAlign   = "start"
-          titleOffsetX = {-50}
-          measureSize  = {0.2}
-          rangeColors  = "seq:green_blue"
-          tooltip      = {CustomTooltip}
-      />
+    <ResponsiveBullet
+      data={props.data}
+      margin={s ? { top: 20, bottom: 60 } : { top: 20, right: 20, bottom: 50, left: 20 }}
+      spacing={46}
+      layout="horizontal"
+      titleAlign="start"
+      titleOffsetX={-50}
+      measureSize={0.2}
+      rangeColors="seq:green_blue"
+      tooltip={CustomTooltip}
+    />
   )
 }
 
 const CustomTooltip = ({ v0, v1, color }: { color: string; v0: number; v1?: number }) => {
   return (
-      <BasicTooltip
-          id={
-              v1 ? (
-                  <span style={{ color: 'peachpuff' }}>
-                      <strong>₹{v1}L</strong>
-                  </span>
-              ) : (
-                  <strong style={{ color: 'rosybrown' }}>₹{v0}L</strong>
-              )
-          }
-          enableChip={false}
-          color={color}
-      />
+    <BasicTooltip
+      id={
+        v1 ? (
+          <span style={{ color: "peachpuff" }}>
+            <strong>₹{v1}L</strong>
+          </span>
+        ) : (
+          <strong style={{ color: "rosybrown" }}>₹{v0}L</strong>
+        )
+      }
+      enableChip={false}
+      color={color}
+    />
   )
 }
 

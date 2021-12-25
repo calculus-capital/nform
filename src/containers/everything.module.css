@@ -1,4 +1,3 @@
-
 .everything {
   position: fixed;
   top: 0;
@@ -13,7 +12,7 @@
   /* background: linear-gradient(90deg, rgba(131,58,180,1) 2%, rgba(253,29,9,1) 71%, rgba(252,176,69,1) 100%); */
   /* background: radial-gradient(circle, rgba(195,34,145,1) 0%, rgba(253,114,45,1) 100%); */
 
-  background-size:100% 100%;
+  background-size: 100% 100%;
 
   padding: 10px;
 
@@ -116,7 +115,7 @@
 }
 
 .timeButton:hover {
-  background-color: rgba(50,0,200,0.4) !important;
+  background-color: rgba(50, 0, 200, 0.4) !important;
   color: #b2b2b2;
   border-color: #151550;
 }
@@ -151,16 +150,18 @@
   font-size: 15pt;
 }
 
-.search input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.search input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #b2b2b2;
   opacity: 0.5; /* Firefox */
 }
 
-.search input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.search input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: #b2b2b2;
 }
 
-.search input::-ms-input-placeholder { /* Microsoft Edge */
+.search input::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: #b2b2b2;
 }
-

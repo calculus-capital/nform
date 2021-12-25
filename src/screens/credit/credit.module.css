@@ -1,14 +1,12 @@
-
-.creditContainer {
-  margin: 20px;
+.container {
   overflow: none;
 }
 
-.creditContainer text {
+.container text {
   stroke: #fff;
   stroke-width: 1.2;
   font-style: normal;
-  font-family: 'Source Code Pro' !important;
+  font-family: "Source Code Pro" !important;
   font-size: 9pt !important;
   font-weight: lighter;
 
@@ -20,6 +18,7 @@
   padding: 5px;
 }
 
+/* Desktops */
 @media (min-width: 1100px) {
   .card {
     background-color: inherit;
@@ -41,20 +40,19 @@
     /* border-bottom: 10px solid #24145f; */
   }
 
-  .creditWheel {
+  .treemap {
     height: 55vh;
   }
 
-  .creditEvents {
+  .table {
     overflow-y: scroll;
     height: 50vh;
     border-bottom: 1px solid #4c4c70;
   }
 }
 
-
+/* Tablets & portrait phones */
 @media (max-width: 1100px) and (min-width: 481px) {
-
   .card {
     background-color: inherit;
     border-radius: 10px;
@@ -70,11 +68,11 @@
     padding-bottom: 10px;
   }
 
-  .creditWheel {
+  .treemap {
     height: 55vh;
   }
 
-  .creditEvents {
+  .table {
     overflow-y: none;
     height: 70vh;
     width: 70vw;
@@ -82,8 +80,8 @@
   }
 }
 
+/* Phones */
 @media (max-width: 481px) {
-
   .card {
     background-color: inherit;
     border-radius: 10px;
@@ -104,11 +102,11 @@
     /* border-bottom: 10px solid #24145f; */
   }
 
-  .creditWheel {
+  .treemap {
     height: 150vh;
   }
 
-  .creditEvents {
+  .table {
     overflow-y: scroll;
     height: 90vh;
     border-bottom: 1px solid #4c4c70;
