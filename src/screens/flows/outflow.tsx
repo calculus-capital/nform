@@ -112,7 +112,7 @@ const Outflows = (props: Props) => {
     <div className={styles.container}>
       <Grid columns={s ? 1 : 3} rows={s ? 2 : 1} className={styles.containerGrid}>
         <Cell width={2} height={1}>
-          <p className={styles.title}>Cash & Credit Outflow (+90 days Projections)</p>
+          <p className={styles.title}>Cash & Credit Outflow</p>
           <div className={styles.line}>
             {/* @ts-ignore */}
             <Line
