@@ -9,7 +9,7 @@ const Calendar = (props: { data: { value: number; day: string }[] }) => {
       data={props.data}
       emptyColor="none"
       colors={["#253494", "#1d91c0", "#7fcdbb", "#c7e9b4"]}
-      margin={s ? { top: 30 } : { top: 50, right: 20, bottom: 20, left: 20 }}
+      margin={s ? { top: 50 } : { top: 50, right: 20, bottom: 20, left: 20 }}
       dayBorderWidth={0.5}
       dayRadius={0}
       dayBorderColor="#5c5c7c"
@@ -20,10 +20,10 @@ const Calendar = (props: { data: { value: number; day: string }[] }) => {
       // height={200}
       legends={[
         {
-          anchor: "bottom-left",
+          anchor: s ? "top-left" : "bottom-left",
           direction: "row",
-          translateY: s ? -10 : -30,
-          translateX: s ? -40 : 0,
+          translateY: s ? -50 : -30,
+          translateX: s ? 0 : 0,
           itemCount: 3,
           itemWidth: s ? 50 : 60,
           itemHeight: 36,

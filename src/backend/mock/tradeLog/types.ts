@@ -3,7 +3,10 @@ export enum TradeType {
   SALES = 1,
   PROCUREMENT,
   CONSUMPTION,
-  PRODUCTION
+  PRODUCTION,
+  AWS,
+  FIXED,
+  SALARY,
 }
 
 export interface TradeItem {

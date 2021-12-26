@@ -36,7 +36,7 @@ const companies = [
   "Purplle",
 ]
 
-const orig = backend.generateTradeLog(1000)
+const orig = backend.generateTradeLog(1000).concat(backend.generateOtherLog(new Date(2018, 5, 1)))
 const company = companies[getRandomInt(0, companies.length - 1)]
 
 WebFont.load({

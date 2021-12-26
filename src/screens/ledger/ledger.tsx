@@ -50,7 +50,7 @@ const ledgerColumns = [
 
 const Ledger = (props: Props) => {
   const ledgerData = props.data
-    .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
+    // .filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
     .map(x => {
       return {
         type: TradeType[x.type],

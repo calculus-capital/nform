@@ -1,7 +1,7 @@
 
 import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from './types';
 import { traders } from './constants';
-import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate, getRandomBoolean } from '../random'
+import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate } from '../random'
 import moment from 'moment';
 
 const randomTradeItem = (): TradeItem => {
@@ -52,7 +52,7 @@ export const generateTradeLog = (items: number): Trade[] => {
     const items = Array(getRandomInt(1, 10)).fill(0).map(_ => randomTradeItem())
     const bene = randomBeneficiary()
 
-    const start = moment(terms.startDate)
+    // const start = moment(terms.startDate)
     const end = moment(terms.maturity)
     const totalCost = items.map((i) => { return i.price }).reduce((x, y) => x + y)
 
@@ -145,7 +145,8 @@ export const generateTradeLog = (items: number): Trade[] => {
       }
     }
 
-
+    // manufacturing usecases: procurement -> consumption -> production -> sales
+    // trading usecases: procurement -> sales
     let item:Trade = {
       type         : tradeType,
       items        : items,
@@ -168,16 +169,17 @@ export const generateTradeLog = (items: number): Trade[] => {
     } else if (item.type === TradeType.SALES) {
       let prodterms = terms
       prodterms.startDate = moment(terms.maturity).subtract(getRandomInt(30, 90), 'day').toDate()
-      let consumption: Trade = {
+      let production: Trade = {
         type         : TradeType.PRODUCTION,
         items        : items,
         terms        : prodterms,
         beneficiaries: [bene],
         payments     : payments
       }
-      return [item, consumption]
+      return [item, production]
     }
     return [item]
   })
   return trades
 }
+

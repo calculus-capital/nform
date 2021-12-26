@@ -16,12 +16,18 @@
 }
 
 .cashflow text {
-  stroke: #b2b2b2;
-  stroke-width: 0.1;
   font-style: normal;
-  /* font-family: 'Source Code Pro' !important; */
+  font-family: 'mono' !important;
   font-size: 11pt !important;
   font-weight: lighter;
+  color: #b2b2b2;
+}
+
+.pieChart text {
+  stroke: black;
+  fill: black;
+  stroke-width: 0.5;
+  stroke-width: 0.1;
 }
 
 .bulletContainer {
@@ -55,6 +61,7 @@ svg {
 
   .calendar {
     height: 30vh;
+    min-height: 150px;
     margin-top: 50px;
   }
 
@@ -82,7 +89,8 @@ svg {
 
   .calendar {
     height: 20vh;
-    margin-top: 50px;
+    min-height: 150px;
+    margin-top: 20px;
   }
 
   .bullet {
@@ -107,8 +115,9 @@ svg {
   }
 
   .calendar {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     height: 20vh;
+    min-height: 150px;
   }
 
   .bullet {
