@@ -1,6 +1,7 @@
 .container {
   overflow: none;
 }
+
 .container text {
   stroke: #fff;
   stroke-width: 1.2;
@@ -8,12 +9,15 @@
   font-family: "Source Code Pro" !important;
   font-size: 9pt !important;
   font-weight: lighter;
+
   padding: 20px;
 }
+
 .tableHeader {
   font-size: 14pt;
   padding: 5px;
 }
+
 /* Desktops */
 @media (min-width: 1100px) {
   .card {
@@ -21,26 +25,32 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   .card > div {
     margin: 20px;
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 3vw !important;
     padding-bottom: 10px;
     /* border-bottom: 10px solid #24145f; */
   }
+
   .treemap {
     height: 50vh;
   }
+
   .table {
     overflow-y: scroll;
     height: 30vh;
     border-bottom: 1px solid #4c4c70;
   }
 }
+
 /* Tablets & portrait phones */
 @media (max-width: 1100px) and (min-width: 481px) {
   .card {
@@ -48,16 +58,20 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 16pt !important;
     padding-bottom: 10px;
   }
+
   .treemap {
     height: 55vh;
   }
+
   .table {
     overflow-y: none;
     height: 70vh;
@@ -65,6 +79,7 @@
     border-bottom: 1px solid #4c4c70;
   }
 }
+
 /* Phones */
 @media (max-width: 481px) {
   .card {
@@ -72,24 +87,28 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   :global(.card-content) {
     padding: 10px !important;
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 12pt !important;
     /* padding-bottom: 10px; */
     /* border-bottom: 10px solid #24145f; */
   }
+
   .treemap {
     height: 150vh;
   }
+
   .table {
     overflow-y: scroll;
     height: 90vh;
     border-bottom: 1px solid #4c4c70;
   }
 }
-/*# sourceMappingURL=credit.module.css.map */

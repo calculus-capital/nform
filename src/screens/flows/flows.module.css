@@ -1,12 +1,10 @@
 .container {
   overflow: none;
 }
-
 .title {
   font-size: 13pt;
   color: #b2b2b2;
 }
-
 .container text {
   stroke: #fff;
   stroke-width: 1.2;
@@ -14,11 +12,8 @@
   font-family: "Source Code Pro" !important;
   font-size: 11pt !important;
   font-weight: lighter;
-
   padding: 20px;
 }
-
-
 /* Desktops */
 @media (min-width: 1100px) {
   .card {
@@ -27,29 +22,23 @@
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
     min-height: 10vh;
   }
-
   .card * {
     color: #b4b4b4;
   }
-
   .metric {
     font-size: 4vw !important;
   }
-
   .line {
     height: 60vh;
   }
-
   .tables {
     overflow-y: scroll;
     margin-bottom: 30px;
-
     height: 30vh !important;
     min-height: 300px;
     border-bottom: 1px solid red;
   }
 }
-
 /* Tablets & portrait phones */
 @media (max-width: 1100px) and (min-width: 481px) {
   .card {
@@ -57,30 +46,24 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
-
   .card * {
     color: #b4b4b4;
   }
-
   .metric {
     font-size: 14pt !important;
   }
-
   .line {
     height: 90vh;
     max-height: 400px;
   }
-
   .tables {
     overflow-y: scroll;
     margin-bottom: 30px;
-
     height: 20vh !important;
     min-height: 300px;
     border-bottom: 1px solid red;
   }
 }
-
 /* Phones */
 @media (max-width: 481px) {
   .card {
@@ -90,28 +73,23 @@
     margin-top: 25px;
     margin-bottom: 15px;
   }
-
   :global(.card-content) {
     padding: 10px !important;
   }
-
   .card * {
     color: #b4b4b4;
   }
-
   .metric {
     font-size: 12pt !important;
   }
-
   .line {
     height: 35vh;
     max-height: 500px;
   }
-
   .tables {
     overflow-y: scroll;
     height: 40vh !important;
-
     border-bottom: 1px solid red;
   }
 }
+/*# sourceMappingURL=flows.module.css.map */

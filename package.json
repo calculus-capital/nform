@@ -27,6 +27,9 @@
     "bulma": "^0.9.3",
     "fp-ts": "^2.11.5",
     "i": "^0.3.7",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "less-watch-compiler": "^1.16.3",
     "moment": "^2.29.1",
     "npm": "^8.2.0",
     "react": "^17.0.2",
@@ -45,7 +48,7 @@
     "webfontloader": "^1.6.28"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -69,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^6.5.1",
     "envify": "^4.1.0",
     "terser": "^5.10.0",
     "terser-brunch": "^4.1.0",

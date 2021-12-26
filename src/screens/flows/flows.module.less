@@ -1,46 +1,55 @@
 .container {
   overflow: none;
 }
+
+.title {
+  font-size: 13pt;
+  color: #b2b2b2;
+}
+
 .container text {
   stroke: #fff;
   stroke-width: 1.2;
   font-style: normal;
   font-family: "Source Code Pro" !important;
-  font-size: 9pt !important;
+  font-size: 11pt !important;
   font-weight: lighter;
+
   padding: 20px;
 }
-.tableHeader {
-  font-size: 14pt;
-  padding: 5px;
-}
+
+
 /* Desktops */
 @media (min-width: 1100px) {
   .card {
     background-color: inherit;
-    border-radius: 10px;
+    border-radius: 30px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    min-height: 10vh;
   }
-  .card > div {
-    margin: 20px;
-  }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
-    font-size: 3vw !important;
-    padding-bottom: 10px;
-    /* border-bottom: 10px solid #24145f; */
+    font-size: 4vw !important;
   }
-  .treemap {
-    height: 50vh;
+
+  .line {
+    height: 60vh;
   }
-  .table {
+
+  .tables {
     overflow-y: scroll;
-    height: 30vh;
-    border-bottom: 1px solid #4c4c70;
+    margin-bottom: 30px;
+
+    height: 30vh !important;
+    min-height: 300px;
+    border-bottom: 1px solid red;
   }
 }
+
 /* Tablets & portrait phones */
 @media (max-width: 1100px) and (min-width: 481px) {
   .card {
@@ -48,48 +57,61 @@
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
-    font-size: 16pt !important;
-    padding-bottom: 10px;
+    font-size: 14pt !important;
   }
-  .treemap {
-    height: 55vh;
+
+  .line {
+    height: 90vh;
+    max-height: 400px;
   }
-  .table {
-    overflow-y: none;
-    height: 70vh;
-    width: 70vw;
-    border-bottom: 1px solid #4c4c70;
+
+  .tables {
+    overflow-y: scroll;
+    margin-bottom: 30px;
+
+    height: 20vh !important;
+    min-height: 300px;
+    border-bottom: 1px solid red;
   }
 }
+
 /* Phones */
 @media (max-width: 481px) {
   .card {
     background-color: inherit;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    margin-top: 25px;
+    margin-bottom: 15px;
   }
+
   :global(.card-content) {
     padding: 10px !important;
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 12pt !important;
-    /* padding-bottom: 10px; */
-    /* border-bottom: 10px solid #24145f; */
   }
-  .treemap {
-    height: 150vh;
+
+  .line {
+    height: 35vh;
+    max-height: 500px;
   }
-  .table {
+
+  .tables {
     overflow-y: scroll;
-    height: 90vh;
-    border-bottom: 1px solid #4c4c70;
+    height: 40vh !important;
+
+    border-bottom: 1px solid red;
   }
 }
-/*# sourceMappingURL=credit.module.css.map */

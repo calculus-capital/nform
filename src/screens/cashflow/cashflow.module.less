@@ -1,17 +1,21 @@
 .container {
   margin: 0;
 }
+
 .title {
   font-size: 14pt;
   color: #b2b2b2;
   display: block;
   padding: 10px;
 }
+
 .cashflow {
   color: #b2b2b2;
   font-size: 12pt;
+
   padding: 20px;
 }
+
 .cashflow text {
   font-style: normal;
   font-family: 'mono' !important;
@@ -19,64 +23,81 @@
   font-weight: lighter;
   color: #b2b2b2;
 }
+
 .pieChart text {
   stroke: black;
   fill: black;
   stroke-width: 0.5;
   stroke-width: 0.1;
 }
+
 .bulletContainer {
   border: 0;
   padding: 0;
 }
+
 svg {
   overflow: visible;
 }
+
 /* Desktops */
 @media (min-width: 1100px) {
+
   .cashflow {
     font-size: 1vh;
   }
+
   .cashflow text {
     font-size: 13pt !important;
   }
+
   .card {
     background-color: inherit;
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   .card > div {
     margin: 20px;
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 3vw !important;
     padding-bottom: 10px;
     /* border-bottom: 10px solid #24145f; */
   }
+
   .pie {
     padding: 0;
     margin: 0;
   }
+
   .pieChart {
     height: calc(20vh + 20vw) !important;
   }
+
   .calendar {
     height: 30vh;
     min-height: 150px;
     margin-top: 50px;
   }
+
   .bullet {
     height: 20vh;
     max-height: 150px;
     max-width: 40vw;
+
     border: 0;
     padding: 0;
+
     margin-bottom: 30px;
   }
 }
+
 /* Tablets & portrait phones */
 @media (min-width: 481px) and (max-width: 1100px) {
   .card {
@@ -84,33 +105,41 @@ svg {
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 16pt !important;
     padding-bottom: 10px;
   }
+
   .pie {
     padding: 0;
     margin: 0;
   }
+
   .pieChart {
     height: calc(20vh + 20vw) !important;
   }
+
   .calendar {
     height: 1px;
     min-height: 150px;
     margin-top: 20px;
   }
+
   .bullet {
     height: 1px;
     min-height: 100px;
     max-height: 150px;
+
     border: 0;
     padding: 0;
   }
 }
+
 /* Phones */
 @media (max-width: 481px) {
   .card {
@@ -118,38 +147,47 @@ svg {
     border-radius: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   }
+
   :global(.card-content) {
     padding: 10px !important;
   }
+
   .card * {
     color: #b4b4b4;
   }
+
   .metric {
     font-size: 12pt !important;
     /* padding-bottom: 10px; */
     /* border-bottom: 10px solid #24145f; */
   }
+
   .pie {
     padding: 0;
   }
+
   .pie:last-of-type {
     margin-top: 140px;
     margin-bottom: 80px;
   }
+
   .pieChart {
     height: calc(20vh + 20vw) !important;
   }
+
   .calendar {
     margin-bottom: 10px;
     height: 20vh;
     min-height: 150px;
   }
+
   .bullet {
     margin-bottom: 30px;
+
     height: 20vh;
     max-height: 150px;
+
     border: 0;
     padding: 0;
   }
 }
-/*# sourceMappingURL=cashflow.module.css.map */

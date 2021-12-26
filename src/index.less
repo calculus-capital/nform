@@ -4,28 +4,34 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
   scrollbar-color: #330088 #02020c;
 }
+
 /* Works on Chrome, Edge, and Safari */
+
 @media (min-width: 481px) {
   *::-webkit-scrollbar {
     width: 10px;
   }
 }
+
 @media (max-width: 481px) {
   *::-webkit-scrollbar {
     width: 0px;
   }
 }
+
 *::-webkit-scrollbar-track {
   background: #d4d4d4;
 }
+
 *::-webkit-scrollbar-thumb {
   background-color: #02020c;
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
-/*# sourceMappingURL=index.css.map */
+
