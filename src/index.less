@@ -8,7 +8,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: @dark-scrollbar-color #02020c;
+  scrollbar-color: var(--dark-scrollbar-color) #02020c;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -30,13 +30,13 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: @dark-scrollbar-color;
+  background-color: var(--dark-scrollbar-color);
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
 
-// @bt-color-variation: light;
-// @import "themes/@{bt-color-variation}";
+// var(--bt-color-variation): light;
+// var(--import) "themes/var(--){bt-color-variation}";
 
 @dark-scrollbar-color: #19191b;
 

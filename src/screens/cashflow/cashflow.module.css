@@ -7,7 +7,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: #19191b #02020c;
+  scrollbar-color: var(--dark-scrollbar-color) #02020c;
 }
 /* Works on Chrome, Edge, and Safari */
 @media (min-width: 481px) {
@@ -24,7 +24,7 @@ body {
   background: #d4d4d4;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #19191b;
+  background-color: var(--dark-scrollbar-color);
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
@@ -48,10 +48,12 @@ body {
   font-size: 11pt !important;
   font-weight: lighter;
   color: var(--dark-text-color);
+  stroke: var(--dark-text-color);
+  fill: var(--dark-text-color);
 }
 .pieChart text {
-  stroke: black;
-  fill: black;
+  stroke: var(--dark-text-color);
+  fill: var(--dark-text-color);
   stroke-width: 0.5;
   stroke-width: 0.1;
 }

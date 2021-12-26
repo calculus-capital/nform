@@ -17,9 +17,6 @@ import Credit from "../screens/credit/credit"
 import { getRandomInt } from "../backend/mock/random"
 import { Button, Modal, Form } from "react-bulma-components"
 import moment from "moment"
-import Dark from '../themes/dark'
-import Light from '../themes/light'
-import DarkBlue from '../themes/darkBlue'
 
 const companies = [
   "Dunzo",
@@ -60,26 +57,19 @@ const Everything = () => {
   const data = React.useMemo(() => timeRange, [timeRange])
 
   const Theme = (props:any) => {
-    console.log(theme)
 
-    if (theme === 0) {
-      return (<Dark>{props.children}</Dark>)
-    } else if (theme === 1) {
-      return (<Light>{props.children}</Light>)
+    if (theme === 1) {
+      require("../themes/light.module.css")
     } else if (theme === 2) {
-      return (<DarkBlue>{props.children}</DarkBlue>)
+      require("../themes/dark.module.css")
+    } else if (theme === 0) {
+      require("../themes/darkBlue.module.css")
     } else {
-      return (<Dark>{props.children}</Dark>)
+      window.location.reload()
     }
-  }
 
-  // const loadTheme = () => {
-  //   if (this.state.theme === 'dark') {
-  //     import "../themes/dark.css"
-  //   };
-  //   if (this.state.theme === 'user-3232') return <UserTheme />;
-  //   return <DarkTheme />;
-  // }
+    return (<>{props.children}</>)
+  }
 
   const filterByTime = (days: number) => {
     setTime(days)
@@ -189,7 +179,7 @@ const Everything = () => {
                 <Cell width={1} middle>
                   <Button
                     className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => setTheme(theme+1 === 3 ? 0 : theme + 1)}
+                    onClick={() => setTheme(theme + 1)}
                   >
                     {m ? "⬛" : "Theme"}
                   </Button>

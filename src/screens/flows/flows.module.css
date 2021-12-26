@@ -7,7 +7,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: #02020c #02020c;
+  scrollbar-color: var(--dark-scrollbar-color) #02020c;
 }
 /* Works on Chrome, Edge, and Safari */
 @media (min-width: 481px) {
@@ -24,7 +24,7 @@ body {
   background: #d4d4d4;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #02020c;
+  background-color: var(--dark-scrollbar-color);
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
@@ -33,10 +33,10 @@ body {
 }
 .title {
   font-size: 13pt;
-  color: #223434;
+  color: var(--dark-text-color);
 }
 .container text {
-  stroke: #223434;
+  stroke: var(--dark-text-color);
   stroke-width: 1.2;
   font-style: normal;
   font-family: "Source Code Pro" !important;
@@ -49,11 +49,11 @@ body {
   .card {
     background-color: inherit;
     border-radius: 30px;
-    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
     min-height: 10vh;
   }
   .card * {
-    color: #332222;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 4vw !important;
@@ -74,10 +74,10 @@ body {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
   .card * {
-    color: #332222;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 14pt !important;
@@ -99,7 +99,7 @@ body {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
     margin-top: 25px;
     margin-bottom: 15px;
   }
@@ -107,7 +107,7 @@ body {
     padding: 10px !important;
   }
   .card * {
-    color: #332222;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 12pt !important;

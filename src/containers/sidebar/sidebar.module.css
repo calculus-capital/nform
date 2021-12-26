@@ -7,7 +7,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: #02020c #02020c;
+  scrollbar-color: var(--dark-scrollbar-color) #02020c;
 }
 /* Works on Chrome, Edge, and Safari */
 @media (min-width: 481px) {
@@ -24,7 +24,7 @@ body {
   background: #d4d4d4;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #02020c;
+  background-color: var(--dark-scrollbar-color);
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
@@ -34,7 +34,7 @@ body {
   top: 30px;
   left: 20px;
   text-align: left;
-  border-right: 0.1px solid #ffccee;
+  border-right: 0.1px solid var(--dark-border-color);
   overflow-y: auto;
 }
 .logo img {
@@ -51,7 +51,7 @@ body {
     text-align: left;
   }
   .menu a {
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 13pt;
     width: 100%;
     height: 100%;
@@ -59,7 +59,7 @@ body {
   .logo {
     height: 100px;
     text-align: center;
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 12pt;
   }
 }
@@ -72,7 +72,7 @@ body {
     padding: 0 !important;
   }
   .menu a {
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 20pt;
     width: 100%;
     height: 100%;
@@ -81,7 +81,7 @@ body {
   .logo {
     height: 100px;
     text-align: center;
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 0pt;
     margin-bottom: 50px;
   }
@@ -95,7 +95,7 @@ body {
     padding: 0 !important;
   }
   .menu a {
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 15pt;
     width: 100%;
     height: 100%;
@@ -104,7 +104,7 @@ body {
   .logo {
     height: 35px;
     text-align: center;
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 0pt;
     margin-bottom: 10px;
   }
@@ -115,10 +115,10 @@ body {
 }
 .menu a:hover {
   background-color: #485fc7;
-  color: #223434;
+  color: var(--dark-text-color);
 }
 .createContainer {
-  color: #223434;
+  color: var(--dark-text-color);
   align-items: "center";
   justify-content: "center";
 }
@@ -142,14 +142,14 @@ body {
   box-shadow: none;
 }
 .create span {
-  color: #223434;
+  color: var(--dark-text-color);
 }
 @media (min-width: 481px) {
   .newItemModalContent {
     padding: 50px;
     border-radius: 20px;
-    background-color: #ffffff;
-    color: #223434;
+    background-color: var(--dark-modal-background);
+    color: var(--dark-text-color);
     min-width: 50vw;
   }
   .newItemModalClose {
@@ -164,7 +164,7 @@ body {
     text-align: left;
   }
   .newItemOption {
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 16pt;
     padding-left: 20px;
     width: 100%;
@@ -177,8 +177,8 @@ body {
     border-top-left-radius: 20px;
     position: absolute;
     bottom: 0;
-    background-color: #ffffff;
-    color: #223434;
+    background-color: var(--dark-modal-background);
+    color: var(--dark-text-color);
     width: 100vw;
     height: 100%;
   }
@@ -194,7 +194,7 @@ body {
     text-align: left;
   }
   .newItemOption {
-    color: #223434;
+    color: var(--dark-text-color);
     font-size: 12pt;
     padding-left: 20px;
     width: 100%;
@@ -220,7 +220,7 @@ body {
   background-color: rgba(0, 0, 0, 0.2);
 }
 .newItemOption:hover {
-  color: #223434;
+  color: var(--dark-text-color);
 }
 .newItemCell a {
   width: 100%;
