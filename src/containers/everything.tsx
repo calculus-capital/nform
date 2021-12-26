@@ -21,6 +21,7 @@ import moment from "moment"
 import dark from "../themes/dark"
 import light from "../themes/light"
 import darkBlue from "../themes/darkBlue"
+import purple from "../themes/purple"
 
 const companies = [
   "Dunzo",
@@ -57,6 +58,8 @@ function useTheme(theme: number) {
     t = light
   } else if (theme === 2) {
     t = dark
+  } else if (theme === 3) {
+    t = purple
   }
   console.log(theme)
   for (const key in t) {
@@ -199,7 +202,7 @@ const Everything = () => {
                 <Cell width={1} middle>
                   <Button
                     className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => setTheme(theme + 1 === 3 ? 0 : theme + 1)}
+                    onClick={() => setTheme(theme + 1 === 4 ? 0 : theme + 1)}
                   >
                     {m ? "⬛" : "Theme"}
                   </Button>

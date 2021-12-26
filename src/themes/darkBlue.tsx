@@ -10,7 +10,7 @@ const darkBlue = {
   "dark-card-shadow": "rgba(0, 0, 0, 0.5)",
   "dark-gradient-1": "#d53369",
   "dark-gradient-2": "#daae51",
-  "dark-table-head": "#151540",
+  "dark-table-head": "rgba(0, 0, 0, 0.2)",
   "dark-table-hover": "rgba(50, 0, 200, 0.4)",
 }
 
