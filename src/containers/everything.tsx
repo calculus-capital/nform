@@ -105,7 +105,7 @@ const Everything = () => {
               <Cell width={s ? 4 : 5}>
                 <p className={styles.customer}>{company}</p>
               </Cell>
-              {!m && (
+              {!s && (
                 <Cell width={1} middle>
                   <Button
                     className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
@@ -115,7 +115,7 @@ const Everything = () => {
                   </Button>
                 </Cell>
               )}
-              {!m && (
+              {!s && (
                 <Cell width={1} middle>
                   <Button
                     className={time !== 180 ? styles.timeButton : styles.timeButtonActive}

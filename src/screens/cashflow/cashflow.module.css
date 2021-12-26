@@ -3,9 +3,10 @@
 }
 
 .title {
-  font-size: 12pt;
+  font-size: 14pt;
   color: #b2b2b2;
   display: block;
+  padding: 10px;
 }
 
 .cashflow {
@@ -31,7 +32,6 @@
 }
 
 .bulletContainer {
-  margin-top: 6vh;
   border: 0;
   padding: 0;
 }
@@ -52,11 +52,12 @@ svg {
   }
 
   .pie {
-    max-height: 44vh !important;
+    padding: 0;
+    margin: 0;
   }
 
   .pieChart {
-    height: 60vh;
+    height: calc(20vh + 20vw) !important;
   }
 
   .calendar {
@@ -80,23 +81,24 @@ svg {
 /* Tablets & portrait phones */
 @media (min-width: 481px) and (max-width: 1100px) {
   .pie {
-    max-height: 30vh !important;
+    padding: 0;
+    margin: 0;
   }
 
   .pieChart {
-    height: 30vh;
+    height: calc(20vh + 20vw) !important;
   }
 
   .calendar {
-    height: 20vh;
+    height: 1px;
     min-height: 150px;
     margin-top: 20px;
   }
 
   .bullet {
-    height: 20vh;
+    height: 1px;
+    min-height: 100px;
     max-height: 150px;
-    max-width: 40vw;
 
     border: 0;
     padding: 0;
@@ -107,11 +109,15 @@ svg {
 @media (max-width: 481px) {
   .pie {
     padding: 0;
-    margin: 0;
+  }
+
+  .pie:last-of-type {
+    margin-top: 140px;
+    margin-bottom: 80px;
   }
 
   .pieChart {
-    height: 40vh !important;
+    height: calc(20vh + 20vw) !important;
   }
 
   .calendar {

@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive"
 import styles from "./cashflow.module.css"
 import { Trade, TradeType } from "../../backend/mock/tradeLog/types"
 import { Cell, Grid } from "styled-css-grid"
-import { formatForBullet, formatForPie, formatCalendar } from "./data"
+import { formatForBullet, formatForPie, formatCalendar, formatForOpexPie } from './data';
 import Pie from "../../components/charts/pie"
 import Calendar from "../../components/charts/calendar"
 
@@ -15,6 +15,7 @@ interface Props {
 
 const Cashflow = (props: Props) => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
+  const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
   const data = props.data.filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
 
@@ -24,6 +25,14 @@ const Cashflow = (props: Props) => {
   })
   const payables = data.filter(d => {
     return d.type === TradeType.PROCUREMENT
+  })
+
+  const opex = props.data.filter(d => {
+    return d.type === TradeType.AWS || d.type === TradeType.SALARY
+  })
+
+  const capex = props.data.filter(d => {
+    return d.type === TradeType.FIXED
   })
 
   // Receivables
@@ -37,28 +46,37 @@ const Cashflow = (props: Props) => {
   let payablesMeasures = payablesFormatted.measures
 
   let pieData = formatForPie(data)
+  let opexPieData = formatForOpexPie(props.data)
   let rxCalendarData = formatCalendar(receivables)
   let txCalendarData = formatCalendar(payables)
 
   return (
     <div className={styles.cashflow}>
       {/* Calendars */}
-      <Grid columns={s ? 1 : 2} rows={s ? 5 : 2} className={styles.container}>
-        <Cell width={1} height={s ? 3 : 2} className={styles.pie} center>
-          <p className={styles.title}>Cash Flow</p>
+      <Grid columns={s ? 1 : 2} className={styles.container}>
+        <Cell width={1} className={styles.pie} center>
+          <p className={styles.title}>Trade</p>
           <div className={styles.pieChart}>
             <Pie data={pieData}></Pie>
           </div>
         </Cell>
-        <Cell height={s ? 1 : 1} width={1} className={styles.calendarCell} center middle>
+        <Cell width={1} className={styles.pie} center>
+          <p className={styles.title}>Expenses</p>
+          <div className={styles.pieChart}>
+            <Pie data={opexPieData}></Pie>
+          </div>
+        </Cell>
+      </Grid>
+      <Grid columns={s ? 1 : 2} className={styles.container}>
+        <Cell className={styles.calendarCell} center middle>
+          <p className={styles.title}>Collections Calendar</p>
           <div className={styles.calendar}>
-            <p className={styles.title}>Collections Calendar</p>
             <Calendar data={rxCalendarData}></Calendar>
           </div>
         </Cell>
-        <Cell height={s ? 1 : 1} width={1} className={styles.calendarCell}>
+        <Cell className={styles.calendarCell}>
+          <p className={styles.title}>Payments Calendar</p>
           <div className={styles.calendar}>
-            <p className={styles.title}>Payments Calendar</p>
             <Calendar data={txCalendarData}></Calendar>
           </div>
         </Cell>
@@ -66,7 +84,7 @@ const Cashflow = (props: Props) => {
       {/* Global */}
       <Grid columns={s ? 1 : 2} rows={s ? 2 : 1} className={styles.bulletContainer}>
         <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Total Collections: ➡️ On Credit ➡️ Collected ➡️ Not collected</p>
+          <p className={styles.title}>Inflow: ➡️ On Credit ➡️ Collected ➡️ Not collected</p>
           <Bullet
             data={[
               {
@@ -79,7 +97,7 @@ const Cashflow = (props: Props) => {
           ></Bullet>
         </Cell>
         <Cell width={1} className={styles.bullet}>
-          <p className={styles.title}>Total Payments: ➡️ On Credit ➡️ Paid ➡️ Unpaid</p>
+          <p className={styles.title}>Outflow: ➡️ On Credit ➡️ Paid ➡️ Unpaid</p>
           <Bullet
             data={[
               {

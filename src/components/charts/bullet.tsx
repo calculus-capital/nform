@@ -16,7 +16,7 @@ const Bullet = (props: { data: any[] }) => {
       titleAlign="start"
       titleOffsetX={-50}
       measureSize={0.2}
-      rangeColors="seq:green_blue"
+      rangeColors="seq:cool"
       tooltip={CustomTooltip}
     />
   )

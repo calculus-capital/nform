@@ -152,7 +152,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
 
   return [
     {
-      id: "Pending Collections",
+      id: "To Collect",
       value: Math.round((100 * tobeRX) / divisor) / 100,
     },
     {
@@ -160,18 +160,18 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
       value: Math.round((100 * totalPaymentsReceived) / divisor) / 100,
     },
     {
-      id: "Collected on Credit",
+      id: "Collected (Credit)",
       value: Math.round((100 * totalCreditReceived) / divisor) / 100,
     },
+    // {
+    //   id: "Collections delayed",
+    //   value: Math.round((100 * totalDelayedPaymentsReceived) / divisor) / 100,
+    //   // },{
+    //   //   id: "Collections credit delayed",
+    //   //   value: Math.round(100 * totalDelayedCreditReceived / divisor) / 100,
+    // },
     {
-      id: "Collections delayed",
-      value: Math.round((100 * totalDelayedPaymentsReceived) / divisor) / 100,
-      // },{
-      //   id: "Collections credit delayed",
-      //   value: Math.round(100 * totalDelayedCreditReceived / divisor) / 100,
-    },
-    {
-      id: "Pending Payments",
+      id: "To Pay",
       value: Math.round((100 * tobeTX) / divisor) / 100,
     },
     {
@@ -179,16 +179,74 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
       value: Math.round((100 * totalPaymentsSent) / divisor) / 100,
     },
     {
-      id: "Paid on Credit",
+      id: "Paid (Credit)",
       value: Math.round((100 * totalCreditSent) / divisor) / 100,
     },
+    // {
+    //   id: "Payment delayed",
+    //   value: Math.round((100 * totalDelayedPaymentsSent) / divisor) / 100,
+    //   // },{
+    //   //   id: "Payment credit delayed",
+    //   //   value: Math.round(100 * totalDelayedCreditSent / divisor) / 100,
+    // },
+  ]
+}
+
+export const formatForOpexPie = (data: Trade[]): { id: string; value: number }[] => {
+
+  // payables
+  const tech = data.filter(d => {
+    return d.type === TradeType.AWS
+  })
+  const totalTech = tech
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+  const salary = data.filter(d => {
+    return d.type === TradeType.SALARY
+  })
+  const totalSalaries = salary
+  .map(r => {
+    return r.payments.length > 0
+      ? r.payments
+          .map(p => p.amount)
+          .reduce((x, y) => x + y, 0)
+      : 0
+  })
+  .reduce((x, y) => x + y, 0)
+
+  const other = data.filter(d => {
+    return d.type === TradeType.FIXED
+  })
+  const totalOther = other
+  .map(r => {
+    return r.payments.length > 0
+      ? r.payments
+          .map(p => p.amount)
+          .reduce((x, y) => x + y, 0)
+      : 0
+  })
+    .reduce((x, y) => x + y, 0)
+
+  return [
     {
-      id: "Payment delayed",
-      value: Math.round((100 * totalDelayedPaymentsSent) / divisor) / 100,
-      // },{
-      //   id: "Payment credit delayed",
-      //   value: Math.round(100 * totalDelayedCreditSent / divisor) / 100,
+      id: "Tech",
+      value: Math.round((100 * totalTech) / divisor) / 100,
     },
+    {
+      id: "Salaries",
+      value: Math.round((100 * totalSalaries) / divisor) / 100,
+    },
+    {
+      id: "Other",
+      value: Math.round((100 * totalOther) / divisor) / 100,
+    }
   ]
 }
 

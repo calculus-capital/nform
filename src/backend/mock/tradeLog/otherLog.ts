@@ -111,7 +111,7 @@ export const generateOtherLog = (from:Date): Trade[] => {
       payments     : payments
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * awsCostsInc)
+    baseCost = baseCost + (baseCost * awsCostsInc / 100)
     return m
   }, [] as Trade[])
 
@@ -140,7 +140,7 @@ export const generateOtherLog = (from:Date): Trade[] => {
       payments     : payments
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * salaryInc)
+    baseCost = baseCost + (baseCost * salaryInc / 100)
     return m
   }, [] as Trade[])
 
@@ -169,7 +169,7 @@ export const generateOtherLog = (from:Date): Trade[] => {
       payments     : payments
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * otherFixedCostsInc)
+    baseCost = baseCost + (baseCost * otherFixedCostsInc / 100)
     return m
   }, [] as Trade[])
 
