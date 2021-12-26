@@ -6,7 +6,7 @@ import moment from 'moment'
 // metrics per month
 export const awsCosts = 10000 + getRandomArbitrary(10000, 100000)
 export const awsCostsInc = 30 + getRandomArbitrary(0, 30)
-export const salaryStart = 10000000
+export const salaryStart = 20000000
 export const salaryInc = 30 + getRandomArbitrary(0, 100)
 export const otherFixedCosts = 1000000 + getRandomArbitrary(10000, 100000)
 export const otherFixedCostsInc = 20 + getRandomArbitrary(0, 20)
