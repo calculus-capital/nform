@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useLayoutEffect } from "react"
 import { Grid, Cell } from "styled-css-grid"
 import { Routes, Route } from "react-router-dom"
 import * as backend from "../backend"
@@ -17,6 +17,10 @@ import Credit from "../screens/credit/credit"
 import { getRandomInt } from "../backend/mock/random"
 import { Button, Modal, Form } from "react-bulma-components"
 import moment from "moment"
+
+import dark from "../themes/dark"
+import light from "../themes/light"
+import darkBlue from "../themes/darkBlue"
 
 const companies = [
   "Dunzo",
@@ -45,6 +49,22 @@ WebFont.load({
   },
 })
 
+function useTheme(theme: number) {
+  var t:any = darkBlue
+  if (theme === 0) {
+    t = darkBlue
+  } else if (theme === 1) {
+    t = light
+  } else if (theme === 2) {
+    t = dark
+  }
+  console.log(theme)
+  for (const key in t) {
+    // Update css variables in document's root element
+    document.documentElement.style.setProperty(`--${key}`, t[key])
+  }
+}
+
 const Everything = () => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
   const m = useMediaQuery({ query: "(max-width: 1100px)" })
@@ -55,21 +75,21 @@ const Everything = () => {
     orig.filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, "days")))
   )
   const data = React.useMemo(() => timeRange, [timeRange])
+  useTheme(theme)
 
-  const Theme = (props:any) => {
+  // const Theme = (props: any) => {
+  //   if (theme === 1) {
+  //     require("../themes/light.module.css")
+  //   } else if (theme === 2) {
+  //     require("../themes/dark.module.css")
+  //   } else if (theme === 0) {
+  //     require("../themes/darkBlue.module.css")
+  //   } else {
+  //     window.location.reload()
+  //   }
 
-    if (theme === 1) {
-      require("../themes/light.module.css")
-    } else if (theme === 2) {
-      require("../themes/dark.module.css")
-    } else if (theme === 0) {
-      require("../themes/darkBlue.module.css")
-    } else {
-      window.location.reload()
-    }
-
-    return (<>{props.children}</>)
-  }
+  //   return <>{props.children}</>
+  // }
 
   const filterByTime = (days: number) => {
     setTime(days)
@@ -111,7 +131,7 @@ const Everything = () => {
 
   return (
     <div className={styles.everything}>
-      <Theme>
+      {/* <Theme> */}
         <div className={styles.something}>
           <Grid columns={10}>
             <Cell width={s ? 2 : 2} center middle>
@@ -167,7 +187,7 @@ const Everything = () => {
                       {m ? "7" : "7 days"}
                     </Button>
                   </Cell>
-                  )}
+                )}
                 <Cell width={1} middle>
                   <Button
                     className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
@@ -179,7 +199,7 @@ const Everything = () => {
                 <Cell width={1} middle>
                   <Button
                     className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => setTheme(theme + 1)}
+                    onClick={() => setTheme(theme + 1 === 3 ? 0 : theme + 1)}
                   >
                     {m ? "⬛" : "Theme"}
                   </Button>
@@ -198,7 +218,7 @@ const Everything = () => {
           </Grid>
           <SearchModal></SearchModal>
         </div>
-      </Theme>
+      {/* </Theme> */}
     </div>
   )
 }
