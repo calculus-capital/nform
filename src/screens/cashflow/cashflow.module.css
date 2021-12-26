@@ -51,6 +51,26 @@ svg {
     font-size: 13pt !important;
   }
 
+  .card {
+    background-color: inherit;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .card > div {
+    margin: 20px;
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 3vw !important;
+    padding-bottom: 10px;
+    /* border-bottom: 10px solid #24145f; */
+  }
+
   .pie {
     padding: 0;
     margin: 0;
@@ -80,6 +100,21 @@ svg {
 
 /* Tablets & portrait phones */
 @media (min-width: 481px) and (max-width: 1100px) {
+  .card {
+    background-color: inherit;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 16pt !important;
+    padding-bottom: 10px;
+  }
+
   .pie {
     padding: 0;
     margin: 0;
@@ -107,6 +142,26 @@ svg {
 
 /* Phones */
 @media (max-width: 481px) {
+  .card {
+    background-color: inherit;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  :global(.card-content) {
+    padding: 10px !important;
+  }
+
+  .card * {
+    color: #b4b4b4;
+  }
+
+  .metric {
+    font-size: 12pt !important;
+    /* padding-bottom: 10px; */
+    /* border-bottom: 10px solid #24145f; */
+  }
+
   .pie {
     padding: 0;
   }

@@ -5,8 +5,8 @@ import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate } from
 import moment from 'moment';
 
 const randomTradeItem = (): TradeItem => {
-  const price = getRandomArbitrary(10, 100)
-  const quantity: number = getRandomInt(1, 100)
+  const price = getRandomArbitrary(100, 200)
+  const quantity: number = getRandomInt(10, 1000)
 
   const item: TradeItem = {
     id            : getRandomInt(10000000000, 99999999999),

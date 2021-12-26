@@ -193,18 +193,13 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
 }
 
 export const formatForOpexPie = (data: Trade[]): { id: string; value: number }[] => {
-
   // payables
   const tech = data.filter(d => {
     return d.type === TradeType.AWS
   })
   const totalTech = tech
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.payments.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 
@@ -212,26 +207,18 @@ export const formatForOpexPie = (data: Trade[]): { id: string; value: number }[]
     return d.type === TradeType.SALARY
   })
   const totalSalaries = salary
-  .map(r => {
-    return r.payments.length > 0
-      ? r.payments
-          .map(p => p.amount)
-          .reduce((x, y) => x + y, 0)
-      : 0
-  })
-  .reduce((x, y) => x + y, 0)
+    .map(r => {
+      return r.payments.length > 0 ? r.payments.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
+    })
+    .reduce((x, y) => x + y, 0)
 
   const other = data.filter(d => {
     return d.type === TradeType.FIXED
   })
   const totalOther = other
-  .map(r => {
-    return r.payments.length > 0
-      ? r.payments
-          .map(p => p.amount)
-          .reduce((x, y) => x + y, 0)
-      : 0
-  })
+    .map(r => {
+      return r.payments.length > 0 ? r.payments.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
+    })
     .reduce((x, y) => x + y, 0)
 
   return [
@@ -246,7 +233,7 @@ export const formatForOpexPie = (data: Trade[]): { id: string; value: number }[]
     {
       id: "Other",
       value: Math.round((100 * totalOther) / divisor) / 100,
-    }
+    },
   ]
 }
 
@@ -269,4 +256,81 @@ export const formatCalendar = (data: Trade[]): { value: number; day: string }[] 
       day: k,
     }
   })
+}
+
+export const operatingMetrics = (data: Trade[]):number[] => {
+  const revenue = data
+    .filter(d => {
+      return d.type === TradeType.SALES
+    })
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+  const expenses = data
+    .filter(d => {
+      return (
+        d.type === TradeType.PROCUREMENT ||
+        d.type === TradeType.SALARY ||
+        d.type === TradeType.FIXED ||
+        d.type === TradeType.AWS
+      )
+    })
+    .filter(r => moment(r.terms.maturity).isAfter(moment()))
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+    const aws = data.filter(d => {
+      return d.type === TradeType.AWS
+    })
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+    const salary = data.filter(d => {
+      return d.type === TradeType.SALARY
+    })
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+    const capex = data.filter(d => {
+      return d.type === TradeType.FIXED
+    })
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+
+  return [revenue, expenses, aws, salary, capex]
 }

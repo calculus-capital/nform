@@ -4,13 +4,14 @@ import { getRandomArbitrary, getRandomInt, getRandomString } from '../random'
 import moment from 'moment'
 
 // metrics per month
-const awsCosts = 10000 + getRandomArbitrary(10000, 100000)
-const awsCostsInc = 30 + getRandomArbitrary(0, 30)
-const salaryStart = 10000000
-const salaryInc = 20 + getRandomArbitrary(20, 40)
-const otherFixedCosts = 500000 + getRandomArbitrary(10000, 100000)
-const otherFixedCostsInc = 20 + getRandomArbitrary(0, 20)
-const averageDelay = 2
+export const awsCosts = 10000 + getRandomArbitrary(10000, 100000)
+export const awsCostsInc = 30 + getRandomArbitrary(0, 30)
+export const salaryStart = 10000000
+export const salaryInc = 30 + getRandomArbitrary(0, 100)
+export const otherFixedCosts = 1000000 + getRandomArbitrary(10000, 100000)
+export const otherFixedCostsInc = 20 + getRandomArbitrary(0, 20)
+export const averageDelay = 2
+export const bankBalance = getRandomArbitrary(2000000*70, 10000000*70)
 
 const oneItem = (price: number, name: string): TradeItem => {
   const item: TradeItem = {

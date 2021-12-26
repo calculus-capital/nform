@@ -99,11 +99,6 @@ const Sidebar = () => {
                 {s ? "🟢" : "🟢 New"}
               </a>
             </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/cashflow"}>
-              <Link className={styles.sidebarLink} to="/cashflow">
-                {s ? "🌊" : "🌊 Cash Flow"}
-              </Link>
-            </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/"}>
               <Link className={styles.sidebarLink} to="/">
                 {s ? "💵" : "💵 FinOps"}
@@ -126,21 +121,17 @@ const Sidebar = () => {
                 {s ? "📤" : "📤 Payables"}
               </Link>
             </Menu.List.Item>
-            {/* <Menu.List.Item active={location.pathname === "/taxes"}>
-              <Link className={styles.sidebarLink} to="/taxes">🟩 Taxes</Link>
-            </Menu.List.Item> */}
+            <Menu.List.Item active={location.pathname === "/lines"}>
+              <Link className={styles.sidebarLink} to="/lines">
+                {s ? "💰" : "💰 Credit Lines"}
+              </Link>
+            </Menu.List.Item>
+            <Menu.List.Item active={location.pathname === "/taxes"}>
+              <Link className={styles.sidebarLink} to="/taxes">
+                {s ? "🇮🇳" : "🇮🇳 Taxes"}
+              </Link>
+            </Menu.List.Item>
           </Menu.List>
-          {/* <Menu.List title="Operations">
-            <Menu.List.Item active={location.pathname === "/inventory"}>
-              <Link className={styles.sidebarLink} to="/inventory">🏬 Inventory</Link>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/procurement"}>
-              <Link className={styles.sidebarLink} to="/procurement">🚚 Procurement</Link>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/fulfillment"}>
-              <Link className={styles.sidebarLink} to="/fulfillment">🚢 Fulfillment</Link>
-            </Menu.List.Item>
-          </Menu.List> */}
           <Menu.List title={s ? "" : "Audit"}>
             <Menu.List.Item active={location.pathname === "/inventoryLog"}>
               <Link className={styles.sidebarLink} to="/inventoryLog">

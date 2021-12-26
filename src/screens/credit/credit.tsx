@@ -72,7 +72,6 @@ const Credit = (props: Props) => {
       <Grid columns={s ? 1 : 3} rows={s ? 3 : 1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
             <Card.Content>
               <Heading size={4}>Availed</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
@@ -84,7 +83,6 @@ const Credit = (props: Props) => {
         </Cell>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
             <Card.Content>
               <Heading size={4}>Active</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
@@ -96,7 +94,6 @@ const Credit = (props: Props) => {
         </Cell>
         <Cell width={1} height={1}>
           <Card className={styles.card}>
-            <Card.Header>{/* <Card.Header.Title>Total Credit</Card.Header.Title> */}</Card.Header>
             <Card.Content>
               <Heading size={4}>Repaid</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>

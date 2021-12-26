@@ -16,7 +16,7 @@ const Calendar = (props: { data: { value: number; day: string }[] }) => {
       dayBorderColor="#5c5c7c"
       weekdayLegendOffset={s ? 0 : m ? 60 : 70}
       weekdayTicks={s ? [] : [1, 5]}
-      isInteractive={s}
+      isInteractive={!s}
       // width={500}
       // height={200}
       legends={[
