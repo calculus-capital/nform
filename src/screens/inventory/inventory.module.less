@@ -1,12 +1,14 @@
+@import "../../index.less";
+
 .title {
   font-size: 11pt;
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
-.inventory {
-  /* background-color: green;
-  height: 200px; */
-}
+// .inventory {
+//   /* background-color: green;
+//   height: 200px; */
+// }
 
 .search {
   margin: 20px;
@@ -14,24 +16,24 @@
 
 .search input {
   background: none;
-  color: #b2b2b2;
+  color: @dark-text-color;
   border: none;
-  border: 2px solid #4c4c70;
-  /* border-bottom: 2px dashed #4c4c70; */
+  border: 2px solid @dark-input-color;
+  /* border-bottom: 2px dashed @dark-input-color; */
 }
 
 .search input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #b2b2b2;
+  color: @dark-text-color;
   opacity: 0.5; /* Firefox */
 }
 
 .search input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
 .search input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #b2b2b2;
+  color: @dark-text-color;
 }

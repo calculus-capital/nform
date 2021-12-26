@@ -1,3 +1,5 @@
+@import "../index.less";
+
 .everything {
   position: fixed;
   top: 0;
@@ -8,7 +10,7 @@
 
   text-align: center;
   /* background-image: url('../assets/background2.jpg'); */
-  background: linear-gradient(135deg, #d53369 0%, #daae51 100%);
+  background: linear-gradient(135deg, @dark-gradient-1 0%, @dark-gradient-2 100%);
   /* background: linear-gradient(90deg, rgba(131,58,180,1) 2%, rgba(253,29,9,1) 71%, rgba(252,176,69,1) 100%); */
   /* background: radial-gradient(circle, rgba(195,34,145,1) 0%, rgba(253,114,45,1) 100%); */
 
@@ -17,7 +19,7 @@
   padding: 10px;
 
   font-size: 10pt;
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
 @media (max-width: 481px) {
@@ -28,7 +30,7 @@
 
 @media (min-width: 1100px) {
   .something {
-    background-color: #0c0c20;
+    background-color: @dark-background-color;
     border-radius: 30px;
     height: calc(100vh - 20px);
     overflow: auto;
@@ -42,13 +44,13 @@
     font-size: 30pt;
     font-family: cursive;
 
-    color: #b2b2b2;
+    color: @dark-text-color;
   }
 }
 
 @media (min-width: 481px) and (max-width: 1100px) {
   .something {
-    background-color: #0c0c20;
+    background-color: @dark-background-color;
     border-radius: 30px;
     height: calc(100vh - 20px);
     overflow: auto;
@@ -62,13 +64,13 @@
     font-size: 25pt;
     font-family: cursive;
 
-    color: #b2b2b2;
+    color: @dark-text-color;
   }
 }
 
 @media (max-width: 481px) {
   .something {
-    background-color: #0c0c20;
+    background-color: @dark-background-color;
     border-radius: 20px;
     height: calc(100vh - 10px);
     overflow: auto;
@@ -78,13 +80,13 @@
     font-size: 20pt;
     font-family: cursive;
 
-    color: #b2b2b2;
+    color: @dark-text-color;
   }
 }
 
 .header {
   height: 50px;
-  border-bottom: 1px solid #151550;
+  border-bottom: 1px solid @dark-border-color;
 
   margin: 10px;
 }
@@ -95,10 +97,10 @@
   margin: none !important;
 
   background-color: inherit !important;
-  color: #b2b2b2 !important;
+  color: @dark-text-color !important;
   border: none !important;
   border-radius: 0 !important;
-  border-right: 1px solid #151550 !important;
+  border-right: 1px solid @dark-border-color !important;
 }
 
 .timeButtonActive {
@@ -107,25 +109,25 @@
   margin: none !important;
 
   background-color: inherit !important;
-  color: #b2b2b2 !important;
+  color: @dark-text-color !important;
   border: none !important;
   border-radius: 0 !important;
-  border-right: 1px solid #151550 !important;
+  border-right: 1px solid @dark-border-color !important;
   border-bottom: 5px solid red !important;
 }
 
 .timeButton:hover {
   background-color: rgba(50, 0, 200, 0.4) !important;
-  color: #b2b2b2;
-  border-color: #151550;
+  color: @dark-text-color;
+  border-color: @dark-border-color;
 }
 
 .searchModalContent {
   padding: 50px;
   border-radius: 20px;
 
-  background-color: #222232;
-  color: #b2b2b2;
+  background-color: @dark-modal-background;
+  color: @dark-text-color;
 }
 
 .searchModalContent h1 {
@@ -142,9 +144,9 @@
 
 .search input {
   background: none;
-  color: #b2b2b2;
+  color: @dark-text-color;
   border: none;
-  border: 2px solid #4c4c70;
+  border: 2px solid @dark-input-color;
 
   padding: 30px;
   font-size: 15pt;
@@ -152,16 +154,16 @@
 
 .search input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #b2b2b2;
+  color: @dark-text-color;
   opacity: 0.5; /* Firefox */
 }
 
 .search input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
 .search input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #b2b2b2;
+  color: @dark-text-color;
 }

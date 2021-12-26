@@ -17,6 +17,9 @@ import Credit from "../screens/credit/credit"
 import { getRandomInt } from "../backend/mock/random"
 import { Button, Modal, Form } from "react-bulma-components"
 import moment from "moment"
+import Dark from '../themes/dark'
+import Light from '../themes/light'
+import DarkBlue from '../themes/darkBlue'
 
 const companies = [
   "Dunzo",
@@ -49,11 +52,34 @@ const Everything = () => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
   const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
+  const [theme, setTheme] = useState(0)
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(
     orig.filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, "days")))
   )
   const data = React.useMemo(() => timeRange, [timeRange])
+
+  const Theme = (props:any) => {
+    console.log(theme)
+
+    if (theme === 0) {
+      return (<Dark>{props.children}</Dark>)
+    } else if (theme === 1) {
+      return (<Light>{props.children}</Light>)
+    } else if (theme === 2) {
+      return (<DarkBlue>{props.children}</DarkBlue>)
+    } else {
+      return (<Dark>{props.children}</Dark>)
+    }
+  }
+
+  // const loadTheme = () => {
+  //   if (this.state.theme === 'dark') {
+  //     import "../themes/dark.css"
+  //   };
+  //   if (this.state.theme === 'user-3232') return <UserTheme />;
+  //   return <DarkTheme />;
+  // }
 
   const filterByTime = (days: number) => {
     setTime(days)
@@ -95,82 +121,94 @@ const Everything = () => {
 
   return (
     <div className={styles.everything}>
-      <div className={styles.something}>
-        <Grid columns={10}>
-          <Cell width={s ? 2 : 2} center middle>
-            <Sidebar></Sidebar>
-          </Cell>
-          <Cell width={8} className={styles.content}>
-            <Grid columns={s ? 4 : 11} rows={s ? 2 : 1} className={styles.header}>
-              <Cell width={s ? 4 : 5}>
-                <p className={styles.customer}>{company}</p>
-              </Cell>
-              {!s && (
+      <Theme>
+        <div className={styles.something}>
+          <Grid columns={10}>
+            <Cell width={s ? 2 : 2} center middle>
+              <Sidebar></Sidebar>
+            </Cell>
+            <Cell width={8} className={styles.content}>
+              <Grid columns={s ? 4 : 12} rows={s ? 2 : 1} className={styles.header}>
+                <Cell width={s ? 4 : 5}>
+                  <p className={styles.customer}>{company}</p>
+                </Cell>
+                {!s && (
+                  <Cell width={1} middle>
+                    <Button
+                      className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
+                      onClick={() => filterByTime(365)}
+                    >
+                      {m ? "360" : "YTD"}
+                    </Button>
+                  </Cell>
+                )}
+                {!s && (
+                  <Cell width={1} middle>
+                    <Button
+                      className={time !== 180 ? styles.timeButton : styles.timeButtonActive}
+                      onClick={() => filterByTime(180)}
+                    >
+                      {m ? "180" : "180 days"}
+                    </Button>
+                  </Cell>
+                )}
                 <Cell width={1} middle>
                   <Button
-                    className={time !== 365 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => filterByTime(365)}
+                    className={time !== 90 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => filterByTime(90)}
                   >
-                    {m ? "360" : "YTD"}
+                    {m ? "90" : "90 days"}
                   </Button>
                 </Cell>
-              )}
-              {!s && (
                 <Cell width={1} middle>
                   <Button
-                    className={time !== 180 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => filterByTime(180)}
+                    className={time !== 30 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => filterByTime(30)}
                   >
-                    {m ? "180" : "180 days"}
+                    {m ? "30" : "30 days"}
                   </Button>
                 </Cell>
-              )}
-              <Cell width={1} middle>
-                <Button
-                  className={time !== 90 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(90)}
-                >
-                  {m ? "90" : "90 days"}
-                </Button>
-              </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== 30 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(30)}
-                >
-                  {m ? "30" : "30 days"}
-                </Button>
-              </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== 7 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(7)}
-                >
-                  {m ? "7" : "7 days"}
-                </Button>
-              </Cell>
-              <Cell width={1} middle>
-                <Button
-                  className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
-                  onClick={() => filterByTime(-1)}
-                >
-                  {m ? "🛸" : "Future"}
-                </Button>
-              </Cell>
-            </Grid>
-            <Routes>
-              <Route path="/" element={<Cashflow data={data}></Cashflow>} />
-              <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
-              <Route path="/inventoryLog" element={<Inventory data={data}></Inventory>} />
-              <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
-              <Route path="/payables" element={<Outflows data={data}></Outflows>} />
-              <Route path="/receivables" element={<Inflows data={data}></Inflows>} />
-              <Route path="/credit" element={<Credit data={data}></Credit>} />
-            </Routes>
-          </Cell>
-        </Grid>
-        <SearchModal></SearchModal>
-      </div>
+                {!s && (
+                  <Cell width={1} middle>
+                    <Button
+                      className={time !== 7 ? styles.timeButton : styles.timeButtonActive}
+                      onClick={() => filterByTime(7)}
+                    >
+                      {m ? "7" : "7 days"}
+                    </Button>
+                  </Cell>
+                  )}
+                <Cell width={1} middle>
+                  <Button
+                    className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => filterByTime(-1)}
+                  >
+                    {m ? "🛸" : "Future"}
+                  </Button>
+                </Cell>
+                <Cell width={1} middle>
+                  <Button
+                    className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
+                    onClick={() => setTheme(theme+1 === 3 ? 0 : theme + 1)}
+                  >
+                    {m ? "⬛" : "Theme"}
+                  </Button>
+                </Cell>
+              </Grid>
+              <Routes>
+                <Route path="/" element={<Cashflow data={data}></Cashflow>} />
+                <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
+                <Route path="/inventoryLog" element={<Inventory data={data}></Inventory>} />
+                <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
+                <Route path="/payables" element={<Outflows data={data}></Outflows>} />
+                <Route path="/receivables" element={<Inflows data={data}></Inflows>} />
+                <Route path="/credit" element={<Credit data={data}></Credit>} />
+              </Routes>
+            </Cell>
+          </Grid>
+          <SearchModal></SearchModal>
+        </div>
+      </Theme>
     </div>
   )
 }

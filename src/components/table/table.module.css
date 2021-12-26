@@ -1,26 +1,52 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #02020c #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #02020c;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .tableContainer {
-  color: #b2b2b2;
+  color: #223434;
   font-size: 9pt;
   overflow-y: auto;
 }
 .thead {
   font-size: 11pt;
-  color: #b2b2b2;
+  color: #223434;
 }
 .th {
-  color: #b2b2b2;
+  color: #223434;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 10px;
   padding-left: 10px;
 }
 .trhead {
-  background-color: #151540;
+  background-color: #fff4c8;
   border-top: 0.1px solid #4c4c70;
-}
-.trhead:first-of-type {
-  /* border-top-left-radius: 20px;
-  border-top-right-radius: 20px; */
 }
 .tbody {
   font-size: 11pt;
@@ -29,7 +55,7 @@
   border-top: 0.1px solid #4c4c70;
 }
 .tbody :hover {
-  background-color: #151540;
+  background-color: #fff4c8;
 }
 .td {
   padding-top: 15px;
@@ -39,7 +65,7 @@
   position: relative;
 }
 .tr :hover {
-  background-color: #151550;
+  background-color: rgba(89, 122, 190, 0.6);
   cursor: pointer;
 }
 .rowModalTitle {
@@ -49,8 +75,8 @@
   .rowModalContent {
     padding: 50px;
     border-radius: 20px;
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: #ffffff;
+    color: #223434;
   }
   .rowModalClose {
     font-size: 20pt;
@@ -69,8 +95,8 @@
     border-top-left-radius: 20px;
     position: absolute;
     bottom: 0;
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: #ffffff;
+    color: #223434;
     width: 100vw;
     height: 100%;
   }
@@ -99,15 +125,14 @@
   margin-top: 20px;
 }
 .rowModalAction {
-  /* width: 100px; */
   width: 100%;
   background-color: inherit;
-  color: #b2b2b2;
-  border-color: #151550;
+  color: #223434;
+  border-color: #ffccee;
 }
 .rowModalAction:hover {
-  background-color: rgba(50, 0, 200, 0.4);
-  color: #b2b2b2;
-  border-color: #151550;
+  background-color: rgba(89, 122, 190, 0.6);
+  color: #223434;
+  border-color: #ffccee;
 }
 /*# sourceMappingURL=table.module.css.map */

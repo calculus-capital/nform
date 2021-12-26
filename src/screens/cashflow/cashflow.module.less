@@ -1,16 +1,18 @@
+@import "../../index.less";
+
 .container {
   margin: 0;
 }
 
 .title {
   font-size: 14pt;
-  color: #b2b2b2;
+  color: var(--dark-text-color);
   display: block;
   padding: 10px;
 }
 
 .cashflow {
-  color: #b2b2b2;
+  color: var(--dark-text-color);
   font-size: 12pt;
 
   padding: 20px;
@@ -21,7 +23,7 @@
   font-family: 'mono' !important;
   font-size: 11pt !important;
   font-weight: lighter;
-  color: #b2b2b2;
+  color: var(--dark-text-color);
 }
 
 .pieChart text {
@@ -54,7 +56,7 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
 
   .card > div {
@@ -62,13 +64,12 @@ svg {
   }
 
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
 
   .metric {
     font-size: 3vw !important;
     padding-bottom: 10px;
-    /* border-bottom: 10px solid #24145f; */
   }
 
   .pie {
@@ -103,11 +104,11 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
 
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
 
   .metric {
@@ -145,7 +146,7 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
 
   :global(.card-content) {
@@ -153,13 +154,11 @@ svg {
   }
 
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
 
   .metric {
     font-size: 12pt !important;
-    /* padding-bottom: 10px; */
-    /* border-bottom: 10px solid #24145f; */
   }
 
   .pie {

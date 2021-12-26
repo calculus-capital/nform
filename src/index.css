@@ -7,7 +7,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thick;
-  scrollbar-color: #330088 #02020c;
+  scrollbar-color: #19191b #02020c;
 }
 /* Works on Chrome, Edge, and Safari */
 @media (min-width: 481px) {
@@ -24,8 +24,7 @@ body {
   background: #d4d4d4;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #02020c;
+  background-color: #19191b;
   border-radius: 10px;
   border: 3px solid #d4d4d4;
 }
-/*# sourceMappingURL=index.css.map */

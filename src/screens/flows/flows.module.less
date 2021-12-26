@@ -1,14 +1,16 @@
+@import "../../index.less";
+
 .container {
   overflow: none;
 }
 
 .title {
   font-size: 13pt;
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
 .container text {
-  stroke: #fff;
+  stroke: @dark-text-color;
   stroke-width: 1.2;
   font-style: normal;
   font-family: "Source Code Pro" !important;
@@ -24,12 +26,12 @@
   .card {
     background-color: inherit;
     border-radius: 30px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px @dark-card-shadow;
     min-height: 10vh;
   }
 
   .card * {
-    color: #b4b4b4;
+    color: @dark-card-color;
   }
 
   .metric {
@@ -55,11 +57,11 @@
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px @dark-card-shadow;
   }
 
   .card * {
-    color: #b4b4b4;
+    color: @dark-card-color;
   }
 
   .metric {
@@ -86,7 +88,7 @@
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px @dark-card-shadow;
     margin-top: 25px;
     margin-bottom: 15px;
   }
@@ -96,7 +98,7 @@
   }
 
   .card * {
-    color: #b4b4b4;
+    color: @dark-card-color;
   }
 
   .metric {

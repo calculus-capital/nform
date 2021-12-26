@@ -1,3 +1,33 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #02020c #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #02020c;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .container {
   overflow: none;
 }
@@ -19,13 +49,13 @@
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
   }
   .card > div {
     margin: 20px;
   }
   .card * {
-    color: #b4b4b4;
+    color: #332222;
   }
   .metric {
     font-size: 3vw !important;
@@ -46,10 +76,10 @@
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
   }
   .card * {
-    color: #b4b4b4;
+    color: #332222;
   }
   .metric {
     font-size: 16pt !important;
@@ -70,13 +100,13 @@
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px rgba(176, 180, 162, 0.3);
   }
   :global(.card-content) {
     padding: 10px !important;
   }
   .card * {
-    color: #b4b4b4;
+    color: #332222;
   }
   .metric {
     font-size: 12pt !important;

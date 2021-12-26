@@ -1,6 +1,36 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #02020c #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #02020c;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .title {
   font-size: 12pt;
-  color: #b2b2b2;
+  color: #223434;
 }
 .ledger {
   /* background-color: green;
@@ -12,23 +42,23 @@
 }
 .search input {
   background: none;
-  color: #b2b2b2;
+  color: #223434;
   border: none;
   border: 2px solid #4c4c70;
-  /* border-bottom: 2px dashed #4c4c70; */
+  /* border-bottom: 2px dashed @dark-input-color; */
 }
 .search input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #b2b2b2;
+  color: #223434;
   opacity: 0.5;
   /* Firefox */
 }
 .search input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #b2b2b2;
+  color: #223434;
 }
 .search input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #b2b2b2;
+  color: #223434;
 }
 /*# sourceMappingURL=ledger.module.css.map */

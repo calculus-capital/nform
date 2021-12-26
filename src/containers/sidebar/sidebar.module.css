@@ -1,10 +1,40 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #02020c #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #02020c;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .sidebar {
   height: calc(90vh - 5px);
   position: fixed;
   top: 30px;
   left: 20px;
   text-align: left;
-  border-right: 0.1px solid #3f3f3f;
+  border-right: 0.1px solid #ffccee;
   overflow-y: auto;
 }
 .logo img {
@@ -21,7 +51,7 @@
     text-align: left;
   }
   .menu a {
-    color: #b4b4b4;
+    color: #223434;
     font-size: 13pt;
     width: 100%;
     height: 100%;
@@ -29,7 +59,7 @@
   .logo {
     height: 100px;
     text-align: center;
-    color: #b4b4b4;
+    color: #223434;
     font-size: 12pt;
   }
 }
@@ -42,7 +72,7 @@
     padding: 0 !important;
   }
   .menu a {
-    color: #b4b4b4;
+    color: #223434;
     font-size: 20pt;
     width: 100%;
     height: 100%;
@@ -51,7 +81,7 @@
   .logo {
     height: 100px;
     text-align: center;
-    color: #b4b4b4;
+    color: #223434;
     font-size: 0pt;
     margin-bottom: 50px;
   }
@@ -65,7 +95,7 @@
     padding: 0 !important;
   }
   .menu a {
-    color: #b4b4b4;
+    color: #223434;
     font-size: 15pt;
     width: 100%;
     height: 100%;
@@ -74,7 +104,7 @@
   .logo {
     height: 35px;
     text-align: center;
-    color: #b4b4b4;
+    color: #223434;
     font-size: 0pt;
     margin-bottom: 10px;
   }
@@ -85,10 +115,10 @@
 }
 .menu a:hover {
   background-color: #485fc7;
-  color: #b4b4b4;
+  color: #223434;
 }
 .createContainer {
-  color: #b4b4b4;
+  color: #223434;
   align-items: "center";
   justify-content: "center";
 }
@@ -112,14 +142,14 @@
   box-shadow: none;
 }
 .create span {
-  color: #b4b4b4;
+  color: #223434;
 }
 @media (min-width: 481px) {
   .newItemModalContent {
     padding: 50px;
     border-radius: 20px;
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: #ffffff;
+    color: #223434;
     min-width: 50vw;
   }
   .newItemModalClose {
@@ -134,7 +164,7 @@
     text-align: left;
   }
   .newItemOption {
-    color: #b2b2b2;
+    color: #223434;
     font-size: 16pt;
     padding-left: 20px;
     width: 100%;
@@ -147,8 +177,8 @@
     border-top-left-radius: 20px;
     position: absolute;
     bottom: 0;
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: #ffffff;
+    color: #223434;
     width: 100vw;
     height: 100%;
   }
@@ -164,7 +194,7 @@
     text-align: left;
   }
   .newItemOption {
-    color: #b2b2b2;
+    color: #223434;
     font-size: 12pt;
     padding-left: 20px;
     width: 100%;
@@ -190,7 +220,7 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 .newItemOption:hover {
-  color: #b2b2b2;
+  color: #223434;
 }
 .newItemCell a {
   width: 100%;

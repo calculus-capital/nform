@@ -1,14 +1,44 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #19191b #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #19191b;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .container {
   margin: 0;
 }
 .title {
   font-size: 14pt;
-  color: #b2b2b2;
+  color: var(--dark-text-color);
   display: block;
   padding: 10px;
 }
 .cashflow {
-  color: #b2b2b2;
+  color: var(--dark-text-color);
   font-size: 12pt;
   padding: 20px;
 }
@@ -17,7 +47,7 @@
   font-family: 'mono' !important;
   font-size: 11pt !important;
   font-weight: lighter;
-  color: #b2b2b2;
+  color: var(--dark-text-color);
 }
 .pieChart text {
   stroke: black;
@@ -43,18 +73,17 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
   .card > div {
     margin: 20px;
   }
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 3vw !important;
     padding-bottom: 10px;
-    /* border-bottom: 10px solid #24145f; */
   }
   .pie {
     padding: 0;
@@ -82,10 +111,10 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 16pt !important;
@@ -116,18 +145,16 @@ svg {
   .card {
     background-color: inherit;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 2px 2px var(--dark-card-shadow);
   }
   :global(.card-content) {
     padding: 10px !important;
   }
   .card * {
-    color: #b4b4b4;
+    color: var(--dark-card-color);
   }
   .metric {
     font-size: 12pt !important;
-    /* padding-bottom: 10px; */
-    /* border-bottom: 10px solid #24145f; */
   }
   .pie {
     padding: 0;

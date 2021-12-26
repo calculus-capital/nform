@@ -1,3 +1,33 @@
+body {
+  margin: 0;
+  font-family: 'Fira Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: #02020c #02020c;
+}
+/* Works on Chrome, Edge, and Safari */
+@media (min-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+}
+@media (max-width: 481px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+*::-webkit-scrollbar-track {
+  background: #d4d4d4;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #02020c;
+  border-radius: 10px;
+  border: 3px solid #d4d4d4;
+}
 .everything {
   position: fixed;
   top: 0;
@@ -7,13 +37,13 @@
   overflow: auto;
   text-align: center;
   /* background-image: url('../assets/background2.jpg'); */
-  background: linear-gradient(135deg, #d53369 0%, #daae51 100%);
+  background: linear-gradient(135deg, #98dac6 0%, #e4d8be 100%);
   /* background: linear-gradient(90deg, rgba(131,58,180,1) 2%, rgba(253,29,9,1) 71%, rgba(252,176,69,1) 100%); */
   /* background: radial-gradient(circle, rgba(195,34,145,1) 0%, rgba(253,114,45,1) 100%); */
   background-size: 100% 100%;
   padding: 10px;
   font-size: 10pt;
-  color: #b2b2b2;
+  color: #223434;
 }
 @media (max-width: 481px) {
   .everything {
@@ -22,7 +52,7 @@
 }
 @media (min-width: 1100px) {
   .something {
-    background-color: #0c0c20;
+    background-color: #fff;
     border-radius: 30px;
     height: calc(100vh - 20px);
     overflow: auto;
@@ -33,12 +63,12 @@
   .customer {
     font-size: 30pt;
     font-family: cursive;
-    color: #b2b2b2;
+    color: #223434;
   }
 }
 @media (min-width: 481px) and (max-width: 1100px) {
   .something {
-    background-color: #0c0c20;
+    background-color: #fff;
     border-radius: 30px;
     height: calc(100vh - 20px);
     overflow: auto;
@@ -49,12 +79,12 @@
   .customer {
     font-size: 25pt;
     font-family: cursive;
-    color: #b2b2b2;
+    color: #223434;
   }
 }
 @media (max-width: 481px) {
   .something {
-    background-color: #0c0c20;
+    background-color: #fff;
     border-radius: 20px;
     height: calc(100vh - 10px);
     overflow: auto;
@@ -62,12 +92,12 @@
   .customer {
     font-size: 20pt;
     font-family: cursive;
-    color: #b2b2b2;
+    color: #223434;
   }
 }
 .header {
   height: 50px;
-  border-bottom: 1px solid #151550;
+  border-bottom: 1px solid #ffccee;
   margin: 10px;
 }
 .timeButton {
@@ -75,32 +105,32 @@
   height: 50px !important;
   margin: none !important;
   background-color: inherit !important;
-  color: #b2b2b2 !important;
+  color: #223434 !important;
   border: none !important;
   border-radius: 0 !important;
-  border-right: 1px solid #151550 !important;
+  border-right: 1px solid #ffccee !important;
 }
 .timeButtonActive {
   width: 100%;
   height: 50px !important;
   margin: none !important;
   background-color: inherit !important;
-  color: #b2b2b2 !important;
+  color: #223434 !important;
   border: none !important;
   border-radius: 0 !important;
-  border-right: 1px solid #151550 !important;
+  border-right: 1px solid #ffccee !important;
   border-bottom: 5px solid red !important;
 }
 .timeButton:hover {
   background-color: rgba(50, 0, 200, 0.4) !important;
-  color: #b2b2b2;
-  border-color: #151550;
+  color: #223434;
+  border-color: #ffccee;
 }
 .searchModalContent {
   padding: 50px;
   border-radius: 20px;
-  background-color: #222232;
-  color: #b2b2b2;
+  background-color: #ffffff;
+  color: #223434;
 }
 .searchModalContent h1 {
   padding-bottom: 10px;
@@ -113,7 +143,7 @@
 }
 .search input {
   background: none;
-  color: #b2b2b2;
+  color: #223434;
   border: none;
   border: 2px solid #4c4c70;
   padding: 30px;
@@ -121,16 +151,16 @@
 }
 .search input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #b2b2b2;
+  color: #223434;
   opacity: 0.5;
   /* Firefox */
 }
 .search input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #b2b2b2;
+  color: #223434;
 }
 .search input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #b2b2b2;
+  color: #223434;
 }
 /*# sourceMappingURL=everything.module.css.map */

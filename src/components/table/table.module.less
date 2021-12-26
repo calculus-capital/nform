@@ -1,5 +1,7 @@
+@import "../../index.less";
+
 .tableContainer {
-  color: #b2b2b2;
+  color: @dark-text-color;
   font-size: 9pt;
 
   overflow-y: auto;
@@ -7,11 +9,11 @@
 
 .thead {
   font-size: 11pt;
-  color: #b2b2b2;
+  color: @dark-text-color;
 }
 
 .th {
-  color: #b2b2b2;
+  color: @dark-text-color;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 10px;
@@ -19,25 +21,25 @@
 }
 
 .trhead {
-  background-color: #151540;
-  border-top: 0.1px solid #4c4c70;
+  background-color: @dark-table-head;
+  border-top: 0.1px solid @dark-input-color;
 }
 
-.trhead:first-of-type {
-  /* border-top-left-radius: 20px;
-  border-top-right-radius: 20px; */
-}
+// .trhead:first-of-type {
+//   border-top-left-radius: 20px;
+//   border-top-right-radius: 20px;
+// }
 
 .tbody {
   font-size: 11pt;
 }
 
 .tr {
-  border-top: 0.1px solid #4c4c70;
+  border-top: 0.1px solid @dark-input-color;
 }
 
 .tbody :hover {
-  background-color: #151540;
+  background-color: @dark-table-head;
 }
 
 .td {
@@ -49,7 +51,7 @@
 }
 
 .tr :hover {
-  background-color: #151550;
+  background-color: @dark-table-hover;
   cursor: pointer;
 }
 
@@ -62,8 +64,8 @@
     padding: 50px;
     border-radius: 20px;
 
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: @dark-modal-background;
+    color: @dark-text-color;
   }
 
   .rowModalClose {
@@ -87,8 +89,8 @@
     position: absolute;
     bottom: 0;
 
-    background-color: #222232;
-    color: #b2b2b2;
+    background-color: @dark-modal-background;
+    color: @dark-text-color;
 
     width: 100vw;
     height: 100%;
@@ -117,27 +119,26 @@
 }
 
 .rowModalRow {
-  border-bottom: 0.1px solid #4c4c70;
+  border-bottom: 0.1px solid @dark-input-color;
 }
 
-.rowModalValue {
-}
+// .rowModalValue {
+// }
 
 .rowModalActions {
   margin-top: 20px;
 }
 
 .rowModalAction {
-  /* width: 100px; */
   width: 100%;
 
   background-color: inherit;
-  color: #b2b2b2;
-  border-color: #151550;
+  color: @dark-text-color;
+  border-color: @dark-border-color;
 }
 
 .rowModalAction:hover {
-  background-color: rgba(50, 0, 200, 0.4);
-  color: #b2b2b2;
-  border-color: #151550;
+  background-color: @dark-table-hover;
+  color: @dark-text-color;
+  border-color: @dark-border-color;
 }
