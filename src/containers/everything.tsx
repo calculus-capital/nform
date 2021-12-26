@@ -204,7 +204,7 @@ const Everything = () => {
                     className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
                     onClick={() => setTheme(theme + 1 === 4 ? 0 : theme + 1)}
                   >
-                    {m ? "⬛" : "Theme"}
+                    {m ? theme === 0 ? "⬜" : theme === 1 ? "⬛" : theme === 2 ? "🟪" : "🟦"  : "Theme"}
                   </Button>
                 </Cell>
               </Grid>
