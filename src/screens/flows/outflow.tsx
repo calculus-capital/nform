@@ -159,7 +159,7 @@ const Outflows = (props: Props) => {
           </Card>
           <Card className={styles.card}>
             <Card.Content>
-              <Heading size={4}>Credit Availed</Heading>
+              <Heading size={4}>Credit</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹" + Math.round(credit.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
               </Heading>
@@ -175,6 +175,7 @@ const Outflows = (props: Props) => {
           </Card>
         </Cell>
       </Grid>
+      <p className={styles.title}>Payments Calendar</p>
       <div className={styles.calendar}>
         <Calendar data={txCalendarData}></Calendar>
       </div>
