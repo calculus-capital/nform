@@ -115,7 +115,6 @@ export const generateOtherLog = (from: Date): Trade[] => {
   // Salary per month
   baseCost = salaryStart
   const salaryCharges = ends.reduce((m: Trade[], e: Date) => {
-    console.log(baseCost, e.toDateString())
     const payments = []
     const bene = salaryBeneficiary()
     if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
@@ -142,7 +141,6 @@ export const generateOtherLog = (from: Date): Trade[] => {
     return m
   }, [] as Trade[])
 
-  // console.log(salaryCharges)
 
   // Other costs per month
   baseCost = otherFixedCosts
