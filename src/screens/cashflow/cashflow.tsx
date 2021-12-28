@@ -6,9 +6,8 @@ import * as backend from "../../backend"
 import styles from "./cashflow.module.css"
 import { Trade, TradeType } from "../../backend/mock/tradeLog/types"
 import { Cell, Grid } from "styled-css-grid"
-import { formatForBullet, formatForPie, formatCalendar, formatForOpexPie, operatingMetrics } from "./data"
+import { formatForBullet, formatForPie, formatForOpexPie, operatingMetrics } from "./data"
 import Pie from "../../components/charts/pie"
-import Calendar from "../../components/charts/calendar"
 import { Card, Heading } from "react-bulma-components"
 import { getCredit } from "../credit/data"
 import moment from "moment"
@@ -20,7 +19,7 @@ interface Props {
 
 const Cashflow = (props: Props) => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
-  const m = useMediaQuery({ query: "(max-width: 1100px)" })
+  // const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
   const data = props.data.filter(x => x.type === TradeType.PROCUREMENT || x.type === TradeType.SALES)
 
@@ -62,13 +61,12 @@ const Cashflow = (props: Props) => {
 
   let pieData = formatForPie(data)
   let opexPieData = formatForOpexPie(selectedData)
-  let rxCalendarData = formatCalendar(receivables)
-  let txCalendarData = formatCalendar(payables)
 
   let [revenue, expenses, aws, salary, capex] = operatingMetrics(selectedData)
-
   let [allRevenue, allExpenses, allAws, allSalary, allCapex] = operatingMetrics(masterData)
-  let currentBalance = backend.bankBalance + allRevenue - allExpenses - allAws - allSalary - allCapex
+  let junk = expenses + allAws + allSalary + allCapex
+  console.log(junk)
+  let currentBalance = backend.bankBalance + allRevenue - allExpenses
 
   return (
     <div className={styles.cashflow}>
@@ -194,21 +192,6 @@ const Cashflow = (props: Props) => {
           <p className={styles.title}>Expenses</p>
           <div className={styles.pieChart}>
             <Pie data={opexPieData}></Pie>
-          </div>
-        </Cell>
-      </Grid>
-      {/* calendars */}
-      <Grid columns={s ? 1 : 2} className={styles.container}>
-        <Cell className={styles.calendarCell} center middle>
-          <p className={styles.title}>Collections Calendar</p>
-          <div className={styles.calendar}>
-            <Calendar data={rxCalendarData}></Calendar>
-          </div>
-        </Cell>
-        <Cell className={styles.calendarCell}>
-          <p className={styles.title}>Payments Calendar</p>
-          <div className={styles.calendar}>
-            <Calendar data={txCalendarData}></Calendar>
           </div>
         </Cell>
       </Grid>

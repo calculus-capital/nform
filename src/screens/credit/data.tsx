@@ -1,5 +1,5 @@
 import moment from "moment"
-import { Trade, TradeType } from "../../backend"
+import { Trade } from "../../backend"
 import { groupBy } from "../../utils/groupby"
 
 type CreditEntry = {

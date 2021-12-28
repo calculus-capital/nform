@@ -1,6 +1,6 @@
 import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from "./types"
 import { traders } from "./constants"
-import { getRandomArbitrary, getRandomInt, getRandomString, getRandomDate } from "../random"
+import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
 import {
   tradeStart,

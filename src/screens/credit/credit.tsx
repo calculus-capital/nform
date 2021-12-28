@@ -52,7 +52,7 @@ const creditColumns = [
 
 const Credit = (props: Props) => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
-  const m = useMediaQuery({ query: "(max-width: 1100px)" })
+  // const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
   const receivables = props.data.filter(d => d.type === TradeType.SALES)
   const payables = props.data.filter(d => d.type === TradeType.PROCUREMENT)
@@ -145,7 +145,7 @@ const Credit = (props: Props) => {
         <Table
           title="Credit Status"
           columns={useMemo(() => creditColumns, [])}
-          data={useMemo(() => allEvents, [])}
+          data={useMemo(() => allEvents, [allEvents])}
           expand={false}
           actions={["📃 Purchase Order", "📃 Invoice", "💳 Repay"]}
         ></Table>

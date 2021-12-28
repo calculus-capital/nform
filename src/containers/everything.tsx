@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Grid, Cell } from "styled-css-grid"
 import { Routes, Route } from "react-router-dom"
 import * as backend from "../backend"

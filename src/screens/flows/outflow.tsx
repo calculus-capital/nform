@@ -9,6 +9,8 @@ import { flow, volume, added, givenback, upcoming, delayed } from './data'
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
+import { formatCalendar } from "../cashflow/data"
+import Calendar from "../../components/charts/calendar"
 
 interface Props {
   data: Trade[]
@@ -107,6 +109,7 @@ const Outflows = (props: Props) => {
 
   const upcomingPayments = upcoming(data)
   const delayedPayments = delayed(data)
+  let txCalendarData = formatCalendar(data)
 
   return (
     <div className={styles.container}>
@@ -168,6 +171,9 @@ const Outflows = (props: Props) => {
           </Card>
         </Cell>
       </Grid>
+      <div className={styles.calendar}>
+        <Calendar data={txCalendarData}></Calendar>
+      </div>
       <Grid columns={m ? 1 : 3} rows={m ? 3 : 1} className={styles.containerGrid}>
         <Cell width={1} height={1}>
           <div className={styles.tables}>
