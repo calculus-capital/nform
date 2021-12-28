@@ -87,7 +87,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
   var norders = tradeStart
 
   return starts.flatMap(start => {
-    norders = norders + norders * growth * (Math.random() > 0.5 - growthBias ? 1 : 0 )
+    norders = norders + norders * growth * (Math.random() > 0.5 - growthBias ? 1 : -0.2 )
     if (norders === 0) norders = 1
     console.log("Generating " + Math.round(norders) + " orders for " + start.toDateString())
 
@@ -116,18 +116,18 @@ export const generateTradeLog = (from: Date): Trade[] => {
             const p1 = newPayment(bene, end)
 
             p1.amount = totalCost
-            p1.date = start
+            p1.date = end.toDate()
 
             if (Math.random() < earlyPayments) {
               // paid the merchant on some credit
-              const p2 = newPayment(bene, moment(start))
+              const p2 = newPayment(bene, moment(start).add(getRandomInt(0, 10), "days"))
               p2.amount = earlyPayments * totalCost
               p2.credit = true
 
               // repaid the credit after 30 days
               if (end.diff(moment(), "days") < -30) {
                 p2.repaid = earlyPayments * totalCost
-                p2.repaidDate = end.add(30, "day").toDate()
+                p2.repaidDate = end.add(getRandomInt(30, 90), "day").toDate()
               }
 
               payments = [p1, p2]
@@ -144,18 +144,18 @@ export const generateTradeLog = (from: Date): Trade[] => {
             const p1 = newPayment(bene, end)
 
             p1.amount = totalCost
-            p1.date = start
+            p1.date = end.toDate()
 
             if (Math.random() < earlyPayments) {
               // paid the merchant on some credit
-              const p2 = newPayment(bene, moment(start))
+              const p2 = newPayment(bene, moment(start).add(getRandomInt(0, 10), "days"))
               p2.amount = earlyPayments * totalCost
               p2.credit = true
 
               // repaid the credit after 30 days
               if (end.diff(moment(), "days") < -30) {
                 p2.repaid = earlyPayments * totalCost
-                p2.repaidDate = end.add(30, "day").toDate()
+                p2.repaidDate = end.add(getRandomInt(30, 90), "day").toDate()
               }
 
               payments = [p1, p2]

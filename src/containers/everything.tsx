@@ -76,15 +76,23 @@ const Everything = () => {
   const [theme, setTheme] = useState(0)
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(
-    orig
-      .filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, "days")))
+    orig.filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, "days")))
   )
   const data = React.useMemo(() => timeRange, [timeRange])
   useTheme(theme)
 
   const filterByTime = (days: number) => {
     setTime(days)
-    var t = orig.filter(x => moment(x.terms.maturity).isAfter(moment().subtract(days, "days")))
+    var t = orig.filter(x => {
+      const maturityWithinBounds = moment(x.terms.maturity).isAfter(moment().subtract(days, "days"))
+
+      const repaidWithinBounds = x.payments
+        .filter(x => x.credit)
+        .map(x => moment(x.repaidDate).isAfter(moment().subtract(days, "days")))
+        .reduce((x,y) => x && y, true)
+
+      return maturityWithinBounds //&& repaidWithinBounds
+    })
 
     // if (days !== -1) {
     //   t = t.filter(x => moment(x.terms.maturity).isBefore(moment()))
@@ -104,9 +112,7 @@ const Everything = () => {
                 placeholder="Navigate to anywhere: e.g. type receivables"
                 type="text"
                 autoFocus
-                onInput={i => {
-                  console.log(i)
-                }}
+                onInput={i => {}}
               />
             </Form.Control>
           </div>

@@ -132,6 +132,10 @@ const Outflows = (props: Props) => {
                   id: "Paid",
                   data: payments,
                 },
+                {
+                  id: "Repayment",
+                  data: repaid,
+                },
               ]}
             ></Line>
           </div>

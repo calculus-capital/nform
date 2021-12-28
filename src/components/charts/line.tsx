@@ -41,8 +41,8 @@ const Line = (props: { data: any[] }) => {
       areaBlendMode="difference"
       curve="monotoneX"
       axisLeft={{
-        tickValues: 5,
-        tickSize: 5,
+        tickValues: 3,
+        tickSize: 10,
         tickPadding: 5,
         tickRotation: 270,
         format: "",
@@ -50,7 +50,7 @@ const Line = (props: { data: any[] }) => {
         legendOffset: 0,
       }}
       axisRight={{
-        tickValues: 5,
+        tickValues: 3,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 90,

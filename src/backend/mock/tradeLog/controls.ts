@@ -30,7 +30,7 @@ export const otherFixedCosts = 100000
 export const otherFixedCostsInc = ():number => getRandomArbitrary(-5, 10) / 100
 
 export const averageDelay = 1
-export const earlyPayments = 0.2
+export const earlyPayments = 0.5
 
 // Assets
 // funding rounds

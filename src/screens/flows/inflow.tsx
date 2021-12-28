@@ -132,6 +132,10 @@ const Inflows = (props: Props) => {
                   id: "Collected",
                   data: collections,
                 },
+                {
+                  id: "Repayment",
+                  data: repaid,
+                },
               ]}
             ></Line>
           </div>
@@ -155,7 +159,7 @@ const Inflows = (props: Props) => {
           </Card>
           <Card className={styles.card}>
             <Card.Content>
-              <Heading size={4}>Credit Availed</Heading>
+              <Heading size={4}>Credit</Heading>
               <Heading subtitle size={6} className={styles.metric}>
                 {"₹" + Math.round(credit.reduce((x, y) => x + y.y, 0) * 100) / 100 + "L"}
               </Heading>

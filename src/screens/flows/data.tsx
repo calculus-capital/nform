@@ -7,12 +7,15 @@ export const flow = (data: Trade[]) => {
   return data
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
-      const cashin = Math.floor((d.payments.map(i => i.amount).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
-      const cashout = Math.floor((d.items.map(i => i.price).reduce((x, y) => x + y, 0) / 100000) * 100) / 100
+      const cost = d.items.map(i => i.price).reduce((x, y) => x + y, 0)
+      const paid = d.payments
+        .filter(x => !x.credit)
+        .map(i => i.amount)
+        .reduce((x, y) => x + y, 0)
 
       return {
         x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashout - cashin,
+        y: (cost - paid) / 100000,
       }
     })
     .filter(d => d.y > 0)
@@ -20,7 +23,7 @@ export const flow = (data: Trade[]) => {
       scr = scr + d.y
       return {
         x: d.x,
-        y: d.y + scr,
+        y: scr,
       }
     })
 }
@@ -28,24 +31,27 @@ export const flow = (data: Trade[]) => {
 export const volume = (data: Trade[]) => {
   var scr = 0
   return data
-    .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
-      const cashin = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
+      const paid = d.payments
+        .filter(x => !x.credit)
+        .map(i => i.amount)
+        .reduce((x, y) => x + y, 0)
       const cr = d.payments
-            .filter(x => x.credit)
-            .map(i => i.amount)
-            .reduce((x, y) => x + y, 0)
+        .filter(x => x.credit)
+        .map(i => i.amount-i.repaid)
+        .reduce((x, y) => x + y, 0)
 
       return {
-        x: moment(d.terms.maturity).format("DD-MM-YYYY"),
-        y: cashin - cr,
+        x: moment(d.terms.maturity),
+        y: paid - cr,
       }
     })
     .filter(d => d.y > 0)
+    .sort((x, y) => (moment(x.x).isAfter(moment(y.x)) ? 1 : -1))
     .map(d => {
       scr = scr + d.y
       return {
-        x: d.x,
+        x: d.x.format("DD-MM-YYYY"),
         y: (d.y + scr) / 100000,
       }
     })
@@ -55,31 +61,33 @@ export const added = (data: Trade[]) => {
   var scr = 0
   return data
     .map(d => {
-      const cr = d.payments
+      const datum = d.payments
+      const cr = datum
         .filter(x => x.credit)
         .map(i => i.amount)
         .reduce((x, y) => x + y, 0)
 
-      const repaid = d.payments
+      const repaid = datum
         .filter(x => x.credit)
         .map(i => i.repaid)
         .reduce((x, y) => x + y, 0)
 
-      const date = d.payments
+      const date = datum
         .filter(x => x.credit)
         .map(x => x.date)
         .pop()
 
       return {
-        x: moment(date).format("DD-MM-YYYY"),
+        x: moment(date),
         y: cr - repaid,
       }
     })
     .filter(d => d.y > 0)
+    .sort((x, y) => (moment(x.x).isAfter(moment(y.x)) ? 1 : -1))
     .map(d => {
       scr = scr + d.y
       return {
-        x: d.x,
+        x: d.x.format("DD-MM-YYYY"),
         y: (d.y + scr) / 100000,
       }
     })
@@ -89,32 +97,34 @@ export const givenback = (data: Trade[]) => {
   var scr = 0
   return data
     .map(d => {
-      const repaid = d.payments
+      const datum = d.payments
+      const repaid = datum
         .filter(x => x.credit)
         .map(i => i.repaid)
         .reduce((x, y) => x + y, 0)
 
-      const date = d.payments
+      const date = datum
         .filter(x => x.credit)
         .map(x => x.date)
         .pop()
 
       return {
-        x: moment(date).format("DD-MM-YYYY"),
+        x: moment(date),
         y: repaid,
       }
     })
     .filter(d => d.y > 0)
+    .sort((x, y) => (moment(x.x).isAfter(moment(y.x)) ? 1 : -1))
     .map(d => {
       scr = scr + d.y
       return {
-        x: d.x,
+        x: d.x.format("DD-MM-YYYY"),
         y: (d.y + scr) / 100000,
       }
     })
 }
 
-export const upcoming = (data:Trade[]) => {
+export const upcoming = (data: Trade[]) => {
   return data
     .filter(d => moment(d.terms.maturity).isAfter(moment()))
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
@@ -124,13 +134,13 @@ export const upcoming = (data:Trade[]) => {
 
       return {
         customer: d.beneficiaries[0].name,
-        amount: Math.round((topay - paid)*100)/100,
+        amount: Math.round((topay - paid) * 100) / 100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }
     })
 }
 
-export const delayed = (data:Trade[]) => {
+export const delayed = (data: Trade[]) => {
   return data
     .filter(d => {
       const topay = d.items.reduce((i, j) => i + j.price, 0)
@@ -145,7 +155,7 @@ export const delayed = (data:Trade[]) => {
 
       return {
         customer: d.beneficiaries[0].name,
-        amount: Math.round((topay - paid)*100)/100,
+        amount: Math.round((topay - paid) * 100) / 100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }
     })
