@@ -259,7 +259,9 @@ export const formatCalendar = (data: Trade[]): { value: number; day: string }[] 
 }
 
 export const operatingMetrics = (data: Trade[]):number[] => {
-  const revenue = data
+
+
+  const rx = data
     .filter(d => {
       return d.type === TradeType.SALES
     })
@@ -272,6 +274,20 @@ export const operatingMetrics = (data: Trade[]):number[] => {
         : 0
     })
     .reduce((x, y) => x + y, 0)
+  const tx = data
+    .filter(d => {
+      return d.type === TradeType.PROCUREMENT
+    })
+    .map(r => {
+      return r.payments.length > 0
+        ? r.payments
+            .filter(p => !p.credit)
+            .map(p => p.amount)
+            .reduce((x, y) => x + y, 0)
+        : 0
+    })
+    .reduce((x, y) => x + y, 0)
+  const revenue = rx - tx
 
   const expenses = data
     .filter(d => {
@@ -299,7 +315,6 @@ export const operatingMetrics = (data: Trade[]):number[] => {
     .map(r => {
       return r.payments.length > 0
         ? r.payments
-            .filter(p => !p.credit)
             .map(p => p.amount)
             .reduce((x, y) => x + y, 0)
         : 0
@@ -312,12 +327,11 @@ export const operatingMetrics = (data: Trade[]):number[] => {
     .map(r => {
       return r.payments.length > 0
         ? r.payments
-            .filter(p => !p.credit)
             .map(p => p.amount)
             .reduce((x, y) => x + y, 0)
         : 0
     })
-    .reduce((x, y) => x + y, 0)
+      .reduce((x, y) => x + y, 0)
 
     const capex = data.filter(d => {
       return d.type === TradeType.FIXED

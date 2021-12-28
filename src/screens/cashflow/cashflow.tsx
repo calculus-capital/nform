@@ -10,9 +10,12 @@ import { formatForBullet, formatForPie, formatCalendar, formatForOpexPie, operat
 import Pie from "../../components/charts/pie"
 import Calendar from "../../components/charts/calendar"
 import { Card, Heading } from "react-bulma-components"
+import { getCredit } from "../credit/data"
+import moment from "moment"
 
 interface Props {
   data: Trade[]
+  master: Trade[]
 }
 
 const Cashflow = (props: Props) => {
@@ -29,6 +32,24 @@ const Cashflow = (props: Props) => {
     return d.type === TradeType.PROCUREMENT
   })
 
+  const selectedData = props.data.filter(
+    d =>
+      d.type === TradeType.SALES ||
+      d.type === TradeType.PROCUREMENT ||
+      d.type === TradeType.SALARY ||
+      d.type === TradeType.AWS ||
+      d.type === TradeType.FIXED
+  ).filter(x => moment(x.terms.maturity).isBefore(moment()))
+
+  const masterData = props.master.filter(
+    d =>
+      d.type === TradeType.SALES ||
+      d.type === TradeType.PROCUREMENT ||
+      d.type === TradeType.SALARY ||
+      d.type === TradeType.AWS ||
+      d.type === TradeType.FIXED
+  ).filter(x => moment(x.terms.maturity).isBefore(moment()))
+
   // Receivables
   var receivablesFormatted = formatForBullet(receivables)
   let receivablesRanges = receivablesFormatted.ranges
@@ -40,10 +61,14 @@ const Cashflow = (props: Props) => {
   let payablesMeasures = payablesFormatted.measures
 
   let pieData = formatForPie(data)
-  let opexPieData = formatForOpexPie(props.data)
+  let opexPieData = formatForOpexPie(selectedData)
   let rxCalendarData = formatCalendar(receivables)
   let txCalendarData = formatCalendar(payables)
-  let [revenue, expenses, aws, salary, capex] = operatingMetrics(props.data)
+
+  let [revenue, expenses, aws, salary, capex] = operatingMetrics(selectedData)
+
+  let [allRevenue, allExpenses, allAws, allSalary, allCapex] = operatingMetrics(masterData)
+  let currentBalance = backend.bankBalance + allRevenue - allExpenses - allAws - allSalary - allCapex
 
   return (
     <div className={styles.cashflow}>
@@ -109,9 +134,49 @@ const Cashflow = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Burn Rate</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
-                {Math.round(((backend.bankBalance - capex - aws - salary + revenue) / backend.bankBalance) * 1000) /
-                  1000 +
+                {Math.round(((currentBalance - capex - aws - salary + revenue) / backend.bankBalance) * 1000) / 1000 +
                   " %"}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
+      </Grid>
+      <Grid columns={s ? 1 : 3} rows={s ? 3 : 1} className={styles.containerGrid}>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Content>
+              <Heading size={4}>Cash</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
+                {"₹" + Math.round((backend.bankBalance * 100) / 100000) / 100 + " L"}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Content>
+              <Heading size={4}>WACC</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
+                {Math.round(backend.WACC * 100) / 100}
+              </Heading>
+            </Card.Content>
+          </Card>
+        </Cell>
+        <Cell width={1} height={1}>
+          <Card className={styles.card}>
+            <Card.Content>
+              <Heading size={4}>Credit</Heading>
+              <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
+                {"₹" +
+                  Math.round(
+                    (getCredit(masterData, "")
+                      .map(x => x.remaining)
+                      .reduce((x, y) => x + y, 0) *
+                      100) /
+                      100000
+                  ) /
+                    100 +
+                  " L"}
               </Heading>
             </Card.Content>
           </Card>

@@ -76,7 +76,11 @@ const Credit = (props: Props) => {
               <Heading size={4}>Availed</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹" +
-                  Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.credit, 0) * 100) / 100}
+                  Math.round(
+                    (receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.credit, 0) * 100) / 100000
+                  ) /
+                    100 +
+                  " L"}
               </Heading>
             </Card.Content>
           </Card>
@@ -87,7 +91,11 @@ const Credit = (props: Props) => {
               <Heading size={4}>Active</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹" +
-                  Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.remaining, 0) * 100) / 100}
+                  Math.round(
+                    (receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.remaining, 0) * 100) / 100000
+                  ) /
+                    100 +
+                  " L"}
               </Heading>
             </Card.Content>
           </Card>
@@ -98,7 +106,11 @@ const Credit = (props: Props) => {
               <Heading size={4}>Repaid</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
                 {"₹" +
-                  Math.round(receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.repaid, 0) * 100) / 100}
+                  Math.round(
+                    (receivablesCredit.concat(payablesCredit).reduce((x, y) => x + y.repaid, 0) * 100) / 100000
+                  ) /
+                    100 +
+                  " L"}
               </Heading>
             </Card.Content>
           </Card>
@@ -133,7 +145,7 @@ const Credit = (props: Props) => {
         <Table
           title="Credit Status"
           columns={useMemo(() => creditColumns, [])}
-          data={allEvents}
+          data={useMemo(() => allEvents, [])}
           expand={false}
           actions={["📃 Purchase Order", "📃 Invoice", "💳 Repay"]}
         ></Table>
