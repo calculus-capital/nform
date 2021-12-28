@@ -91,7 +91,7 @@ const Everything = () => {
         .map(x => moment(x.repaidDate).isAfter(moment().subtract(days, "days")))
         .reduce((x,y) => x && y, true)
 
-      return maturityWithinBounds //&& repaidWithinBounds
+      return maturityWithinBounds && repaidWithinBounds
     })
 
     // if (days !== -1) {
