@@ -38,7 +38,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
     return d.type === TradeType.SALES
   })
   const totalPaymentsReceived = receivables
-    .filter(r => moment(r.terms.maturity).isAfter(moment()))
+    .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
       return r.payments.length > 0
         ? r.payments
@@ -49,7 +49,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
     })
     .reduce((x, y) => x + y, 0)
   const totalCreditReceived = receivables
-    .filter(r => moment(r.terms.maturity).isAfter(moment()))
+    .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
       return r.payments.length > 0
         ? r.payments
@@ -65,7 +65,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
     return d.type === TradeType.PROCUREMENT
   })
   const totalPaymentsSent = payables
-    .filter(r => moment(r.terms.maturity).isAfter(moment()))
+    .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
       return r.payments.length > 0
         ? r.payments
@@ -76,53 +76,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
     })
     .reduce((x, y) => x + y, 0)
   const totalCreditSent = payables
-    .filter(r => moment(r.terms.maturity).isAfter(moment()))
-    .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
-    })
-    .reduce((x, y) => x + y, 0)
-
-  // delayed receivables
-  const delayedReceivables = receivables.filter(r => moment(r.terms.maturity).isBefore(moment()))
-  const totalDelayedPaymentsReceived = delayedReceivables
-    .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
-    })
-    .reduce((x, y) => x + y, 0)
-  const totalDelayedCreditReceived = delayedReceivables
-    .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
-    })
-    .reduce((x, y) => x + y, 0)
-
-  // delayed payables
-  const delayedPayables = payables.filter(r => moment(r.terms.maturity).isBefore(moment()))
-  const totalDelayedPaymentsSent = delayedPayables
-    .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
-    })
-    .reduce((x, y) => x + y, 0)
-  const totalDelayedCreditSent = delayedPayables
+    .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
       return r.payments.length > 0
         ? r.payments
@@ -140,7 +94,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
         return r.items.map(x => x.price).reduce((x, y) => x + y)
       })
       .reduce((x, y) => x + y, 0) -
-    (totalPaymentsReceived + totalCreditReceived + totalDelayedPaymentsReceived + totalDelayedCreditReceived)
+    (totalPaymentsReceived + totalCreditReceived)
 
   const tobeTX =
     payables
@@ -148,7 +102,7 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
         return r.items.map(x => x.price).reduce((x, y) => x + y)
       })
       .reduce((x, y) => x + y, 0) -
-    (totalPaymentsSent + totalCreditSent + totalDelayedPaymentsSent + totalDelayedCreditSent)
+    (totalPaymentsSent + totalCreditSent)
 
   return [
     {
@@ -163,13 +117,6 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
       id: "Collected (Credit)",
       value: Math.round((100 * totalCreditReceived) / divisor) / 100,
     },
-    // {
-    //   id: "Collections delayed",
-    //   value: Math.round((100 * totalDelayedPaymentsReceived) / divisor) / 100,
-    //   // },{
-    //   //   id: "Collections credit delayed",
-    //   //   value: Math.round(100 * totalDelayedCreditReceived / divisor) / 100,
-    // },
     {
       id: "To Pay",
       value: Math.round((100 * tobeTX) / divisor) / 100,
@@ -182,13 +129,6 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
       id: "Paid (Credit)",
       value: Math.round((100 * totalCreditSent) / divisor) / 100,
     },
-    // {
-    //   id: "Payment delayed",
-    //   value: Math.round((100 * totalDelayedPaymentsSent) / divisor) / 100,
-    //   // },{
-    //   //   id: "Payment credit delayed",
-    //   //   value: Math.round(100 * totalDelayedCreditSent / divisor) / 100,
-    // },
   ]
 }
 
