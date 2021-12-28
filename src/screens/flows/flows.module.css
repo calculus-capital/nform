@@ -96,9 +96,13 @@ body {
     max-height: 400px;
   }
   .calendar {
-    height: 1px;
+    height: 150px;
     min-height: 150px;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .tables {
     overflow-y: scroll;
@@ -131,9 +135,13 @@ body {
     max-height: 500px;
   }
   .calendar {
-    margin-bottom: 10px;
-    height: 20vh;
+    height: 150px;
     min-height: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .tables {
     overflow-y: scroll;
