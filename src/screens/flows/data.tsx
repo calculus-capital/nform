@@ -78,7 +78,8 @@ export const added = (data: Trade[]) => {
         .pop()
 
       return {
-        x: moment(date),
+        // TODO: date is probably wrong
+        x: moment(d.terms.maturity),
         y: cr - repaid,
       }
     })
