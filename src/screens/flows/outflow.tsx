@@ -11,6 +11,7 @@ import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
 import { formatCalendar } from "../cashflow/data"
 import Calendar from "../../components/charts/calendar"
+import moment from "moment"
 
 interface Props {
   data: Trade[]
@@ -80,10 +81,28 @@ const Outflows = (props: Props) => {
 
   const data = props.data.filter(d => d.type === TradeType.PROCUREMENT)
 
+  const creditMaster = props.master.filter(d => {
+    const creditWithinBounds = d.payments
+      .filter(x => x.credit)
+      .map(x => moment(x.date).isAfter(moment().subtract(props.window, "days")))
+      .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
+
+    return d.type === TradeType.SALES && creditWithinBounds > 0
+  })
+
+  const repaidMaster = props.master.filter(d => {
+    const repaidWithinBounds = d.payments
+      .filter(x => x.credit)
+      .map(x => moment(x.repaidDate ? x.repaidDate : x.date).isAfter(moment().subtract(props.window, "days")))
+      .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
+
+    return d.type === TradeType.SALES && repaidWithinBounds > 0
+  })
+
   const outflow = flow(data)
   const payments = volume(data)
-  const credit = added(data)
-  const repaid = givenback(data)
+  const credit = added(creditMaster)
+  const repaid = givenback(repaidMaster)
 
   const outflowPartners = data.reduce((m, d) => {
     const topay = d.items.reduce((i, j) => i + j.price, 0)
