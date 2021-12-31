@@ -14,6 +14,8 @@ import Calendar from "../../components/charts/calendar"
 
 interface Props {
   data: Trade[]
+  master: Trade[]
+  window: number
 }
 
 const outflowColumns = [

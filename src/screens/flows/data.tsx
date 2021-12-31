@@ -79,8 +79,8 @@ export const added = (data: Trade[]) => {
 
       return {
         // TODO: date is probably wrong
-        x: moment(d.terms.maturity),
-        y: cr - repaid,
+        x: moment(date),
+        y: cr,
       }
     })
     .filter(d => d.y > 0)
@@ -106,7 +106,7 @@ export const givenback = (data: Trade[]) => {
 
       const date = datum
         .filter(x => x.credit)
-        .map(x => x.date)
+        .map(x => x.repaidDate ? x.repaidDate : x.date)
         .pop()
 
       return {

@@ -5,7 +5,7 @@ import * as backend from "../backend"
 import { useMediaQuery } from "react-responsive"
 import WebFont from "webfontloader"
 import "bulma/css/bulma.min.css"
-import { established } from "../backend"
+import { established, Trade } from "../backend"
 
 import styles from "./everything.module.css"
 import Sidebar from "./sidebar/sidebar"
@@ -69,34 +69,33 @@ function useTheme(theme: number) {
   }
 }
 
+const dataFilter = (data: Trade[], window: number) => {
+  return data.filter(x => {
+    const start = moment(x.terms.startDate)
+    const end = moment(x.terms.maturity)
+
+    const startWithinBounds =
+      start.isAfter(moment().subtract(window, "days")) && (window > 0 ? start.isBefore(moment()) : true)
+    const maturityWithinBounds =
+      end.isAfter(moment().subtract(window, "days")) && (window > 0 ? end.isBefore(moment()) : true)
+
+    return startWithinBounds || maturityWithinBounds
+  })
+}
+
 const Everything = () => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
   const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
   const [theme, setTheme] = useState(0)
   const [time, setTime] = useState(30)
-  const [timeRange, setTimeRange] = useState(
-    orig.filter(x => moment(x.terms.maturity).isAfter(moment().subtract(30, "days")))
-  )
+  const [timeRange, setTimeRange] = useState(dataFilter(orig, time))
   const data = React.useMemo(() => timeRange, [timeRange])
   useTheme(theme)
 
   const filterByTime = (days: number) => {
+    const t = dataFilter(orig, days)
     setTime(days)
-    var t = orig.filter(x => {
-      const maturityWithinBounds = moment(x.terms.maturity).isAfter(moment().subtract(days, "days"))
-
-      const repaidWithinBounds = x.payments
-        .filter(x => x.credit)
-        .map(x => moment(x.repaidDate).isAfter(moment().subtract(days, "days")))
-        .reduce((x,y) => x && y, true)
-
-      return maturityWithinBounds && repaidWithinBounds
-    })
-
-    // if (days !== -1) {
-    //   t = t.filter(x => moment(x.terms.maturity).isBefore(moment()))
-    // }
     setTimeRange(t)
   }
 
@@ -139,7 +138,7 @@ const Everything = () => {
             <Sidebar></Sidebar>
           </Cell>
           <Cell width={8} className={styles.content}>
-            <Grid columns={s ? 4 : 13} rows={s ? 2 : 1} className={styles.header}>
+            <Grid columns={s ? 4 : 12} rows={s ? 2 : 1} className={styles.header}>
               <Cell width={s ? 4 : 5}>
                 <p className={styles.customer}>{company}</p>
               </Cell>
@@ -186,19 +185,9 @@ const Everything = () => {
                   className={time !== 30 ? styles.timeButton : styles.timeButtonActive}
                   onClick={() => filterByTime(30)}
                 >
-                  {m ? "30" : "30 days"}
+                  {m ? "MTD" : "MTD"}
                 </Button>
               </Cell>
-              {!s && (
-                <Cell width={1} middle>
-                  <Button
-                    className={time !== 7 ? styles.timeButton : styles.timeButtonActive}
-                    onClick={() => filterByTime(7)}
-                  >
-                    {m ? "7" : "7 days"}
-                  </Button>
-                </Cell>
-              )}
               <Cell width={1} middle>
                 <Button
                   className={time !== -1 ? styles.timeButton : styles.timeButtonActive}
@@ -221,8 +210,8 @@ const Everything = () => {
               <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
               <Route path="/inventoryLog" element={<Inventory data={data}></Inventory>} />
               <Route path="/ledger" element={<Ledger data={data}></Ledger>} />
-              <Route path="/payables" element={<Outflows data={data}></Outflows>} />
-              <Route path="/receivables" element={<Inflows data={data}></Inflows>} />
+              <Route path="/payables" element={<Outflows data={data} master={orig} window={time}></Outflows>} />
+              <Route path="/receivables" element={<Inflows data={data} master={orig} window={time}></Inflows>} />
               <Route path="/credit" element={<Credit data={data}></Credit>} />
             </Routes>
           </Cell>

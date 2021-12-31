@@ -5,15 +5,18 @@ import { useMediaQuery } from "react-responsive"
 import Table from "../../components/table/table"
 import { Trade, TradeType } from "../../backend"
 import Line from "../../components/charts/line"
-import { flow, volume, added, givenback, upcoming, delayed } from './data'
+import { flow, volume, added, givenback, upcoming, delayed } from "./data"
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
 import Calendar from "../../components/charts/calendar"
 import { formatCalendar } from "../cashflow/data"
+import moment from "moment"
 
 interface Props {
   data: Trade[]
+  master: Trade[]
+  window: number
 }
 
 const inflowColumns = [
@@ -78,10 +81,28 @@ const Inflows = (props: Props) => {
 
   const data = props.data.filter(d => d.type === TradeType.SALES)
 
+  const creditMaster = props.master.filter(d => {
+    const creditWithinBounds = d.payments
+      .filter(x => x.credit)
+      .map(x => moment(x.date).isAfter(moment().subtract(props.window, "days")))
+      .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
+
+    return d.type === TradeType.SALES && creditWithinBounds > 0
+  })
+
+  const repaidMaster = props.master.filter(d => {
+    const repaidWithinBounds = d.payments
+      .filter(x => x.credit)
+      .map(x => moment(x.repaidDate ? x.repaidDate : x.date).isAfter(moment().subtract(props.window, "days")))
+      .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
+
+    return d.type === TradeType.SALES && repaidWithinBounds > 0
+  })
+
   const inflow = flow(data)
   const collections = volume(data)
-  const credit = added(data)
-  const repaid = givenback(data)
+  const credit = added(creditMaster)
+  const repaid = givenback(repaidMaster)
 
   const inflowPartners = data.reduce((m, d) => {
     const topay = d.items.reduce((i, j) => i + j.price, 0)
@@ -102,7 +123,7 @@ const Inflows = (props: Props) => {
   for (const [k, v] of inflowPartners) {
     inflowPartnersData.push({
       customer: k,
-      amount: Math.round(v*100)/100,
+      amount: Math.round(v * 100) / 100,
     })
   }
   const payPartners = inflowPartnersData.sort((x, y) => (x.amount < y.amount ? 1 : -1)).filter(p => p.amount > 0)

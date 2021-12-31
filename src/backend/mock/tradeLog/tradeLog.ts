@@ -32,7 +32,7 @@ const randomTradeItem = (): TradeItem => {
 }
 
 const randomPaymentTerms = (date: Date): PaymentTerms => {
-  const startDate = moment(date).startOf("month").add(getRandomInt(0, 10), "day")
+  const startDate = moment(date).startOf("month").add(getRandomInt(0, 20), "day")
   const dice = Math.random()
 
   let pt: PaymentTerms = {
@@ -77,7 +77,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
 
   var starts: Date[] = []
   var ends: Date[] = []
-  while (start.isBefore(moment())) {
+  while (start.isBefore(moment().add("1", "day"))) {
     starts = [...starts, start.toDate()]
     ends = [...ends, end.toDate()]
     start = start.add("1", "month")
@@ -120,14 +120,14 @@ export const generateTradeLog = (from: Date): Trade[] => {
 
             if (Math.random() < earlyPayments) {
               // paid the merchant on some credit
-              const p2 = newPayment(bene, moment(start).add(getRandomInt(0, 10), "days"))
+              const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
               p2.amount = earlyPayments * totalCost
               p2.credit = true
 
               // repaid the credit after 30 days
               if (end.diff(moment(), "days") < -30) {
                 p2.repaid = earlyPayments * totalCost
-                p2.repaidDate = end.add(getRandomInt(30, 90), "day").toDate()
+                p2.repaidDate = end.add(2, "month").toDate()
               }
 
               payments = [p1, p2]

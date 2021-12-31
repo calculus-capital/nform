@@ -7,6 +7,8 @@ import styles from "./charts.module.css"
 const Line = (props: { data: any[] }) => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
   const m = useMediaQuery({ query: "(max-width: 1100px)" })
+  // @ts-ignore
+  const maxY = Math.max.apply(Math, props.data.flatMap(d => d.data.map(o => o.y)))
 
   return (
     <ResponsiveLine
@@ -20,7 +22,7 @@ const Line = (props: { data: any[] }) => {
         precision: "day",
       }}
       xFormat="time:%d-%m-%Y"
-      yScale={{ type: "linear", min: "auto", max: "auto", stacked: false, reverse: false }}
+      yScale={{ type: "linear", min: "auto", max: maxY*1.5, stacked: false, reverse: false }}
       axisTop={null}
       colors={{ scheme: "category10" }}
       enableGridX={false}
@@ -39,7 +41,7 @@ const Line = (props: { data: any[] }) => {
       enableArea={true}
       areaOpacity={0.1}
       areaBlendMode="difference"
-      curve="monotoneX"
+      curve="stepAfter"
       axisLeft={{
         tickValues: 3,
         tickSize: 10,
@@ -68,6 +70,24 @@ const Line = (props: { data: any[] }) => {
         legendOffset: s ? 10 : 5,
         legendPosition: "middle",
       }}
+      markers={[
+        {
+          axis: "x",
+          value: moment().toDate(),
+          lineStyle: { stroke: "#ffff00", strokeWidth: 2, strokeOpacity: 0.9 },
+          legend: s ? "" : "future",
+          legendOrientation: "horizontal",
+          legendPosition: s ? "right" : m ? "right" : "top-right",
+        },
+        {
+          axis: "x",
+          value: moment().toDate(),
+          lineStyle: { stroke: "#ffff00", strokeWidth: 2, strokeOpacity: 0.9 },
+          legend: s ? "" : "past",
+          legendOrientation: "horizontal",
+          legendPosition: s ? "left" : m ? "left" : "top-left",
+        },
+      ]}
       tooltip={tooltip}
       isInteractive={!s}
       legends={[
