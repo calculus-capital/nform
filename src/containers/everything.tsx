@@ -23,6 +23,7 @@ import dark from "../themes/dark"
 import light from "../themes/light"
 import darkBlue from "../themes/darkBlue"
 import purple from "../themes/purple"
+import Settings from "../screens/settings/settings"
 
 const companies = [
   "Dunzo",
@@ -213,6 +214,7 @@ const Everything = () => {
               <Route path="/payables" element={<Outflows data={data} master={orig} window={time}></Outflows>} />
               <Route path="/receivables" element={<Inflows data={data} master={orig} window={time}></Inflows>} />
               <Route path="/credit" element={<Credit data={data}></Credit>} />
+              <Route path="/settings" element={<Settings data={data}></Settings>} />
             </Routes>
           </Cell>
         </Grid>

@@ -7,6 +7,46 @@ export enum TradeType {
   AWS,
   FIXED,
   SALARY,
+  MARKETING,
+  OTHER,
+}
+
+export enum Tranche {
+  SUPER_SENIOR = "Super Senior",
+  SENIOR       = "Senior",
+  MEZZANINE    = "Mezzanine",
+  EQUITY       = "Equity",
+}
+
+export enum RiskWeightings {
+  xxl = 100,
+  xl  = 80,
+  l   = 70,
+  m   = 50,
+  s   = 30,
+  xs  = 20,
+  xxs = 10,
+}
+
+export enum CapitalWeightings {
+  xxl = 100,
+  xl  = 80,
+  l   = 70,
+  m   = 50,
+  s   = 30,
+  xs  = 20,
+  xxs = 10,
+}
+
+export enum AccountType {
+  CURRENT,
+  EQUITY,
+  COLLECTIONS,
+}
+
+export interface Trader {
+  name: string
+  risk: Tranche
 }
 
 export interface TradeItem {
@@ -49,4 +89,28 @@ export interface Trade {
   terms        : PaymentTerms
   beneficiaries: Beneficiary[]
   payments     : Payment[]
+  credit?      : Credit[]
+}
+
+export interface Credit {
+  liquidity: number
+  lender   : string
+  amount   : number
+  interest : number
+  availed  : Date
+  maturity : Date
+}
+
+export interface CreditLine {
+  limit   : number
+  interest: number
+  utilised: number
+  lender  : string
+  risk    : Tranche
+}
+
+export interface Account {
+  type   : AccountType
+  balance: number
+  tag    : string
 }

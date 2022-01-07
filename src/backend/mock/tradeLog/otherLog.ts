@@ -34,34 +34,10 @@ const nowpaymentTerms = (d: Date): PaymentTerms => {
   return pt
 }
 
-const awsBeneficiary = (): Beneficiary => {
+const newBeneficiary = (kind:string): Beneficiary => {
   const bene: Beneficiary = {
     id: getRandomInt(10000000000, 99999999999),
-    name: "AWS",
-    bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
-    ifsc: getRandomString(4) + getRandomInt(10000, 99999).toString(),
-    split: 1,
-  }
-
-  return bene
-}
-
-const salaryBeneficiary = (): Beneficiary => {
-  const bene: Beneficiary = {
-    id: getRandomInt(10000000000, 99999999999),
-    name: "Salary",
-    bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
-    ifsc: getRandomString(4) + getRandomInt(10000, 99999).toString(),
-    split: 1,
-  }
-
-  return bene
-}
-
-const otherBeneficiary = (): Beneficiary => {
-  const bene: Beneficiary = {
-    id: getRandomInt(10000000000, 99999999999),
-    name: "Other",
+    name: kind,
     bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
     ifsc: getRandomString(4) + getRandomInt(10000, 99999).toString(),
     split: 1,
@@ -87,7 +63,7 @@ export const generateOtherLog = (from: Date): Trade[] => {
   var baseCost = awsCosts
   const awsCharges = starts.reduce((m: Trade[], e: Date) => {
     const payments = []
-    const bene = awsBeneficiary()
+    const bene = newBeneficiary("AWS")
     if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
@@ -116,7 +92,7 @@ export const generateOtherLog = (from: Date): Trade[] => {
   baseCost = salaryStart
   const salaryCharges = ends.reduce((m: Trade[], e: Date) => {
     const payments = []
-    const bene = salaryBeneficiary()
+    const bene = newBeneficiary("SALARY")
     if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
@@ -146,7 +122,7 @@ export const generateOtherLog = (from: Date): Trade[] => {
   baseCost = otherFixedCosts
   const otherCharges = starts.reduce((m: Trade[], e: Date) => {
     const payments = []
-    const bene = otherBeneficiary()
+    const bene = newBeneficiary("OTHER")
     if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
