@@ -8,10 +8,7 @@ export const flow = (data: Trade[]) => {
     .sort((x, y) => (moment(x.terms.maturity).isAfter(moment(y.terms.maturity)) ? 1 : -1))
     .map(d => {
       const cost = d.items.map(i => i.price).reduce((x, y) => x + y, 0)
-      const paid = d.payments
-        .filter(x => !x.credit)
-        .map(i => i.amount)
-        .reduce((x, y) => x + y, 0)
+      const paid = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
 
       return {
         x: moment(d.terms.maturity).format("DD-MM-YYYY"),
@@ -32,13 +29,9 @@ export const volume = (data: Trade[]) => {
   var scr = 0
   return data
     .map(d => {
-      const paid = d.payments
-        .filter(x => !x.credit)
-        .map(i => i.amount)
-        .reduce((x, y) => x + y, 0)
-      const cr = d.payments
-        .filter(x => x.credit)
-        .map(i => i.amount-i.repaid)
+      const paid = d.payments.map(i => i.amount).reduce((x, y) => x + y, 0)
+      const cr = d.credits
+        .map(i => i.amount - i.repayments.map(x => x.amount).reduce((x, y) => x + y, 0))
         .reduce((x, y) => x + y, 0)
 
       return {
@@ -61,21 +54,14 @@ export const added = (data: Trade[]) => {
   var scr = 0
   return data
     .map(d => {
-      const datum = d.payments
-      const cr = datum
-        .filter(x => x.credit)
-        .map(i => i.amount)
-        .reduce((x, y) => x + y, 0)
+      const datum = d.credits
+      const cr = datum.map(i => i.amount).reduce((x, y) => x + y, 0)
 
-      const repaid = datum
-        .filter(x => x.credit)
-        .map(i => i.repaid)
-        .reduce((x, y) => x + y, 0)
+      // const repaid = datum
+      //   .map(i => i.repayments.map(x => x.amount).reduce((x, y) => x + y, 0))
+      //   .reduce((x, y) => x + y, 0)
 
-      const date = datum
-        .filter(x => x.credit)
-        .map(x => x.date)
-        .pop()
+      const date = datum.map(x => x.availed).pop()
 
       return {
         // TODO: date is probably wrong
@@ -98,16 +84,12 @@ export const givenback = (data: Trade[]) => {
   var scr = 0
   return data
     .map(d => {
-      const datum = d.payments
+      const datum = d.credits
       const repaid = datum
-        .filter(x => x.credit)
-        .map(i => i.repaid)
+        .map(i => i.repayments.map(x => x.amount).reduce((x, y) => x + y, 0))
         .reduce((x, y) => x + y, 0)
 
-      const date = datum
-        .filter(x => x.credit)
-        .map(x => x.repaidDate ? x.repaidDate : x.date)
-        .pop()
+      const date = datum.map(x => (x.repayments.length > 0 ? x.repayments[x.repayments.length - 1].date : "")).pop()
 
       return {
         x: moment(date),

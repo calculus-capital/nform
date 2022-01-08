@@ -1,7 +1,6 @@
 import React from "react"
 import Bullet from "../../components/charts/bullet"
 import { useMediaQuery } from "react-responsive"
-import * as backend from "../../backend"
 
 import styles from "./cashflow.module.css"
 import { Trade, TradeType } from "../../backend/mock/tradeLog/types"

@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive"
 import Table from "../../components/table/table"
 import { Trade, TradeType } from "../../backend"
 import Line from "../../components/charts/line"
-import { flow, volume, added, givenback, upcoming, delayed } from './data'
+import { flow, volume, added, givenback, upcoming, delayed } from "./data"
 
 import styles from "./flows.module.css"
 import { Card, Heading } from "react-bulma-components"
@@ -82,18 +82,20 @@ const Outflows = (props: Props) => {
   const data = props.data.filter(d => d.type === TradeType.PROCUREMENT)
 
   const creditMaster = props.master.filter(d => {
-    const creditWithinBounds = d.payments
-      .filter(x => x.credit)
-      .map(x => moment(x.date).isAfter(moment().subtract(props.window, "days")))
+    const creditWithinBounds = d.credits
+      .map(x => moment(x.availed).isAfter(moment().subtract(props.window, "days")))
       .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
 
     return d.type === TradeType.SALES && creditWithinBounds > 0
   })
 
   const repaidMaster = props.master.filter(d => {
-    const repaidWithinBounds = d.payments
-      .filter(x => x.credit)
-      .map(x => moment(x.repaidDate ? x.repaidDate : x.date).isAfter(moment().subtract(props.window, "days")))
+    const repaidWithinBounds = d.credits
+      .map(x =>
+        moment(x.repayments.length > 0 ? x.repayments[x.repayments.length - 1].date : "").isAfter(
+          moment().subtract(props.window, "days")
+        )
+      )
       .reduce((x, y) => (x ? 1 : 0) + (y ? 1 : 0), 0)
 
     return d.type === TradeType.SALES && repaidWithinBounds > 0
@@ -123,7 +125,7 @@ const Outflows = (props: Props) => {
   for (const [k, v] of outflowPartners) {
     outflowPartnersData.push({
       customer: k,
-      amount: Math.round(v*100)/100,
+      amount: Math.round(v * 100) / 100,
     })
   }
   const payPartners = outflowPartnersData.sort((x, y) => (x.amount < y.amount ? 1 : -1)).filter(p => p.amount > 0)

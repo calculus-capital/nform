@@ -18,10 +18,7 @@ export const formatForBullet = (data: Trade[]): { ranges: number[]; measures: nu
 
   const dataCredit = data
     .map(r => {
-      return r.payments
-        .filter(i => i.credit)
-        .map(p => p.amount)
-        .reduce((x, y) => x + y, 0)
+      return r.credits.map(p => p.amount).reduce((x, y) => x + y, 0)
     })
     .reduce((x, y) => x + y, 0)
 
@@ -40,23 +37,13 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
   const totalPaymentsReceived = receivables
     .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
   const totalCreditReceived = receivables
     .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 
@@ -67,23 +54,13 @@ export const formatForPie = (data: Trade[]): { id: string; value: number }[] => 
   const totalPaymentsSent = payables
     .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
   const totalCreditSent = payables
     .filter(r => moment(r.terms.maturity).isBefore(moment()))
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 
@@ -198,20 +175,13 @@ export const formatCalendar = (data: Trade[]): { value: number; day: string }[] 
   })
 }
 
-export const operatingMetrics = (data: Trade[]):number[] => {
-
-
+export const operatingMetrics = (data: Trade[]): number[] => {
   const rx = data
     .filter(d => {
       return d.type === TradeType.SALES
     })
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
   const tx = data
@@ -219,12 +189,7 @@ export const operatingMetrics = (data: Trade[]):number[] => {
       return d.type === TradeType.PROCUREMENT
     })
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
   const revenue = rx - tx
@@ -240,49 +205,34 @@ export const operatingMetrics = (data: Trade[]):number[] => {
     })
     .filter(r => moment(r.terms.maturity).isAfter(moment()))
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 
-    const aws = data.filter(d => {
+  const aws = data
+    .filter(d => {
       return d.type === TradeType.AWS
     })
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.payments.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 
-    const salary = data.filter(d => {
+  const salary = data
+    .filter(d => {
       return d.type === TradeType.SALARY
     })
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.payments.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
-      .reduce((x, y) => x + y, 0)
+    .reduce((x, y) => x + y, 0)
 
-    const capex = data.filter(d => {
+  const capex = data
+    .filter(d => {
       return d.type === TradeType.FIXED
     })
     .map(r => {
-      return r.payments.length > 0
-        ? r.payments
-            .filter(p => !p.credit)
-            .map(p => p.amount)
-            .reduce((x, y) => x + y, 0)
-        : 0
+      return r.payments.length > 0 ? r.credits.map(p => p.amount).reduce((x, y) => x + y, 0) : 0
     })
     .reduce((x, y) => x + y, 0)
 

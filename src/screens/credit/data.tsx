@@ -3,33 +3,34 @@ import { Trade } from "../../backend"
 import { groupBy } from "../../utils/groupby"
 
 type CreditEntry = {
-  type: string
-  customer: string
-  credit: number
-  remaining: number
-  availed: string
-  repaid: number
+  type      : string
+  customer  : string
+  credit    : number
+  remaining : number
+  availed   : string
+  repaid    : number
   lastRepaid: string
-  maturity: string
+  maturity  : string
 }
 
 export const getCredit = (data: Trade[], title: string): CreditEntry[] => {
   return data
     .flatMap(d => {
-      return d.payments
-        .filter(p => p.credit)
-        .map(p => {
-          return {
-            type: title,
-            customer: d.beneficiaries[0].name,
-            credit: Math.round(p.amount * 100) / 100,
-            remaining: Math.round((p.amount - p.repaid) * 100) / 100,
-            availed: moment(p.date).format("DD-MM-YYYY"),
-            repaid: Math.round(p.repaid * 100) / 100,
-            lastRepaid: moment(p.repaidDate).format("DD-MM-YYYY"),
-            maturity: moment(p.date).add("90", "days").format("DD-MM-YYYY"),
-          }
-        })
+      return d.credits.map(p => {
+        const repaid = p.repayments.map(x => x.amount).reduce((x, y) => x + y, 0)
+        const repaidDate = p.repayments.length > 0 ? p.repayments[p.repayments.length - 1].date : ""
+
+        return {
+          type      : title,
+          customer  : d.beneficiaries[0].name,
+          credit    : Math.round(p.amount * 100) / 100,
+          remaining : Math.round((p.amount - repaid) * 100) / 100,
+          availed   : moment(p.availed).format("DD-MM-YYYY"),
+          repaid    : Math.round(repaid * 100) / 100,
+          lastRepaid: moment(repaidDate).format("DD-MM-YYYY"),
+          maturity  : moment(p.maturity).format("DD-MM-YYYY"),
+        }
+      })
     })
     .sort((x, y) => (moment(x.availed).isAfter(moment(y.availed)) ? 1 : -1))
 }
