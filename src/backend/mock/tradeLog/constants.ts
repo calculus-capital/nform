@@ -17,7 +17,7 @@ export const traders = [
   "VIDLI", "SUPERSHAKT"
 ].slice(0, window.ntraders)
 
-export const lenders = ["Kalaari Capital", "Capup", "Capsave", "Progcap",
+export const lenders = ["Progcap",
   "Mintifi", "Apollo Finvest", "OkCredit", "Loantap", "Indifi", "Credavenue",
-  "Quona Capital", "Mynd", "KewdX", "Tradecred", "Priorityvendor", "Cashflo",
+  "Quona Capital", "Mynd", "KredX", "Tradecred", "Priorityvendor", "Cashflo",
   "M1Xchange", "Finagg", "Credable", "Credlix", "Invoicemart"].slice(0, window.nlenders)

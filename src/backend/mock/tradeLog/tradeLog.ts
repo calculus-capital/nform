@@ -1,4 +1,4 @@
-import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from "./types"
+import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment, Credit } from "./types"
 import { traders } from "./constants"
 import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
@@ -37,11 +37,11 @@ const randomPaymentTerms = (date: Date): PaymentTerms => {
 
 const randomBeneficiary = (): Beneficiary => {
   const bene: Beneficiary = {
-    id: getRandomInt(10000000000, 99999999999),
-    name: traders[getRandomInt(0, traders.length)],
+    id          : getRandomInt(10000000000, 99999999999),
+    name        : traders[getRandomInt(0, traders.length)],
     bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
-    ifsc: getRandomString(4) + getRandomInt(10000, 99999).toString(),
-    split: 1,
+    ifsc        : getRandomString(4) + getRandomInt(10000, 99999).toString(),
+    split       : 1,
   }
 
   return bene
@@ -49,12 +49,10 @@ const randomBeneficiary = (): Beneficiary => {
 
 const newPayment = (bene:Beneficiary, end:moment.Moment): Payment => {
   const payment: Payment = {
-    id: getRandomInt(10000000000, 99999999999),
-    date: end.toDate(),
+    id    : getRandomInt(10000000000, 99999999999),
+    date  : end.toDate(),
     amount: 0,
-    to: bene,
-    credit: false,
-    repaid: 0,
+    to    : bene,
   }
 
   return payment
@@ -97,6 +95,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
 
         const tradeType = Math.random() > (0.5-window.margin) ? TradeType.SALES : TradeType.PROCUREMENT
         var payments = [] as Payment[]
+        var credits = [] as Credit[]
 
         if (tradeType === TradeType.SALES) {
           // loooong past
@@ -111,15 +110,25 @@ export const generateTradeLog = (from: Date): Trade[] => {
               // paid the merchant on some credit
               const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
               p2.amount = window.earlyPayments * totalCost
-              p2.credit = true
-
-              // repaid the credit after 30 days
-              if (end.diff(moment(), "days") < -30) {
-                p2.repaid = window.earlyPayments * totalCost
-                p2.repaidDate = end.add(2, "month").toDate()
+              const c: Credit = {
+                lender    : "calculus",
+                amount    : window.earlyPayments * totalCost,
+                interest  : window.WACC,
+                availed   : end.toDate(),
+                maturity  : end.add(3, "month").toDate(),
+                payment   : p2,
+                repayments: []
               }
 
-              payments = [p1, p2]
+              // repaid the credit after 30 days
+              if (end.diff(moment(), "days") < -90) {
+                const p3 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
+                p3.amount = window.earlyPayments * totalCost
+                c.repayments.push(p3)
+              }
+
+              payments = [p1]
+              credits = [c]
             } else {
               payments = [p1]
             }
@@ -137,17 +146,27 @@ export const generateTradeLog = (from: Date): Trade[] => {
 
             if (Math.random() < window.earlyPayments) {
               // paid the merchant on some credit
-              const p2 = newPayment(bene, moment(start).add(getRandomInt(0, 10), "days"))
+              const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
               p2.amount = window.earlyPayments * totalCost
-              p2.credit = true
-
-              // repaid the credit after 30 days
-              if (end.diff(moment(), "days") < -30) {
-                p2.repaid = window.earlyPayments * totalCost
-                p2.repaidDate = end.add(getRandomInt(30, 90), "day").toDate()
+              const c: Credit = {
+                lender    : "calculus",
+                amount    : window.earlyPayments * totalCost,
+                interest  : window.WACC,
+                availed   : end.toDate(),
+                maturity  : end.add(3, "month").toDate(),
+                payment   : p2,
+                repayments: []
               }
 
-              payments = [p1, p2]
+              // repaid the credit after 30 days
+              if (end.diff(moment(), "days") < -90) {
+                const p3 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
+                p3.amount = window.earlyPayments * totalCost
+                c.repayments.push(p3)
+              }
+
+              payments = [p1]
+              credits = [c]
             } else {
               payments = [p1]
             }
@@ -159,33 +178,36 @@ export const generateTradeLog = (from: Date): Trade[] => {
         // manufacturing usecases: procurement -> consumption -> production -> sales
         // trading usecases: procurement -> sales
         let item: Trade = {
-          type: tradeType,
-          items: items,
-          terms: terms,
+          type         : tradeType,
+          items        : items,
+          terms        : terms,
           beneficiaries: [bene],
-          payments: payments,
+          payments     : payments,
+          credits      : credits
         }
 
         if (item.type === TradeType.PROCUREMENT) {
           let conterms = { ...terms }
           conterms.startDate = moment(terms.maturity).add(getRandomInt(30, 90), "day").toDate()
           let consumption: Trade = {
-            type: TradeType.CONSUMPTION,
-            items: items,
-            terms: conterms,
+            type         : TradeType.CONSUMPTION,
+            items        : items,
+            terms        : conterms,
             beneficiaries: [bene],
-            payments: payments,
+            payments     : [],
+            credits      : []
           }
           return [item, consumption]
         } else if (item.type === TradeType.SALES) {
           let prodterms = terms
           prodterms.startDate = moment(terms.maturity).subtract(getRandomInt(30, 90), "day").toDate()
           let production: Trade = {
-            type: TradeType.PRODUCTION,
-            items: items,
-            terms: prodterms,
+            type         : TradeType.PRODUCTION,
+            items        : items,
+            terms        : prodterms,
             beneficiaries: [bene],
-            payments: payments,
+            payments     : [],
+            credits      : []
           }
           return [item, production]
         }

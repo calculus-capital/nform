@@ -78,9 +78,6 @@ export interface Payment {
   date       : Date
   amount     : number
   to         : Beneficiary
-  credit     : boolean
-  repaid     : number
-  repaidDate?: Date
 }
 
 export interface Trade {
@@ -89,16 +86,17 @@ export interface Trade {
   terms        : PaymentTerms
   beneficiaries: Beneficiary[]
   payments     : Payment[]
-  credit?      : Credit[]
+  credits      : Credit[]
 }
 
 export interface Credit {
-  liquidity: number
-  lender   : string
-  amount   : number
-  interest : number
-  availed  : Date
-  maturity : Date
+  lender    : string
+  amount    : number
+  interest  : number
+  availed   : Date
+  maturity  : Date
+  payment   : Payment
+  repayments: Payment[]
 }
 
 export interface CreditLine {

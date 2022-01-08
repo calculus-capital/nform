@@ -47,5 +47,5 @@ window.bankBalance = window.seed
 // Credit
 window.nlenders = getRandomInt(1, 5)
 window.averageCreditLine = getRandomInt(10, 50)
-window.WACC = getRandomArbitrary(14, 18)
+window.WACC = getRandomArbitrary(12, 16)
 

@@ -4,11 +4,11 @@ import moment from "moment"
 
 const oneItem = (price: number, name: string): TradeItem => {
   const item: TradeItem = {
-    id: getRandomInt(10000000000, 99999999999),
-    sku: name,
-    description: "",
-    quantity: 1,
-    price: price,
+    id            : getRandomInt(10000000000, 99999999999),
+    sku           : name,
+    description   : "",
+    quantity      : 1,
+    price         : price,
     price_per_unit: price,
   }
 
@@ -17,21 +17,21 @@ const oneItem = (price: number, name: string): TradeItem => {
 
 const nowpaymentTerms = (d: Date): PaymentTerms => {
   let pt: PaymentTerms = {
-    startDate: d,
-    maturity: moment(d).add(1, "day").toDate(),
+    startDate        : d,
+    maturity         : moment(d).add(1, "day").toDate(),
     merchant_discount: getRandomArbitrary(2, 5),
-    credit_discount: getRandomArbitrary(2, 5),
+    credit_discount  : getRandomArbitrary(2, 5),
   }
   return pt
 }
 
 const newBeneficiary = (kind:string): Beneficiary => {
   const bene: Beneficiary = {
-    id: getRandomInt(10000000000, 99999999999),
-    name: kind,
+    id          : getRandomInt(10000000000, 99999999999),
+    name        : kind,
     bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
-    ifsc: getRandomString(4) + getRandomInt(10000, 99999).toString(),
-    split: 1,
+    ifsc        : getRandomString(4) + getRandomInt(10000, 99999).toString(),
+    split       : 1,
   }
 
   return bene
@@ -45,9 +45,9 @@ export const generateOtherLog = (from: Date): Trade[] => {
   var ends: Date[] = []
   while (start.isBefore(moment())) {
     starts = [...starts, start.toDate()]
-    ends = [...ends, end.toDate()]
-    start = start.add("1", "month")
-    end = end.add("1", "month")
+    ends   = [...ends, end.toDate()]
+    start  = start.add("1", "month")
+    end    = end.add("1", "month")
   }
 
   // AWS Charges per month
@@ -57,22 +57,21 @@ export const generateOtherLog = (from: Date): Trade[] => {
     const bene = newBeneficiary("AWS")
     if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
-        id: getRandomInt(10000000000, 99999999999),
-        date: e,
+        id    : getRandomInt(10000000000, 99999999999),
+        date  : e,
         amount: baseCost,
-        to: bene,
-        credit: false,
-        repaid: 0,
+        to    : bene,
       }
       payments.push(payment)
     }
 
     const item: Trade = {
-      type: TradeType.AWS,
-      items: [oneItem(baseCost, "AWS")],
-      terms: nowpaymentTerms(e),
+      type         : TradeType.AWS,
+      items        : [oneItem(baseCost, "AWS")],
+      terms        : nowpaymentTerms(e),
       beneficiaries: [bene],
-      payments: payments,
+      payments     : payments,
+      credits      : []
     }
     m.push(item)
     baseCost = baseCost + (baseCost * window.awsCostsInc())
@@ -86,22 +85,21 @@ export const generateOtherLog = (from: Date): Trade[] => {
     const bene = newBeneficiary("SALARY")
     if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
-        id: getRandomInt(10000000000, 99999999999),
-        date: e,
+        id    : getRandomInt(10000000000, 99999999999),
+        date  : e,
         amount: baseCost,
-        to: bene,
-        credit: false,
-        repaid: 0,
+        to    : bene,
       }
       payments.push(payment)
     }
 
     const item: Trade = {
-      type: TradeType.SALARY,
-      items: [oneItem(baseCost, "SALARY")],
-      terms: nowpaymentTerms(e),
+      type         : TradeType.SALARY,
+      items        : [oneItem(baseCost, "SALARY")],
+      terms        : nowpaymentTerms(e),
       beneficiaries: [bene],
-      payments: payments,
+      payments     : payments,
+      credits      : []
     }
     m.push(item)
     baseCost = baseCost + (baseCost * window.salaryInc())
@@ -116,22 +114,21 @@ export const generateOtherLog = (from: Date): Trade[] => {
     const bene = newBeneficiary("OTHER")
     if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
-        id: getRandomInt(10000000000, 99999999999),
-        date: e,
+        id    : getRandomInt(10000000000, 99999999999),
+        date  : e,
         amount: baseCost,
-        to: bene,
-        credit: false,
-        repaid: 0,
+        to    : bene,
       }
       payments.push(payment)
     }
 
     const item: Trade = {
-      type: TradeType.FIXED,
-      items: [oneItem(baseCost, "FIXED")],
-      terms: nowpaymentTerms(e),
+      type         : TradeType.FIXED,
+      items        : [oneItem(baseCost, "FIXED")],
+      terms        : nowpaymentTerms(e),
       beneficiaries: [bene],
-      payments: payments,
+      payments     : payments,
+      credits      : []
     }
     m.push(item)
     baseCost = baseCost + (baseCost * window.otherFixedCostsInc())
