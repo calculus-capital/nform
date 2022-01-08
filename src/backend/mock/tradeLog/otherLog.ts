@@ -1,15 +1,6 @@
 import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from "./types"
 import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
-import {
-  awsCosts,
-  awsCostsInc,
-  salaryStart,
-  salaryInc,
-  otherFixedCosts,
-  otherFixedCostsInc,
-  averageDelay,
-} from "./controls"
 
 const oneItem = (price: number, name: string): TradeItem => {
   const item: TradeItem = {
@@ -60,11 +51,11 @@ export const generateOtherLog = (from: Date): Trade[] => {
   }
 
   // AWS Charges per month
-  var baseCost = awsCosts
+  var baseCost = window.awsCosts
   const awsCharges = starts.reduce((m: Trade[], e: Date) => {
     const payments = []
     const bene = newBeneficiary("AWS")
-    if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
+    if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
         date: e,
@@ -84,16 +75,16 @@ export const generateOtherLog = (from: Date): Trade[] => {
       payments: payments,
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * awsCostsInc())
+    baseCost = baseCost + (baseCost * window.awsCostsInc())
     return m
   }, [] as Trade[])
 
   // Salary per month
-  baseCost = salaryStart
+  baseCost = window.salaryStart
   const salaryCharges = ends.reduce((m: Trade[], e: Date) => {
     const payments = []
     const bene = newBeneficiary("SALARY")
-    if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
+    if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
         date: e,
@@ -113,17 +104,17 @@ export const generateOtherLog = (from: Date): Trade[] => {
       payments: payments,
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * salaryInc())
+    baseCost = baseCost + (baseCost * window.salaryInc())
     return m
   }, [] as Trade[])
 
 
   // Other costs per month
-  baseCost = otherFixedCosts
+  baseCost = window.otherFixedCosts
   const otherCharges = starts.reduce((m: Trade[], e: Date) => {
     const payments = []
     const bene = newBeneficiary("OTHER")
-    if (moment(e).diff(moment(), "days") < -1 * averageDelay) {
+    if (moment(e).diff(moment(), "days") < -1 * window.averageDelay) {
       const payment: Payment = {
         id: getRandomInt(10000000000, 99999999999),
         date: e,
@@ -143,7 +134,7 @@ export const generateOtherLog = (from: Date): Trade[] => {
       payments: payments,
     }
     m.push(item)
-    baseCost = baseCost + (baseCost * otherFixedCostsInc())
+    baseCost = baseCost + (baseCost * window.otherFixedCostsInc())
     return m
   }, [] as Trade[])
 

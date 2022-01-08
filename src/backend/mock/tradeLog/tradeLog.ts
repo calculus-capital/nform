@@ -2,22 +2,11 @@ import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from 
 import { traders } from "./constants"
 import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
-import {
-  tradeStart,
-  growth,
-  averagePrice,
-  averageQuantity,
-  paymentTermsDelay,
-  averageDelay,
-  earlyPayments,
-  margin,
-  growthBias,
-} from "./controls"
 
 const randomTradeItem = (): TradeItem => {
   // TODO: sample from distributions
-  const price = getRandomArbitrary(averagePrice / 2, averagePrice * 2)
-  const quantity: number = getRandomInt(averageQuantity / 2, averageQuantity * 2)
+  const price = getRandomArbitrary(window.averagePrice / 2, window.averagePrice * 2)
+  const quantity: number = getRandomInt(window.averageQuantity / 2, window.averageQuantity * 2)
 
   const item: TradeItem = {
     id: getRandomInt(10000000000, 99999999999),
@@ -38,7 +27,7 @@ const randomPaymentTerms = (date: Date): PaymentTerms => {
   let pt: PaymentTerms = {
     startDate: startDate.toDate(),
     maturity: startDate
-      .add(dice < paymentTermsDelay[0] ? 1 : dice > paymentTermsDelay[0] ? 3 : 2, "month")
+      .add(dice < window.paymentTermsDelay[0] ? 1 : dice > window.paymentTermsDelay[0] ? 3 : 2, "month")
       .toDate(),
     merchant_discount: getRandomArbitrary(2, 5),
     credit_discount: getRandomArbitrary(2, 5),
@@ -84,10 +73,10 @@ export const generateTradeLog = (from: Date): Trade[] => {
     end = end.add("1", "month")
   }
 
-  var norders = tradeStart
+  var norders = window.tradeStart
 
   return starts.flatMap(start => {
-    norders = norders + norders * growth * (Math.random() > 0.5 - growthBias ? 1 : -0.2 )
+    norders = norders + norders * window.growth * (Math.random() > 0.5 - window.growthBias ? 1 : -0.2 )
     if (norders === 0) norders = 1
     console.log("Generating " + Math.round(norders) + " orders for " + start.toDateString())
 
@@ -106,27 +95,27 @@ export const generateTradeLog = (from: Date): Trade[] => {
           })
           .reduce((x, y) => x + y)
 
-        const tradeType = Math.random() > (0.5-margin) ? TradeType.SALES : TradeType.PROCUREMENT
+        const tradeType = Math.random() > (0.5-window.margin) ? TradeType.SALES : TradeType.PROCUREMENT
         var payments = [] as Payment[]
 
         if (tradeType === TradeType.SALES) {
           // loooong past
-          if (end.diff(moment(), "days") < -1 * averageDelay) {
+          if (end.diff(moment(), "days") < -1 * window.averageDelay) {
             // paid the merchant
             const p1 = newPayment(bene, end)
 
             p1.amount = totalCost
             p1.date = end.toDate()
 
-            if (Math.random() < earlyPayments) {
+            if (Math.random() < window.earlyPayments) {
               // paid the merchant on some credit
               const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
-              p2.amount = earlyPayments * totalCost
+              p2.amount = window.earlyPayments * totalCost
               p2.credit = true
 
               // repaid the credit after 30 days
               if (end.diff(moment(), "days") < -30) {
-                p2.repaid = earlyPayments * totalCost
+                p2.repaid = window.earlyPayments * totalCost
                 p2.repaidDate = end.add(2, "month").toDate()
               }
 
@@ -139,22 +128,22 @@ export const generateTradeLog = (from: Date): Trade[] => {
           }
         } else if (tradeType === TradeType.PROCUREMENT) {
           // loooong past
-          if (end.diff(moment(), "days") < -1 * averageDelay) {
+          if (end.diff(moment(), "days") < -1 * window.averageDelay) {
             // paid the merchant
             const p1 = newPayment(bene, end)
 
             p1.amount = totalCost
             p1.date = end.toDate()
 
-            if (Math.random() < earlyPayments) {
+            if (Math.random() < window.earlyPayments) {
               // paid the merchant on some credit
               const p2 = newPayment(bene, moment(start).add(getRandomInt(0, 10), "days"))
-              p2.amount = earlyPayments * totalCost
+              p2.amount = window.earlyPayments * totalCost
               p2.credit = true
 
               // repaid the credit after 30 days
               if (end.diff(moment(), "days") < -30) {
-                p2.repaid = earlyPayments * totalCost
+                p2.repaid = window.earlyPayments * totalCost
                 p2.repaidDate = end.add(getRandomInt(30, 90), "day").toDate()
               }
 

@@ -5,7 +5,7 @@ import * as backend from "../backend"
 import { useMediaQuery } from "react-responsive"
 import WebFont from "webfontloader"
 import "bulma/css/bulma.min.css"
-import { established, Trade } from "../backend"
+import { Trade } from "../backend"
 
 import styles from "./everything.module.css"
 import Sidebar from "./sidebar/sidebar"
@@ -24,6 +24,7 @@ import light from "../themes/light"
 import darkBlue from "../themes/darkBlue"
 import purple from "../themes/purple"
 import Settings from "../screens/settings/settings"
+import { setInterval } from "timers"
 
 const companies = [
   "Dunzo",
@@ -42,9 +43,9 @@ const companies = [
   "Flobiz",
   "Purplle",
 ]
-
-const orig = backend.generateTradeLog(established).concat(backend.generateOtherLog(established))
 const company = companies[getRandomInt(0, companies.length - 1)]
+const oooo = backend.generateTradeLog(window.established).concat(backend.generateOtherLog(window.established))
+window.origLog = oooo
 
 WebFont.load({
   google: {
@@ -88,7 +89,26 @@ const Everything = () => {
   const s = useMediaQuery({ query: "(max-width: 481px)" })
   const m = useMediaQuery({ query: "(max-width: 1100px)" })
 
-  const [theme, setTheme] = useState(0)
+  const [orig, setOrig] = useState(window.origLog)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (window.dirty) {
+        const log = backend.generateTradeLog(window.established).concat(backend.generateOtherLog(window.established))
+        setOrig(log)
+        window.origLog = log
+        window.dirty = false
+        filterByTime(time)
+        console.log("called")
+      } else {
+        console.log("not called")
+      }
+
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const [theme, setTheme] = useState(getRandomInt(0, 4))
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(dataFilter(orig, time))
   const data = React.useMemo(() => timeRange, [timeRange])

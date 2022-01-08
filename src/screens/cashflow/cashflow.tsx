@@ -64,9 +64,9 @@ const Cashflow = (props: Props) => {
 
   let [revenue, expenses, aws, salary, capex] = operatingMetrics(selectedData)
   let [allRevenue, allExpenses, allAws, allSalary, allCapex] = operatingMetrics(masterData)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let junk = expenses + allAws + allSalary + allCapex
-  console.log(junk)
-  let currentBalance = backend.bankBalance + allRevenue - allExpenses
+  let currentBalance = window.bankBalance + allRevenue - allExpenses
 
   return (
     <div className={styles.cashflow}>
@@ -132,7 +132,7 @@ const Cashflow = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Burn Rate</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
-                {Math.round(((currentBalance - capex - aws - salary + revenue) / backend.bankBalance) * 1000) / 1000 +
+                {Math.round(((currentBalance - capex - aws - salary + revenue) / window.bankBalance) * 1000) / 1000 +
                   " %"}
               </Heading>
             </Card.Content>
@@ -145,7 +145,7 @@ const Cashflow = (props: Props) => {
             <Card.Content>
               <Heading size={4}>Cash</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
-                {"₹" + Math.round((backend.bankBalance * 100) / 100000) / 100 + " L"}
+                {"₹" + Math.round((window.bankBalance * 100) / 100000) / 100 + " L"}
               </Heading>
             </Card.Content>
           </Card>
@@ -155,7 +155,7 @@ const Cashflow = (props: Props) => {
             <Card.Content>
               <Heading size={4}>WACC</Heading>
               <Heading subtitle size={s ? 3 : 6} className={styles.metric}>
-                {Math.round(backend.WACC * 100) / 100}
+                {Math.round(window.WACC * 100) / 100}
               </Heading>
             </Card.Content>
           </Card>

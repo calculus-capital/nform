@@ -1,11 +1,9 @@
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { Cell, Grid } from "styled-css-grid"
 import { Trade } from "../../backend"
 
-import ReactSlider from "react-slider"
 import DatePicker from "react-date-picker"
 import styles from "./settings.module.css"
-import moment from "moment"
 import { getRandomArbitrary, getRandomInt } from "../../backend/mock/random"
 import { Button } from "react-bulma-components"
 
@@ -23,7 +21,7 @@ const Slider = (props: { label: string; min: number; max: number; init: number; 
       </span>
       <input
         type="range"
-        step={props.max - props.min > 10 ? 1 : (props.max - props.min) / 100}
+        step={props.max - props.min > 3 ? 1 : (props.max - props.min) / 100}
         value={state}
         min={props.min}
         max={props.max}
@@ -38,41 +36,157 @@ const Slider = (props: { label: string; min: number; max: number; init: number; 
   )
 }
 
-const Settings = (props: Props) => {
-  const [established, setEstablished] = useState(new Date(2019, 5, 1))
+declare global {
+  interface Window {
+    established       : Date
+    ntraders          : number
+    tradeStart        : number
+    growth            : number
+    growthBias        : number
+    margin            : number
+    averagePrice      : number
+    averageQuantity   : number
+    minDelay          : number
+    maxDelay          : number
+    paymentTermsDelay : number[]
+    awsCosts          : number
+    awsCostsInc       : () => number
+    salaryStart       : number
+    salaryInc         : () => number
+    otherFixedCosts   : number
+    otherFixedCostsInc: () => number
+    averageDelay      : number
+    earlyPayments     : number
+    stage             : string
+    bankBalance       : number
+    nlenders          : number
+    averageCreditLine : number
+    WACC              : number,
+    seed              : number,
+    seriesA           : number,
+    seriesB           : number,
+    dirty             : boolean,
+    origLog           : Trade[]
+  }
+}
 
-  const [ntraders, setNtraders] = useState(getRandomInt(5, 15))
-  const [tradeStart, setTradeStart] = useState(3)
-  const [growth, setGrowth] = useState((ntraders - tradeStart) / moment().diff(moment(established), "months"))
-  const [growthBias, setGrowthBias] = useState(0.1)
-  const [margin, setMargin] = useState(getRandomArbitrary(10, 30) / 100)
-  const [averagePrice, setAveragePrice] = useState(1000)
-  const [averageQuantity, setAverageQuantity] = useState(50)
-  const [minDelay, setMinDelay] = useState(0.4)
-  const [maxDelay, setMaxDelay] = useState(0.8)
+const Settings = (props: Props) => {
+  const [established, setEstablished] = useState(window.established)
+
+  const [ntraders, setNtraders] = useState(window.ntraders)
+  const [tradeStart, setTradeStart] = useState(window.tradeStart)
+  const [growth, setGrowth] = useState(window.growth)
+  const [growthBias, setGrowthBias] = useState(window.growthBias)
+  const [margin, setMargin] = useState(window.margin)
+  const [averagePrice, setAveragePrice] = useState(window.averagePrice)
+  const [averageQuantity, setAverageQuantity] = useState(window.averageQuantity)
+  const [minDelay, setMinDelay] = useState(window.paymentTermsDelay[0])
+  const [maxDelay, setMaxDelay] = useState(window.paymentTermsDelay[1])
 
   // OPEX
-  const [awsCosts, setAwsCosts] = useState(getRandomInt(10000, 20000))
-  const [awsCostsInc, setAwsCostsInc] = useState(getRandomArbitrary(0, 15) / 100)
+  const [awsCosts, setAwsCosts] = useState(window.awsCosts)
+  const [awsCostsInc, setAwsCostsInc] = useState(window.awsCostsInc())
 
-  const [salaryStart, setSalaryStart] = useState(getRandomInt(1000000, 2000000))
-  const [salaryInc, setSalaryInc] = useState(getRandomArbitrary(0, 10) / 100)
+  const [salaryStart, setSalaryStart] = useState(window.salaryStart)
+  const [salaryInc, setSalaryInc] = useState(window.salaryInc())
 
   // CAPEX
-  const [otherFixedCosts, setOtherFixedCosts] = useState(100000)
-  const [otherFixedCostsInc, setOtherFixedCostsInc] = useState(getRandomArbitrary(0, 10) / 100)
+  const [otherFixedCosts, setOtherFixedCosts] = useState(window.otherFixedCosts)
+  const [otherFixedCostsInc, setOtherFixedCostsInc] = useState(window.otherFixedCostsInc())
 
-  const [averageDelay, setAverageDelay] = useState(1)
-  const [earlyPayments, setEarlyPayments] = useState(0.5)
+  const [averageDelay, setAverageDelay] = useState(window.averageDelay)
+  const [earlyPayments, setEarlyPayments] = useState(window.earlyPayments)
 
-  const seed = getRandomArbitrary(2000000 * 70, 3000000 * 70)
-  // 10-20 nil
-  const seriesA = getRandomArbitrary(10000000 * 70, 20000000 * 70)
-  // 50 - 100 mil
-  const seriesB = getRandomArbitrary(50000000 * 70, 100000000 * 70)
+  // Credit
+  // TODO: tie reveunues to credit lines
+  const [nlenders, setNLenders] = useState(getRandomInt(1, 5))
+  const [averageCreditLine, setAverageCreditLine] = useState(getRandomInt(10, 50))
+  const [WACC, setWACC] = useState(getRandomArbitrary(14, 18))
 
   const [stage, setStage] = useState("seed")
-  const bankBalance = stage
+  const bankBalance = useMemo(() => {
+    switch (stage) {
+      case "seed":
+        return window.seed
+      case "seriesA":
+        return window.seriesA
+      case "seriesB":
+        return window.seriesB
+      default:
+        return window.seed
+    }
+  }, [stage])
+
+  useMemo(() => {
+    window.ntraders = ntraders
+    window.tradeStart = tradeStart
+    window.growth = growth
+    window.growthBias = growthBias
+    window.margin = margin
+    window.averagePrice = averagePrice
+    window.averageQuantity = averageQuantity
+    window.minDelay = minDelay
+    window.maxDelay = maxDelay
+    window.paymentTermsDelay = [minDelay, maxDelay]
+    window.awsCosts = awsCosts
+    window.awsCostsInc = () => getRandomArbitrary(-5, awsCostsInc) / 100
+    window.salaryStart = salaryStart
+    window.salaryInc = () => getRandomArbitrary(0, salaryInc) / 100
+    window.otherFixedCosts = otherFixedCosts
+    window.otherFixedCostsInc = () => getRandomArbitrary(0, otherFixedCostsInc) / 100
+    window.averageDelay = averageDelay
+    window.earlyPayments = earlyPayments
+    window.stage = stage
+    window.bankBalance = bankBalance
+    window.nlenders = nlenders
+    window.averageCreditLine = averageCreditLine
+    window.WACC = WACC
+    window.dirty = (
+      window.ntraders !== ntraders ||
+      window.tradeStart !== tradeStart ||
+      window.growth !== growth ||
+      window.growthBias !== growthBias ||
+      window.margin !== margin ||
+      window.averagePrice !== averagePrice ||
+      window.averageQuantity !== averageQuantity ||
+      window.minDelay !== minDelay ||
+      window.maxDelay !== maxDelay ||
+      window.paymentTermsDelay !== [minDelay, maxDelay] ||
+      window.awsCosts !== awsCosts ||
+      window.salaryStart !== salaryStart ||
+      window.otherFixedCosts !== otherFixedCosts ||
+      window.averageDelay !== averageDelay ||
+      window.earlyPayments !== earlyPayments ||
+      window.stage !== stage ||
+      window.bankBalance !== bankBalance ||
+      window.nlenders !== nlenders ||
+      window.averageCreditLine !== averageCreditLine ||
+      window.WACC !== WACC
+    )
+  }, [
+    WACC,
+    averageCreditLine,
+    averageDelay,
+    averagePrice,
+    averageQuantity,
+    awsCosts,
+    awsCostsInc,
+    bankBalance,
+    earlyPayments,
+    growth,
+    growthBias,
+    margin,
+    maxDelay,
+    minDelay,
+    nlenders,
+    ntraders,
+    otherFixedCosts,
+    otherFixedCostsInc,
+    salaryInc,
+    salaryStart,
+    stage,
+    tradeStart,
+  ])
 
   return (
     <>
@@ -80,11 +194,46 @@ const Settings = (props: Props) => {
       <DatePicker onChange={setEstablished} value={established} className={styles.datePicker} />
       <p className={styles.title}>Stage</p>
       <Button.Group>
-        <Button className={stage === "seed" ? styles.activeStage : styles.stageButton} onClick={() => {setStage("seed")}}>Seed</Button>
-        <Button className={stage === "seriesA" ? styles.activeStage : styles.stageButton} onClick={() => {setStage("seriesA")}}>Series A</Button>
-        <Button className={stage === "seriesB" ? styles.activeStage : styles.stageButton} onClick={() => {setStage("seriesB")}}>Series B</Button>
-        <Button className={stage === "seriesC" ? styles.activeStage : styles.stageButton} onClick={() => {setStage("seriesC")}}>Series C</Button>
-        <Button className={stage === "seriesD" ? styles.activeStage : styles.stageButton} onClick={() => {setStage("seriesD")}}>Series D</Button>
+        <Button
+          className={stage === "seed" ? styles.activeStage : styles.stageButton}
+          onClick={() => {
+            setStage("seed")
+          }}
+        >
+          Seed
+        </Button>
+        <Button
+          className={stage === "seriesA" ? styles.activeStage : styles.stageButton}
+          onClick={() => {
+            setStage("seriesA")
+          }}
+        >
+          Series A
+        </Button>
+        <Button
+          className={stage === "seriesB" ? styles.activeStage : styles.stageButton}
+          onClick={() => {
+            setStage("seriesB")
+          }}
+        >
+          Series B
+        </Button>
+        <Button
+          className={stage === "seriesC" ? styles.activeStage : styles.stageButton}
+          onClick={() => {
+            setStage("seriesC")
+          }}
+        >
+          Series C
+        </Button>
+        <Button
+          className={stage === "seriesD" ? styles.activeStage : styles.stageButton}
+          onClick={() => {
+            setStage("seriesD")
+          }}
+        >
+          Series D+
+        </Button>
       </Button.Group>
       <p className={styles.title}>Trade Configurables</p>
       <Grid columns={2}>
@@ -126,7 +275,7 @@ const Settings = (props: Props) => {
         </Cell>
         <Cell center middle>
           <Slider
-            label="Min probability of payment delay: "
+            label="Max probability of payment delay: "
             min={0}
             max={1}
             init={maxDelay}
@@ -137,10 +286,10 @@ const Settings = (props: Props) => {
       <p className={styles.title}>Cost Configurables</p>
       <Grid columns={2}>
         <Cell center middle>
-          <Slider label="AWS costs: " min={10000} max={100000} init={awsCosts} change={setAwsCosts}></Slider>
+          <Slider label="Tech costs: " min={10000} max={100000} init={awsCosts} change={setAwsCosts}></Slider>
         </Cell>
         <Cell center middle>
-          <Slider label="AWS costs multiplier: " min={0} max={2} init={awsCostsInc} change={setAwsCostsInc}></Slider>
+          <Slider label="Tech costs multiplier: " min={0} max={2} init={window.awsCostsInc()} change={setAwsCostsInc}></Slider>
         </Cell>
         <Cell center middle>
           <Slider
@@ -152,7 +301,7 @@ const Settings = (props: Props) => {
           ></Slider>
         </Cell>
         <Cell center middle>
-          <Slider label="Salary multiplier" min={0} max={1} init={salaryInc} change={setSalaryInc}></Slider>
+          <Slider label="Salary multiplier" min={0} max={1} init={window.salaryInc()} change={setSalaryInc}></Slider>
         </Cell>
         <Cell center middle>
           <Slider
@@ -168,7 +317,7 @@ const Settings = (props: Props) => {
             label="OFC increment: "
             min={0}
             max={1}
-            init={otherFixedCostsInc}
+            init={window.otherFixedCostsInc()}
             change={setOtherFixedCostsInc}
           ></Slider>
         </Cell>
@@ -183,6 +332,24 @@ const Settings = (props: Props) => {
             init={earlyPayments}
             change={setEarlyPayments}
           ></Slider>
+        </Cell>
+      </Grid>
+      <p className={styles.title}>Credit Configurables</p>
+      <Grid columns={2}>
+        <Cell center middle>
+          <Slider label="Number of lenders: " min={1} max={100} init={nlenders} change={setNLenders}></Slider>
+        </Cell>
+        <Cell center middle>
+          <Slider
+            label="Average credit line: "
+            min={1}
+            max={100}
+            init={averageCreditLine}
+            change={setAverageCreditLine}
+          ></Slider>
+        </Cell>
+        <Cell center middle>
+          <Slider label="Average cost of capital: " min={1} max={100} init={WACC} change={setWACC}></Slider>
         </Cell>
       </Grid>
     </>
