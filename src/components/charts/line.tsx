@@ -45,7 +45,7 @@ const Line = (props: { data: any[] }) => {
       axisLeft={{
         tickValues: 3,
         tickSize: 10,
-        tickPadding: 5,
+        tickPadding: -5,
         tickRotation: 270,
         format: "",
         legend: "",
