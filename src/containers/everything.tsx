@@ -108,7 +108,7 @@ const Everything = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const [theme, setTheme] = useState(getRandomInt(0, 4))
+  const [theme, setTheme] = useState(1)
   const [time, setTime] = useState(30)
   const [timeRange, setTimeRange] = useState(dataFilter(orig, time))
   const data = React.useMemo(() => timeRange, [timeRange])

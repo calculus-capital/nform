@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useMediaQuery } from "react-responsive"
@@ -119,11 +120,6 @@ const Sidebar = () => {
             <Menu.List.Item active={location.pathname === "/payables"}>
               <Link className={styles.sidebarLink} to="/payables">
                 {s ? "📤" : "📤 Payables"}
-              </Link>
-            </Menu.List.Item>
-            <Menu.List.Item active={location.pathname === "/lines"}>
-              <Link className={styles.sidebarLink} to="/lines">
-                {s ? "💰" : "💰 Credit Lines"}
               </Link>
             </Menu.List.Item>
             <Menu.List.Item active={location.pathname === "/taxes"}>
