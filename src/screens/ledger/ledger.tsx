@@ -55,7 +55,7 @@ const Ledger = (props: Props) => {
       return {
         type: TradeType[x.type],
         date: moment(x.terms.startDate).format("DD-MM-YYYY"),
-        entity: x.beneficiaries[0].name,
+        entity: x.beneficiaries[0].trader.name,
         maturity: moment(x.terms.maturity).format("DD-MM-YYYY"),
         amount: x.items.reduce((x, y) => x + Math.round(y.price * 100) / 100, 0),
         cleared: x.payments.reduce((x, y) => x + Math.round(y.amount * 100) / 100, 0),
@@ -88,7 +88,7 @@ const Ledger = (props: Props) => {
       {/* @ts-ignore */}
       <Table
         columns={useMemo(() => ledgerColumns, [])}
-        data={useMemo(() => data, [props.data])}
+        data={useMemo(() => data, [data])}
         actions={["📃 Purchase Order", "📃 Invoice", "🚩 Flag"]}
       ></Table>
     </div>

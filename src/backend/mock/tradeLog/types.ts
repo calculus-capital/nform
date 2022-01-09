@@ -46,7 +46,7 @@ export enum AccountType {
 
 export interface Trader {
   name: string
-  risk: Tranche
+  risk: RiskWeightings
 }
 
 export interface TradeItem {
@@ -67,7 +67,7 @@ export interface PaymentTerms {
 
 export interface Beneficiary {
   id          : number
-  name        : string
+  trader      : Trader
   bank_account: string
   ifsc        : string
   split       : number
@@ -90,7 +90,7 @@ export interface Trade {
 }
 
 export interface Credit {
-  lender    : string
+  line      : CreditLine
   amount    : number
   interest  : number
   availed   : Date
@@ -100,11 +100,13 @@ export interface Credit {
 }
 
 export interface CreditLine {
-  limit   : number
-  interest: number
-  utilised: number
-  lender  : string
-  risk    : Tranche
+  revenueMultiple       : number
+  collateral            : number
+  overcollateralMultiple: number
+  interest              : number
+  utilised              : number
+  lender                : string
+  risk                  : CapitalWeightings
 }
 
 export interface Account {

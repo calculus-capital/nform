@@ -22,7 +22,7 @@ export const getCredit = (data: Trade[], title: string): CreditEntry[] => {
 
         return {
           type      : title,
-          customer  : d.beneficiaries[0].name,
+          customer  : d.beneficiaries[0].trader.name,
           credit    : Math.round(p.amount * 100) / 100,
           remaining : Math.round((p.amount - repaid) * 100) / 100,
           availed   : moment(p.availed).format("DD-MM-YYYY"),

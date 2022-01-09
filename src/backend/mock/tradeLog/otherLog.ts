@@ -1,6 +1,7 @@
 import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment } from "./types"
 import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
+import { RiskWeightings } from "."
 
 const oneItem = (price: number, name: string): TradeItem => {
   const item: TradeItem = {
@@ -28,7 +29,7 @@ const nowpaymentTerms = (d: Date): PaymentTerms => {
 const newBeneficiary = (kind:string): Beneficiary => {
   const bene: Beneficiary = {
     id          : getRandomInt(10000000000, 99999999999),
-    name        : kind,
+    trader        : {name: kind, risk: RiskWeightings.xxs},
     bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
     ifsc        : getRandomString(4) + getRandomInt(10000, 99999).toString(),
     split       : 1,

@@ -1,7 +1,9 @@
-import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment, Credit } from "./types"
-import { traders } from "./constants"
+import { PaymentTerms, Trade, TradeItem, Beneficiary, TradeType, Payment, Credit } from './types';
+import { traders, lenders, equityLender } from "./constants"
 import { getRandomArbitrary, getRandomInt, getRandomString } from "../random"
 import moment from "moment"
+import * as _ from 'lodash'
+
 
 const randomTradeItem = (): TradeItem => {
   // TODO: sample from distributions
@@ -38,7 +40,7 @@ const randomPaymentTerms = (date: Date): PaymentTerms => {
 const randomBeneficiary = (): Beneficiary => {
   const bene: Beneficiary = {
     id          : getRandomInt(10000000000, 99999999999),
-    name        : traders[getRandomInt(0, traders.length)],
+    trader      : traders[getRandomInt(0, traders.length)],
     bank_account: getRandomString(3) + getRandomInt(10000000, 99999999).toString(),
     ifsc        : getRandomString(4) + getRandomInt(10000, 99999).toString(),
     split       : 1,
@@ -80,7 +82,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
 
     let trades: Trade[] = Array(Math.round(norders))
       .fill(0)
-      .flatMap((_, i) => {
+      .flatMap((k, i) => {
         const terms = randomPaymentTerms(start)
         const items = [randomTradeItem()]
         const bene = randomBeneficiary()
@@ -111,7 +113,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
               const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
               p2.amount = window.earlyPayments * totalCost
               const c: Credit = {
-                lender    : "calculus",
+                line      : _.sample(lenders.filter(l => l.risk <= bene.trader.risk)) || equityLender,
                 amount    : window.earlyPayments * totalCost,
                 interest  : window.WACC,
                 availed   : end.toDate(),
@@ -149,7 +151,7 @@ export const generateTradeLog = (from: Date): Trade[] => {
               const p2 = newPayment(bene, moment(end).add(getRandomInt(0, 10), "days"))
               p2.amount = window.earlyPayments * totalCost
               const c: Credit = {
-                lender    : "calculus",
+                line      : _.sample(lenders.filter(l => l.risk <= bene.trader.risk)) || equityLender,
                 amount    : window.earlyPayments * totalCost,
                 interest  : window.WACC,
                 availed   : end.toDate(),

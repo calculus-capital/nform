@@ -110,14 +110,14 @@ const Outflows = (props: Props) => {
     const topay = d.items.reduce((i, j) => i + j.price, 0)
     const paid = d.payments.reduce((i, j) => i + j.amount, 0)
 
-    if (d.beneficiaries[0].name in m)
+    if (d.beneficiaries[0].trader.name in m)
       m.set(
-        d.beneficiaries[0].name,
+        d.beneficiaries[0].trader.name,
         // @ts-ignore
-        m.get(d.beneficiaries[0].name) + topay - paid
+        m.get(d.beneficiaries[0].trader.name) + topay - paid
       )
     // @ts-ignore
-    else m.set(d.beneficiaries[0].name, topay - paid)
+    else m.set(d.beneficiaries[0].trader.name, topay - paid)
     return m
   }, new Map<string, number>())
 

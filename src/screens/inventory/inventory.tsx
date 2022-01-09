@@ -52,7 +52,7 @@ const Inventory = (props: Props) => {
         sku: i.sku,
         units: i.quantity,
         date: moment(x.terms.startDate).format("DD-MM-YYYY"),
-        entity: x.beneficiaries[0].name,
+        entity: x.beneficiaries[0].trader.name,
         cost: Math.round(i.price * 100) / 100,
       }
     })

@@ -116,7 +116,7 @@ export const upcoming = (data: Trade[]) => {
       const paid = d.payments.reduce((i, j) => i + Math.round(j.amount * 100) / 100, 0)
 
       return {
-        customer: d.beneficiaries[0].name,
+        customer: d.beneficiaries[0].trader.name,
         amount: Math.round((topay - paid) * 100) / 100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }
@@ -137,7 +137,7 @@ export const delayed = (data: Trade[]) => {
       const paid = d.payments.reduce((i, j) => i + j.amount, 0)
 
       return {
-        customer: d.beneficiaries[0].name,
+        customer: d.beneficiaries[0].trader.name,
         amount: Math.round((topay - paid) * 100) / 100,
         date: moment(d.terms.maturity).format("DD-MM-YYYY"),
       }

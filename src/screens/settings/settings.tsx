@@ -36,40 +36,6 @@ const Slider = (props: { label: string; min: number; max: number; init: number; 
   )
 }
 
-declare global {
-  interface Window {
-    established       : Date
-    ntraders          : number
-    tradeStart        : number
-    growth            : number
-    growthBias        : number
-    margin            : number
-    averagePrice      : number
-    averageQuantity   : number
-    minDelay          : number
-    maxDelay          : number
-    paymentTermsDelay : number[]
-    awsCosts          : number
-    awsCostsInc       : () => number
-    salaryStart       : number
-    salaryInc         : () => number
-    otherFixedCosts   : number
-    otherFixedCostsInc: () => number
-    averageDelay      : number
-    earlyPayments     : number
-    stage             : string
-    bankBalance       : number
-    nlenders          : number
-    averageCreditLine : number
-    WACC              : number,
-    seed              : number,
-    seriesA           : number,
-    seriesB           : number,
-    dirty             : boolean,
-    origLog           : Trade[]
-  }
-}
-
 const Settings = (props: Props) => {
   const [established, setEstablished] = useState(window.established)
 
@@ -100,7 +66,6 @@ const Settings = (props: Props) => {
   // Credit
   // TODO: tie reveunues to credit lines
   const [nlenders, setNLenders] = useState(getRandomInt(1, 5))
-  const [averageCreditLine, setAverageCreditLine] = useState(getRandomInt(10, 50))
   const [WACC, setWACC] = useState(getRandomArbitrary(14, 18))
 
   const [stage, setStage] = useState("seed")
@@ -139,7 +104,6 @@ const Settings = (props: Props) => {
     window.stage = stage
     window.bankBalance = bankBalance
     window.nlenders = nlenders
-    window.averageCreditLine = averageCreditLine
     window.WACC = WACC
     window.dirty = (
       window.ntraders !== ntraders ||
@@ -160,12 +124,10 @@ const Settings = (props: Props) => {
       window.stage !== stage ||
       window.bankBalance !== bankBalance ||
       window.nlenders !== nlenders ||
-      window.averageCreditLine !== averageCreditLine ||
       window.WACC !== WACC
     )
   }, [
     WACC,
-    averageCreditLine,
     averageDelay,
     averagePrice,
     averageQuantity,
@@ -338,15 +300,6 @@ const Settings = (props: Props) => {
       <Grid columns={2}>
         <Cell center middle>
           <Slider label="Number of lenders: " min={1} max={100} init={nlenders} change={setNLenders}></Slider>
-        </Cell>
-        <Cell center middle>
-          <Slider
-            label="Average credit line: "
-            min={1}
-            max={100}
-            init={averageCreditLine}
-            change={setAverageCreditLine}
-          ></Slider>
         </Cell>
         <Cell center middle>
           <Slider label="Average cost of capital: " min={1} max={100} init={WACC} change={setWACC}></Slider>

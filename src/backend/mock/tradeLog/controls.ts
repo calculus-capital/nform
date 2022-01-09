@@ -1,5 +1,39 @@
 import moment from 'moment';
+import { Trade } from '.';
 import { getRandomArbitrary, getRandomInt } from '../random';
+
+declare global {
+  interface Window {
+    established       : Date
+    ntraders          : number
+    tradeStart        : number
+    growth            : number
+    growthBias        : number
+    margin            : number
+    averagePrice      : number
+    averageQuantity   : number
+    minDelay          : number
+    maxDelay          : number
+    paymentTermsDelay : number[]
+    awsCosts          : number
+    awsCostsInc       : () => number
+    salaryStart       : number
+    salaryInc         : () => number
+    otherFixedCosts   : number
+    otherFixedCostsInc: () => number
+    averageDelay      : number
+    earlyPayments     : number
+    stage             : string
+    bankBalance       : number
+    nlenders          : number
+    WACC              : number
+    seed              : number
+    seriesA           : number
+    seriesB           : number
+    dirty             : boolean
+    origLog           : Trade[]
+  }
+}
 
 // company
 window.established = new Date(2019, 5, 1)
@@ -46,6 +80,5 @@ window.bankBalance = window.seed
 
 // Credit
 window.nlenders = getRandomInt(1, 5)
-window.averageCreditLine = getRandomInt(10, 50)
+// TODO: calculate
 window.WACC = getRandomArbitrary(12, 16)
-
