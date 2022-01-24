@@ -34,6 +34,7 @@ body {
   top: 30px;
   left: 20px;
   text-align: left;
+  max-width: 250px;
   border-right: 0.1px solid var(--dark-border-color);
   overflow-y: auto;
 }
