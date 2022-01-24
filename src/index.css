@@ -29,3 +29,10 @@ body {
   border: 3px solid #d4d4d4;
 }
 /*# sourceMappingURL=index.css.map */
+
+:root {
+  --amplify-primary-color: #594b8d;
+  --amplify-primary-tint: #3f6060;
+  --amplify-primary-shade: #2dba89;
+  --amplify-background-color: #0f705a;
+}
