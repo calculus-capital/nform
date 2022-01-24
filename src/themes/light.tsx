@@ -1,17 +1,17 @@
 
 const light = {
-  "dark-text-color": "#223434",
-  "dark-scrollbar-color": "#02020c",
+  "dark-text-color": "#6d4c44",
+  "dark-scrollbar-color": "#faba43",
   "dark-background-color": "#fff",
-  "dark-border-color": "#ffccee",
-  "dark-modal-background": "#ffffff",
+  "dark-border-color": "#faba43",
+  "dark-modal-background": "#ffeed1",
   "dark-input-color": "#4c4c70",
-  "dark-card-color": "#332222",
-  "dark-card-shadow": "rgba(176, 180, 162, 0.3)",
+  "dark-card-color": "#6d4c44",
+  "dark-card-shadow": "#ffeed160",
   "dark-gradient-1": "#98dac6",
   "dark-gradient-2": "#e4d8be",
-  "dark-table-head": "#fff4c8",
-  "dark-table-hover": "rgba(89, 122, 190, 0.6)",
+  "dark-table-head": "#fff7e7",
+  "dark-table-hover": "fff7e750",
 }
 
 export default light
