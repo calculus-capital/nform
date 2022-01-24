@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "nform54066fb3",
+  "functionName": "nform54066fb3CustomMessage",
+  "resourceName": "nform54066fb3CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "nform54066fb3CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://console.calculus.capital",
+  "EMAILSUBJECT": "Calculus Capital: Confirm email for account creation",
+  "EMAILMESSAGE": "Thanks for taking the time to sign up! One more step to go - please click on the link below to verify and activate your new account.",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

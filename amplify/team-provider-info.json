@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nform-dev-155144-authRole",
+      "UnauthRoleArn": "arn:aws:iam::866011655254:role/amplify-nform-dev-155144-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::866011655254:role/amplify-nform-dev-155144-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-nform-dev-155144-deployment",
+      "UnauthRoleName": "amplify-nform-dev-155144-unauthRole",
+      "StackName": "amplify-nform-dev-155144",
+      "StackId": "arn:aws:cloudformation:ap-south-1:866011655254:stack/amplify-nform-dev-155144/7074a4c0-7cff-11ec-bf91-024b686d78c4",
+      "AmplifyAppId": "d32vhcxa7ulg7e",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-nform-dev-155144-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "nform54066fb3": {}
+      },
+      "function": {
+        "nform54066fb3CustomMessage": {
+          "REDIRECTURL": "https://console.calculus.capital",
+          "EMAILSUBJECT": "Calculus Capital: Confirm email for account creation",
+          "EMAILMESSAGE": "Thanks for taking the time to sign up! One more step to go - please click on the link below to verify and activate your new account.",
+          "deploymentBucketName": "amplify-nform-dev-155144-deployment",
+          "s3Key": "amplify-builds/nform54066fb3CustomMessage-427a75436b6a4d6b3770-build.zip"
+        }
+      }
+    }
+  }
+}
