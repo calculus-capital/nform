@@ -1493,7 +1493,7 @@ h6.amplify-heading {
 }
 
 [data-amplify-authenticator] {
-  display: grid
+  display: grid;
 }
 
 [data-amplify-authenticator][data-variation=modal] {
@@ -1508,7 +1508,18 @@ h6.amplify-heading {
   z-index: 1;
   box-sizing: border-box;
   padding-top: 20vh;
-  align-content: flex-start
+  align-content: flex-start;
+  background-image: linear-gradient(
+    70deg,
+    #faba43 5%,
+    #f7cc7c 5% 10%,
+    #ffe2ad 10% 15%,
+    #ffeed1 15% 20%,
+    #fff4db 20% 30%,
+    #fff7e7 30% 40%,
+    #fffbf5 40% 80%,
+    #ffffff 80% 100%
+  );
 }
 
 @media (max-width: 30rem) {
