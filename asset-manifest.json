@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.345dbb01.chunk.css",
+    "main.js": "/static/js/main.90d6bc05.chunk.js",
+    "main.js.map": "/static/js/main.90d6bc05.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8165ed2a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8165ed2a.js.map",
+    "static/css/2.5eae9fc1.chunk.css": "/static/css/2.5eae9fc1.chunk.css",
+    "static/js/2.b84bcf4a.chunk.js": "/static/js/2.b84bcf4a.chunk.js",
+    "static/js/2.b84bcf4a.chunk.js.map": "/static/js/2.b84bcf4a.chunk.js.map",
+    "static/js/3.817bc655.chunk.js": "/static/js/3.817bc655.chunk.js",
+    "static/js/3.817bc655.chunk.js.map": "/static/js/3.817bc655.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.5eae9fc1.chunk.css.map": "/static/css/2.5eae9fc1.chunk.css.map",
+    "static/css/main.345dbb01.chunk.css.map": "/static/css/main.345dbb01.chunk.css.map",
+    "static/js/2.b84bcf4a.chunk.js.LICENSE.txt": "/static/js/2.b84bcf4a.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/fira-sans-vietnamese-400-normal.fe7c1b42.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8165ed2a.js",
+    "static/css/2.5eae9fc1.chunk.css",
+    "static/js/2.b84bcf4a.chunk.js",
+    "static/css/main.345dbb01.chunk.css",
+    "static/js/main.90d6bc05.chunk.js"
+  ]
+}
